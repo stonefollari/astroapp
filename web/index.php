@@ -1,14 +1,23 @@
 <?php
 
+// Attemping to load environment variables with package (Having issues)
+//$dotenv = Dotenv\Dotenv::create(__DIR__);
+//$dotenv->load();
 
-echo "Hey all, trying to get all the server config working. The source code should be on github.";
-echo '</br>';
-echo "Clone the repo and start locally developing some stuff. Send your github usernames to me, and your gmails so I can add you to the server.";
-echo '</br>';
-echo "I created the mySQL db on the server but am testing how to access it within the php currently.";
+echo "The server and database are working.";
 
 
-$servername = "mysql+pymysql://<db_user>:<db_pass>@/<db_name>?unix_socket=/cloudsql/<cloud_sql_instance_name>"
+// var_dump($_ENV);
+
+
+// $dbName = '';
+// $dbUser = '';
+// $dbPass = '';
+// $mysqli = new mysqli('127.0.0.1', $dbUser, $dbPass, $dbName, 3306);
+
+// var_dump( $mysqli ); 
+
+
 
 
 ?>
