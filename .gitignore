@@ -1,0 +1,3 @@
+
+# do not upload composer packages -- use composer install after pull
+/vendor
