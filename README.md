@@ -5,8 +5,8 @@ Website / WebApp to display the locally visible constellations.
 Currently the server branch holds the server files -- as I am still implementing things.
 
 - Open cmd or PowerShell (or terminal on Mac, or whatever)
-- Navigate to the the location you want the astroapp folder by `cd` command. If you are using xampp (and have not configured an [https://stackoverflow.com/questions/8121720/how-setup-alias-on-xampp-dev-machine](alias) -- which is very convinient for development), navigate to the htdocs (typically `C:\xampp\htdocs`)
-- type `git clone <URL of repo>` in the console [https://help.github.com/en/enterprise/2.15/user/articles/adding-a-new-ssh-key-to-your-github-account](link on how to set up SSH, which makes git a lot easier once done)
+- Navigate to the the location you want the astroapp folder by `cd` command. If you are using xampp and have not configured an [alias](https://stackoverflow.com/questions/8121720/how-setup-alias-on-xampp-dev-machine) which is very convinient for development, navigate to the htdocs typically `C:\xampp\htdocs`
+- Type `git clone <URL of repo>` in the console. I'd reccommend configuring [SSH](https://help.github.com/en/enterprise/2.15/user/articles/adding-a-new-ssh-key-to-your-github-account), which makes using git nicer
 - Navigate into the repo folder by typing `cd astroapp`
 - To switch branches, type `git checkout <branch_name>`, in this case, `git checkout server` 
 
