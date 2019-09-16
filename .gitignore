@@ -2,4 +2,4 @@
 /vendor
 
 # ignore environment variables
-.env
+*.env
