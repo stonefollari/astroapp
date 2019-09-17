@@ -19,7 +19,8 @@ Website / WebApp to display the locally visible constellations.
 - Open the .txt file that has the command for proxying to the server.
 - Copy the command in the file, and paste it into the console. This will run the .exe, using the credentials in the repo (the .json file), and connect to the sql server. This uses localhost on port 3306 to act as a proxy to the server. ( `'127.0.0.1:3306` )
 - In PHP, the `mysqli()` will successfully connect to the SQL server if the proxy is running, and the credentials (in the `.env` file) are valid.
-I wish to have the .json credentials no longero n the github, but this requires us to create and use all our own fomr gcloud: which can wait until another day.
+
+I wish to have the .json credentials no longer on the github, but this requires us to create and use all our own from gcloud: which can wait until another day.
 
 
 ### Notes
