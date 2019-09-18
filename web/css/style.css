@@ -80,7 +80,8 @@ body {
 	transform: translateY(80%);
 	margin: 5px;
 }
-.mainContainer {
+.grid-container {
+	display: grid;
 	
 }
 @keyframes bounceIn {
