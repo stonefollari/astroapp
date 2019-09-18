@@ -26,7 +26,7 @@
 		</div>
 		<div>
 			<label></label>
-			<input type = "password" name= "password2" placeholder="Password">
+			<input type = "password" name= "password2" placeholder="Re-enter Password">
 		</div>
 		<br>
 		<input type="submit" value="Create Account" class="createAccount-button">

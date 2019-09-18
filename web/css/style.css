@@ -9,11 +9,11 @@ body {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	animation: bounceIn 2s;
+	animation: bounceIn 1s;
 }
 .loginContainer {
 	text-align: center;
-	transform: translateY(50%);
+	transform: translateY(40%);
 }
 .logo{
 	margin-left: auto;
