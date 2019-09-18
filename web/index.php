@@ -52,11 +52,11 @@ function connectToSQL($_dbName, $_dbUser, $_dbPass){
 	<img src="img/logo.png" class="logo" alt="astro-logo">
 	<form action="main.php" class="login-form">
 		<div>
-			<label>Username:</label>
-			<input type = "text" name= "username" placeholder="Username">	
+			<label></label>
+			<input type = "text" name= "username" placeholder="Email">	
 		</div>
 		<div>
-			<label>Password:</label>
+			<label></label>
 			<input type = "password" name= "password" placeholder="Password">
 		</div>
 		<div>
@@ -66,9 +66,11 @@ function connectToSQL($_dbName, $_dbUser, $_dbPass){
 	
 	<form action="createAccount.php" class="login-form">
 		<div>
-			<input onclick = "createAccount.php" type="submit" class="createAccount-button" value="Create Account">
+			<input class="createAccount-button" onclick = "createAccount.php" type="submit" value="Create Account">
 		</div>
 	</form>
-	</div>
+	<form action="main.php">
+	<input id="guest" type="submit" value="Guest User">
+	</form>
 </body>
 </html>

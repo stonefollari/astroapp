@@ -13,7 +13,7 @@ body {
 }
 .loginContainer {
 	text-align: center;
-	transform: translateY(20%);
+	transform: translateY(50%);
 }
 .logo{
 	margin-left: auto;
@@ -42,23 +42,23 @@ body {
 	padding: 5px;
 	transform: translateY(80%);
 	margin: 1px;
+	cursor:pointer;
 }
 .createAccountContainer {
 	text-align: center;
-	transform: translateY(15%);
-	padding:2px;
+	transform: translateY(35%);
+	padding:5px;
 }
 .createAccount-form label{
-	position:relative;
-	display: block;
+	display: table-caption;
 	border-radius: 5 px;
 	padding: 4px;
 }
 .createAccount-form input {
 	border: 2px solid #eaeded;
 	border-radius: 5 px;
-	padding: 4px;
 	width: 20%;
+	padding: 6px;
 }
 .createAccount-button {
 	background-color: #4169E1;
@@ -69,6 +69,7 @@ body {
 	padding: 5px;
 	transform: translateY(80%);
 	margin: 5px;
+	cursor:pointer;
 }
 .createAccountButton {
 	background-color: #4169E1;
@@ -83,6 +84,14 @@ body {
 .grid-container {
 	display: grid;
 	
+}
+#guest {
+	color: #4169E1;
+	transform: translateY(180%);
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+	cursor: pointer;
 }
 @keyframes bounceIn {
   0% {
