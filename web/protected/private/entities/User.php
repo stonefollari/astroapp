@@ -1,4 +1,6 @@
-<?php namespace AstroApp.Entities
+<?php 
+ namespace AstroApp\Web\Protected\Private\Entities {
+
     class User {
         private int $userId;
         private String $name;
@@ -19,5 +21,5 @@
             this $this->emailAddress = $_emailAddress;
         }
     }
-
+ }
 ?>
