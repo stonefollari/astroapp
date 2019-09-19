@@ -11,7 +11,7 @@
         
         //====Getters=====
         public getName() {
-            return $this->$Name;
+            return $this->$name;
         }
         
         //===Setters=======
