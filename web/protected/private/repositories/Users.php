@@ -1,4 +1,5 @@
-<?php namespace AstroApp.Reprositories
+<?php 
+namespace AstroApp\Web\Protected\Private\Reprositories {
 
   class Users{
 
@@ -14,4 +15,5 @@
       //save item to db
     }
   }
+}
 ?>
