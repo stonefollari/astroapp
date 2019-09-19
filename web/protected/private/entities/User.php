@@ -2,10 +2,10 @@
 namespace AstroApp\Web\Protected\Private\Entities;
 
 class User {
-    private int $userId;
-    private String $name;
-    private String $emailAddress;
-    private String $password;
+    private $userId;
+    private $name;
+    private $emailAddress;
+    private $password;
 
     function __construct($_name) {
         $this->name = $_name;
