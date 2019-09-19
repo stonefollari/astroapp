@@ -1,4 +1,6 @@
-<?php namespace AstroApp.Entities
+<?php 
+namespace AstroApp\Web\Protected\Private\Entities {
+    
     class Location {
         private int $locationId;
         private String $country;
@@ -18,4 +20,5 @@
             this $this->city = $_city;
         }
     }
+}
 ?>
