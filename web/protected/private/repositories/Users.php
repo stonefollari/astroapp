@@ -3,7 +3,7 @@ namespace AstroApp\Web\Protected\Private\Reprositories {
 
   class Users{
 
-    public static function get(String $_emailOfUserToGet){
+    public static function get($_emailOfUserToGet){
       return new User();
     }
 
