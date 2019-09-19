@@ -48,9 +48,8 @@ function connectToSQL($_dbName, $_dbUser, $_dbPass){
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<div>
+	<div class="loginContainer">
 	<img src="img/logo.png" class="logo" alt="astro-logo">
-	</div>
 	<form action="main.php" class="login-form">
 		<div>
 			<label>Username:</label>
@@ -70,5 +69,6 @@ function connectToSQL($_dbName, $_dbUser, $_dbPass){
 			<input onclick = "createAccount.php" type="submit" class="createAccount-button" value="Create Account">
 		</div>
 	</form>
+	</div>
 </body>
 </html>

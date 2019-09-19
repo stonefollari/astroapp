@@ -5,10 +5,9 @@
 	<link rel="stylesheet" type "text/css" href="css/style.css">
 </head>
 <body>
-<div>
-<img src="img/logo.png" class="logo" alt "astro-logo">
-</div>
-	<form class="createAccount-form">
+	<div class="createAccountContainer">
+	<img src="img/logo.png" class="logo" alt "astro-logo">
+	<form action="index.php" class="createAccount-form">
 		<div>
 			<label>First Name:</label>
 			<input type = "text" name= "firstName" placeholder="First Name">
@@ -29,11 +28,9 @@
 			<label>Re-enter Password:</label>
 			<input type = "password" name= "password2" placeholder="Password">
 		</div>
+		<br>
+		<input type="submit" value="Create Account" class="createAccountButton">
 	</form>	
-	<form action ="index.php" class="login-form">
-		<div>
-		<input onclick = "index.php" type="submit" value="Create Account" class="createAccount-button">
-		</div>
-	</form>
+	</div>
 </body>
 </html>
