@@ -18,6 +18,6 @@ class User {
 
     //===Setters=======
     public setName($_emailAddress) {
-        this $this->emailAddress = $_emailAddress;
+        $this->emailAddress = $_emailAddress;
     }
 }
