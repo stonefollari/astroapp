@@ -4,3 +4,6 @@
 
 # ignore environment variables
 *.env
+
+# ignore JetBrains configuration folder
+.idea
