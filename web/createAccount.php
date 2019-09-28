@@ -2,12 +2,12 @@
 <html>
 <head>
 	<title>createAccount</title>
-	<link rel="stylesheet" type "text/css" href="css/style.css">
+	<link rel="stylesheet" type "text/css" href="style.css">
 </head>
 <body>
 	<div class="createAccountContainer">
 	<img src="img/logo.png" class="logo" alt "astro-logo">
-	<form action="index.php" class="createAccount-form">
+	<form action="http://localhost/astroapp/web/prot/priv/controller/CreateAccountController.php" class="createAccountForm" method="post">
 		<div>
 			<label></label>
 			<input type = "text" name= "firstName" placeholder="First Name">
@@ -29,7 +29,7 @@
 			<input type = "password" name= "password2" placeholder="Re-enter Password">
 		</div>
 		<br>
-		<input type="submit" value="Create Account" class="createAccount-button">
+		<input type="submit" value="Create Account" class="createAccountButton">
 	</form>	
 	</div>
 </body>
