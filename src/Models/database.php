@@ -1,6 +1,4 @@
 <?php
-namespace astroapp\Web\Protected\Private\Models
-
 // Path to the root directory, relative to the current dir.
 $RELATIVE_ROOT = '..\\..\\..\\..\\';
 
