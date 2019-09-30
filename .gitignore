@@ -7,4 +7,10 @@
 
 # ignore JetBrains configuration folder
 .idea
+<<<<<<< HEAD
 /nbproject/private/
+=======
+
+# ignore app settings
+app.yaml
+>>>>>>> 70e49dee53242fcb8741fa63ef1ed390837ec7b4
