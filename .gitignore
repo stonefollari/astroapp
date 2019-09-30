@@ -7,3 +7,6 @@
 
 # ignore JetBrains configuration folder
 .idea
+
+# ignore app settings
+app.yaml
