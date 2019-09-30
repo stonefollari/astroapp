@@ -1,49 +1,56 @@
 <?php
+namespace astroapp\Web\Protected\Private\Models
 
 // Path to the root directory, relative to the current dir.
-$REL_ROOT = '..\\..\\..\\..\\';
+$RELATIVE_ROOT = '..\\..\\..\\..\\';
 
-// Require composer packages.
-require $REL_ROOT.'vendor/autoload.php';
+function connectAppToServer($_dbName='data') {
+	// Load the .env variables.
+	loadEnvVariables();
 
-// Load the environment variables.
-// Accessed with $_ENV['<var_name>']
-$dotenv = Dotenv\Dotenv::create($REL_ROOT);
-
-// Trying to load environment variables.
-try{
-	$dotenv->load();
-
-	// Setting sql parameters from ENV (or otherwise).
-	$dbName = 'data';
-	$sqlDSN = '127.0.0.1';
-	$sqlUser = $_ENV['MYSQL_USER'];
+	// Setting the mysqli connection parameters.
+	$sqlDSN = $_ENV['MYSQL_DSN'];
+	$sqlUser = $_ENV['MYSQL_USER']; 
 	$sqlPass = $_ENV['MYSQL_PASSWORD'];
+	$dbName = $_dbName;
+
+	// Connecting to the SQL Instance via mysqli.
+	return mysqliConnect($sqlDSN, $sqlUser, $sqlPass, $dbName);
+}
+
+function connectToLocal() {
+	// Load the .env variables.
+	loadEnvVariables();
+
+	// Setting the mysqli connection parameters.
+	$sqlDSN = '127.0.0.1';
+	$sqlUser = $_ENV['MYSQL_USER']; 
+	$sqlPass = $_ENV['MYSQL_PASSWORD'];
+	$dbName = $_dbName;
 	$sqlPort = 3306;
 
-	// Connect to the SQL server.
-	connectToSQL($sqlDSN, $sqlUser, $sqlPass, $sqlPort, $dbName );
-}catch( Exception $e){
-	echo $e;
-	echo "Not loading .env file. Make sure to create and populate it.";
+	// Connecting to the local SQL Instance via mysqli.
+	return mysqliConnect($sqlDSN, $sqlUser, $sqlPass, $dbName, $sqlPort);
 }
 
-// Global variable for SQL defined.
-$mysqli;
-function connectToSQL($_sqlDSN, $_sqlUser, $_sqlPass, $_sqlPort, $_dbName) {
-
+function mysqliConnect($_sqlDSN, $_sqlUser, $_sqlPass, $_dbName, $_sqlPort='3306') {
 	try{
-		$mysqli = new mysqli( $_sqlDSN, $_sqlUser, $_sqlPass, $_dbName, $_sqlPort);
-		// Print variable information to test proper connnection to SQL server.
-		//var_dump($mysqli);
-	}catch( Exception $e){
-		echo "Connection to server failed. Ensure proxy is setup and running/connected.";
+		$mysqli = new mysqli($_sqlDSN, $_sqlUser, $_sqlPass, $_dbName, $_sqlPort);
+		return $mysqli;
+	}catch(Exception $e){
+		return false;
 	}
 }
-die();
 
+function loadEnvVariables() {
+	// Require composer packages.
+	require $RELATIVE_ROOT.'vendor/autoload.php';
 
+	// Load the environment variables.
+	// Accessed with $_ENV['<var_name>']
+	$dotenv = Dotenv\Dotenv::create($RELATIVE_ROOT);
 
-
+	$dotenv->load();
+}
 
 ?>
