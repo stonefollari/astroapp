@@ -4,11 +4,12 @@
 <html>
 <head>
 	<title>index</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">	
+	<link rel="stylesheet" type="text/css" href="../src/css/style.css">
 </head>
 <body>
 	<div class="loginContainer">
-	<img src="img/logo.png" class="logo" alt="astro-logo">
+	<img src="../src/img/logo.png" class="logo" alt="astro-logo">
 	<form action="main.php" class="login-form">
 		<div>
 			<label>Username:</label>
@@ -24,7 +25,7 @@
 	</form>
 	
 	<form action="createAccount.php" class="login-form">
-		<div>
+		<div style="display:none;">
 			<input onclick = "createAccount.php" type="submit" class="createAccount-button" value="Create Account">
 		</div>
 	</form>
