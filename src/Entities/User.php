@@ -1,5 +1,5 @@
 <?php 
-namespace AstroApp\Web\Prot\Priv\Entities;
+namespace AstroApp\src\Entities;
 
 class User {
     private $userId;
