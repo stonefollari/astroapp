@@ -4,7 +4,7 @@
  * Author Francis Perez Last Updated: 9/29/2019
  */
 class Earth {
-    TEXTURE_MAP_PATH = "../img/earthlights2k.jpg";
+    TEXTURE_MAP_PATH = "./img/earthlights2k.jpg";
     TEXTUREMAP_MAP_REPEAT_Y = -1;
     TEXTUREMAP_MAP_REPEAT_X = -1;
     LOCATION_DOT_COLOR = "red";
