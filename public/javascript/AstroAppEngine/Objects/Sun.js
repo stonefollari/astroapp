@@ -4,7 +4,7 @@
  * Author Francis Perez Last Updated: 9/29/2019
  */
 class Sun {   
-    TEXTURE_MAP_PATH = "../img/sunmap.jpg"; 
+    TEXTURE_MAP_PATH = "./img/sunmap.jpg"; 
 
     radius;
     widthSegments;

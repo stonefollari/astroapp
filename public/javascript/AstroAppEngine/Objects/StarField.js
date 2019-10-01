@@ -4,7 +4,7 @@
  * Author Francis Perez Last Updated: 9/29/2019
  */
 class StarField {
-    TEXTURE_MAP_PATH = "../img/galaxy_starfield.png";
+    TEXTURE_MAP_PATH = "./img/galaxy_starfield.png";
     TEXTURE_X_REPEAT = 4;
     TEXTURE_Y_REPEAT = 4;
 
