@@ -31,7 +31,7 @@ function connectToLocal() {
 	return mysqliConnect($sqlDSN, $sqlUser, $sqlPass, $dbName, $sqlPort);
 }
 
-function mysqliConnect($_sqlDSN, $_sqlUser, $_sqlPass, $_dbName, $_sqlPort='3306') {
+function mysqliConnect($_sqlDSN, $_sqlUser, $_sqlPass, $_dbName, $_sqlPort=3306) {
 	try{
 		$mysqli = new mysqli($_sqlDSN, $_sqlUser, $_sqlPass, $_dbName, $_sqlPort);
 		return $mysqli;
