@@ -1,6 +1,6 @@
 /**
  * This class will Create the background star field.
- * 
+ *
  * Author Francis Perez Last Updated: 9/29/2019
  */
 class StarField {
@@ -15,10 +15,10 @@ class StarField {
     hostingObjectMesh;
 
     /**
-     * 
-     * @param {decimal} _radius 
-     * @param {int} _widthSegments 
-     * @param {int} _heightSegments 
+     *
+     * @param {decimal} _radius
+     * @param {int} _widthSegments
+     * @param {int} _heightSegments
      */
     constructor(_radius, _widthSegments, _heightSegments) {
         this.radius = _radius;
@@ -58,7 +58,7 @@ class StarField {
     }
 
      //============GETTERS==================================
-    
+
      getMesh = function() {
         return this.hostingObjectMesh;
     }

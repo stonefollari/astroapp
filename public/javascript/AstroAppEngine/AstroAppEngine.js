@@ -1,7 +1,7 @@
 
 /**
  * This class will Create the engine the powers the constellations simulation.
- * 
+ *
  * Author Francis Perez Last Updated: 9/29/2019
  */
 class AstroAppEngine {
@@ -29,31 +29,31 @@ class AstroAppEngine {
     isDebugObjectsShown = false;
     isMouseControlOn = false;
     hostElementId = "";
-    
+
     t3spaceTime = null;
     t3Scene = null;
     t3Camera = null;
-    t3Renderer = null;    
+    t3Renderer = null;
     t3MouseControls = null;
     t3spaceTimeDelta = 0;
-    
+
     earth = null;
     celestialSphere = null;
 
     constructor() {
-        
+
     }
 
     //==========public functions==========================
-    
+
     /**
      * Set where the engine will render space to.
     */
     run(_hostingElemenId) {
-        
+
         // Setup the ticking clock for the simulation.
         this.t3spaceTime = new THREE.Clock();
-        
+
         this.hostElementId = _hostingElemenId;
 
         // Get the html object that we need to project too
@@ -71,19 +71,19 @@ class AstroAppEngine {
     }
 
     //==========private functions=========================
-    
+
     /**
      * Setup the 3d engine and project to hmtl control.
      */
     setUpT3Scene() {
         let cameraAspectRatio = window.innerWidth / window.innerHeight;
-        
+
         // Setup the 3d scene.
         this.t3Scene = new THREE.Scene();
         // Setup the camera.
         this.t3Camera = new THREE.PerspectiveCamera(this.CAMERA_VERTICAL_FIELD_OF_VIEW, cameraAspectRatio , this.CAMERA_NEAR_PLANE, this.CAMERA_FAR_PLANE);
-        this.t3Camera.position.set(this.CAMERA_POSITION_DEFAULT_X, this.CAMERA_POSITION_DEFAULT_Y, this.CAMERA_POSITION_DEFAULT_Z); 
-                
+        this.t3Camera.position.set(this.CAMERA_POSITION_DEFAULT_X, this.CAMERA_POSITION_DEFAULT_Y, this.CAMERA_POSITION_DEFAULT_Z);
+
         // Create the renderer and set it properties
         this.t3Renderer = new THREE.WebGLRenderer({antialias: true});
         // Set the world color
@@ -97,7 +97,7 @@ class AstroAppEngine {
         light.castShadow = true;
         // Insert the light into the scene.
         this.t3Scene.add(light);
-        
+
         // Project the 3d scene to the hosting html object.
         this.htmlHostControlObject.appendChild(this.t3Renderer.domElement);
     }
@@ -113,7 +113,7 @@ class AstroAppEngine {
 
         // Tell the engine what html control is our scene readered too.
         this.t3MouseControls = new THREE.OrbitControls(this.t3Camera, this.htmlHostControlObject);
-        // Set the range of allow zoom.        
+        // Set the range of allow zoom.
         this.t3MouseControls.minDistance = this.T3_MOUSE_CONTROLS_MIN_DISTANCE;
         this.t3MouseControls.maxDistance = this.T3_MOUSE_CONTROLS_MAX_DISTANCE;
     }
@@ -122,12 +122,12 @@ class AstroAppEngine {
      * Update the engine when the window is resized.
      */
     hookUpWindowOnResizeEvent() {
-        
+
         // Hook up to the browser resize event.
         window.addEventListener('resize', () => {
-            
+
             this.t3Renderer.setSize(window.innerWidth, window.innerHeight);
-                
+
             this.t3Camera.aspect = window.innerWidth /  window.innerHeight;
             this.t3Camera.updateProjectionMatrix();
         });
@@ -144,18 +144,18 @@ class AstroAppEngine {
         this.earth = new Earth(this.EARTH_RADIUS, this.WIDTH_SEGMENTS, this.HEIGHT_SEGMENTS);
         //add earth to the scene.
         this.t3Scene.add(this.earth.getMesh());
-        
+
         // Create the sun.
         let sun = new Sun(this.SUN_RADIUS, this.WIDTH_SEGMENTS, this.HEIGHT_SEGMENTS);
         // Add sun the the scene.
         this.t3Scene.add(sun.getMesh());
         // Move the sun off center.
         sun.getMesh().position.x = this.SUN_POSITION_X;
-                
+
 
         // Create celestialSphere
         this.celestialSphere = new CelestialSphere(this.CELESTIAL_SPHERE_RADIUS, this.WIDTH_SEGMENTS, this.HEIGHT_SEGMENTS);
-        this.t3Scene.add(this.celestialSphere.getMesh());   
+        this.t3Scene.add(this.celestialSphere.getMesh());
     }
 
     screenRenderer() {
@@ -181,7 +181,7 @@ class AstroAppEngine {
     screenUpdate() {
         // Update objects
         this.earth.update();
-        
+
         // Update mouse control if they are active.
         if (this.t3MouseControls !== null) {
             this.t3MouseControls.update();

@@ -1,6 +1,7 @@
 <?php
 
-namespace AstroApp\Web\Prot\Priv\Controller;
+namespace Astroapp\Src\Controller;
+require_once 'DatabaseController.php';
 
 class LoginController {
 
