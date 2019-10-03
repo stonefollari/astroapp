@@ -1,6 +1,6 @@
 <?php
 
-namespace AstroApp\Web\Prot\Priv\Controller;
+namespace Astroapp\Src\Controller;
 
 class ConstellationController {
 
