@@ -1,4 +1,4 @@
 <?php
-    header('Location: ../../public/3dTestBed.html');
+    header('Location: ../public/3dTestBed.html');
     exit;
 ?>
