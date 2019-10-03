@@ -5,7 +5,7 @@ $CONTROLLER_DIR = '../Controller';
 
 // Paths to specific controllers
 $HOME_CONTROLLER_PATH = $CONTROLLER_DIR.'/HomeController.php';
-$CREATEACCOUNT_CONTROLLER_PATH = $CONTROLLER_DIR.'/createAccountController.php';
+$CREATEACCOUNT_CONTROLLER_PATH = $CONTROLLER_DIR.'/CreateAccountController.php';
 $LOGIN_CONTROLLER_PATH = $CONTROLLER_DIR.'/LoginController.php';
 // Path to stylesheet
 $STYLE_PATH = $PUBLIC_DIR.'/css/style.css';
