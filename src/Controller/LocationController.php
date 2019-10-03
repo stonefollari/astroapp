@@ -113,6 +113,6 @@ echo $id;
 $latLong = $controller->_getLatLong($id);
 var_dump($latLong);
 
-
+?>
 
 
