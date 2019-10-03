@@ -1,15 +1,28 @@
+<?php
+// Relative paths to other directories.
+$PUBLIC_DIR = '../public';
+$CONTROLLER_DIR = '../Controller';
+
+// Paths to specific controllers
+$HOME_CONTROLLER_PATH = $CONTROLLER_DIR.'/HomeController.php';
+$CREATEACCOUNT_CONTROLLER_PATH = $CONTROLLER_DIR.'/createAccountController.php';
+$LOGIN_CONTROLLER_PATH = $CONTROLLER_DIR.'/LoginController.php';
+// Path to stylesheet
+$STYLE_PATH = $PUBLIC_DIR.'/css/style.css';
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Create Account</title>
-	<link rel="stylesheet" type="text/css" href="../../public/css/style.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $STYLE_PATH;?>">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 </head>
 <body>
 	<div class="createAccountContainer">
-	<img src="../../public/img/logo.png" class="logo" alt="astro-logo">
-	<form action="../../src/Controller/CreateAccountController.php" class="createAccountForm" method="post">
+	<img src="<?php echo $PUBLIC_DIR;?>/img/logo.png" class="logo" alt="astro-logo">
+	<form action="<?php echo $CREATEACCOUNT_CONTROLLER_PATH;?>" class="createAccountForm" method="post">
 		<div>
 			<label></label>
 			<input type = "text" name= "firstName" placeholder="First Name">
@@ -34,7 +47,7 @@
 		<input type="submit" value="Create Account" class="createAccountButton">
 	</form>
 
-	<form action="../../src/Controller/HomeController.php" class="login-form">
+	<form action="login.php" class="login-form">
 			<div>
 				<input class="createAccountButton" type="submit" value="Go Back">
 			</div>

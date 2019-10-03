@@ -1,4 +1,10 @@
 <?php
+
+$PUBLIC_DIR = '../public';
+$CONTROLLER_DIR = '../Controller';
+
+$TESTBED_PATH = $PUBLIC_DIR.'/3dTestBed.html';
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -9,7 +15,7 @@
     <script></script>
 
 <body>
-The main page is currently a work in progress. In the mean time, you can explore the <a href="..\..\public\3dTestBed.html">3D Astronomy Simulation we are working on</a>.
+The main page is currently a work in progress. In the mean time, you can explore the <a href="<?php echo $TESTBED_PATH;?>">3D Astronomy Simulation we are working on</a>.
 </body>
 
 </html>

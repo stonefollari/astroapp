@@ -10,4 +10,5 @@ class LoginController {
 
 }
 
+echo "Account login is still under development. Please go back.";
 ?>

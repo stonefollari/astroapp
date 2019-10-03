@@ -1,3 +1,7 @@
+<?php
+// Relative paths to other directories.
+$PUBLIC_DIR = '../public';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +10,7 @@
 </head>
 <body>
 	<div class="loginContainer">
-	<img src="img/logo.png" class="logo" alt="astro-logo">
+	<img src="<?php echo $PUBLIC_DIR;?>/img/logo.png" class="logo" alt="astro-logo">
 	<form action="http://localhost/astroapp/src/Controller/LocationController.php" class="loginForm" method="get">
 		<div>
 			<label></label>

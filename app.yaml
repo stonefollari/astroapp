@@ -2,8 +2,8 @@ runtime: php
 env: flex
 
 runtime_config:
-    document_root: public
-
+    document_root: src
+    front_controller_file: Views/index.php
 beta_settings:
   cloud_sql_instances: astroapp340:us-east1:astroappdb
 
