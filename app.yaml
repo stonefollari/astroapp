@@ -2,7 +2,7 @@ runtime: php
 env: flex
 
 runtime_config:
-    document_root: web
+    document_root: public
 
 beta_settings:
   cloud_sql_instances: astroapp340:us-east1:astroappdb
@@ -10,3 +10,4 @@ beta_settings:
 # Replace USER, PASSWORD, DATABASE, and CONNECTION_NAME with the
 # values obtained when configuring your Cloud SQL instance.
 # MYSQL_DSN: mysql:unix_socket=/cloudsql/astroapp340:us-east1:astroappdb;dbname=data
+

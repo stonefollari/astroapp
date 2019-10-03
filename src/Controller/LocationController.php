@@ -1,6 +1,6 @@
 <?php
 
-namespace AstroApp\Src\Controller;
+namespace Astroapp\Src\Controller;
 
 //This is the actual Controller Class
 class LocationController {

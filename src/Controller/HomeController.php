@@ -1,4 +1,4 @@
-//===This is the controller for the application===
 <?php
-
+    header('Location: ../Views/simulation.php');
+    exit;
 ?>

@@ -1,6 +1,6 @@
 /**
  * This class will Create the earth and its need objects.
- * 
+ *
  * Author Francis Perez Last Updated: 9/29/2019
  */
 class Earth {
@@ -45,7 +45,7 @@ class Earth {
 
 
     /**
-     * 
+     *
      * @param {decimal} _radius - radius of the object.
      * @param {int} _widthSegments - number of triangles that represents the object.
      * @param {int} _heightSegments - number of triangles that represents the object.
@@ -70,18 +70,18 @@ class Earth {
 
     /**
      * move the lat long dot to a passed in lat long values
-     * @param {decimal} _latitude 
-     * @param {decimal} _longitude 
+     * @param {decimal} _latitude
+     * @param {decimal} _longitude
      */
     moveLocationDotPosition(_latitude, _longitude) {
         //save the new location of the dot.
         this.locationDotLatitude = _latitude;
         this.locationDotLongitude = _longitude;
-        
+
         //convert lat long position to local world position based on rads.
         let radLat = THREE.Math.degToRad(this.EARTHS_STARTING_DEGREE - _latitude);
         let radLong = THREE.Math.degToRad(this.EARTHS_STARTING_DEGREE - (_longitude * this.MATH_NEGATIVE_INT));
-        
+
         //move the dot on the local sphere.
         this.locationDot.getMesh().position.setFromSphericalCoords(this.radius, radLat, radLong);
         //position the dot on the surface of the earth based on its radius.
@@ -105,19 +105,19 @@ class Earth {
         this.equator = new Pipe(this.EQUATOR_COLOR, this.radius + this.MERIDIAN_HEIGHT, this.MERIDIAN_WIDTH, this.widthSegments, true);
         //create our spining axis
         this.axis = new Pipe(this.EQUATOR_COLOR, this.AXIS_WIDTH, this.radius + this.AXIS_EXTENSION_HEIGHT, this.widthSegments, false);
-        
+
         //create the object that will host all of our scene objects.
         this.hostingObjectMesh = new THREE.Object3D();
-        //add earth to the "hosting object". 
+        //add earth to the "hosting object".
         this.hostingObjectMesh.add(this.earth);
-        //add location dot to the "hosting object". 
+        //add location dot to the "hosting object".
         this.hostingObjectMesh.add(this.locationDot.getMesh());
-        //add meridian to the "hosting object". 
+        //add meridian to the "hosting object".
         this.hostingObjectMesh.add(this.primeMeridian.getMesh());
-        //add equator to the "hosting object". 
+        //add equator to the "hosting object".
         this.hostingObjectMesh.add(this.equator.getMesh());
-        //add axis to the "hosting object". 
-        this.hostingObjectMesh.add(this.axis.getMesh()); 
+        //add axis to the "hosting object".
+        this.hostingObjectMesh.add(this.axis.getMesh());
 
         //set prime vertical.
         this.primeMeridian.getMesh().rotation.x = THREE.Math.degToRad(this.PRIME_MERIDIAN_TILT);
@@ -140,7 +140,7 @@ class Earth {
         textureMap.wrapT = THREE.RepeatWrapping;
 
         //flip the texture so that it appears correct.
-        textureMap.repeat.y = this.TEXTUREMAP_MAP_REPEAT_Y; 
+        textureMap.repeat.y = this.TEXTUREMAP_MAP_REPEAT_Y;
         textureMap.repeat.x = this.TEXTUREMAP_MAP_REPEAT_X;
 
         //load texture into the material.
@@ -154,9 +154,9 @@ class Earth {
         //rotate the earth so coordinates work.
         mesh.rotation.x = THREE.Math.degToRad(this.EARTHS_DEFAULT_ROTATOIN_STARTING_POINT);
         return mesh;
-   }    
-   
-    //============GETTERS==================================        
+   }
+
+    //============GETTERS==================================
     getMesh = function() {
         return this.hostingObjectMesh;
     }
