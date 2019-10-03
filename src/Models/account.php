@@ -1,4 +1,4 @@
 <?php
-namespace astroapp\Web\Prot\Priv\Models
+namespace astroapp\src\Models
 
 ?>
