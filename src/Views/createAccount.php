@@ -34,7 +34,7 @@
 		<input type="submit" value="Create Account" class="createAccountButton">
 	</form>
 
-	<form action="../../src/Controller/LoginController.php" class="login-form">
+	<form action="../../src/Controller/HomeController.php" class="login-form">
 			<div>
 				<input class="createAccountButton" type="submit" value="Go Back">
 			</div>

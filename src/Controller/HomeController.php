@@ -1,4 +1,4 @@
 <?php
-    header('Location: ../Views/simulation.php');
+    header('Location: ../../public/3dTestBed.html');
     exit;
 ?>
