@@ -1,4 +1,13 @@
 <?php
+namespace Astroapp\Src\Repositories;
+require_once '..\..\vendor\autoload.php';
+require_once '..\Models\MySQLConnector.php';
+require_once '..\Repositories\DatabaseAdapter.php';
+
+$PATH_TO_ROOT = '..\..';
+$PATH_TO_SRC = $PATH_TO_ROOT.'\src';
+$PATH_TO_REPO = $PATH_TO_SRC.'\Repositories';
+
 // Relative paths to other directories.
 $PUBLIC_DIR = '../public';
 $CONTROLLER_DIR = '../Controller';
@@ -9,6 +18,7 @@ $CREATEACCOUNT_CONTROLLER_PATH = $CONTROLLER_DIR.'/CreateAccountController.php';
 $LOGIN_CONTROLLER_PATH = $CONTROLLER_DIR.'/LoginController.php';
 // Path to stylesheet
 $STYLE_PATH = $PUBLIC_DIR.'/css/style.css';
+
 ?>
 
 <!DOCTYPE html>
