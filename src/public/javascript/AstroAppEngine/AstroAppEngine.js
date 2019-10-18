@@ -1,9 +1,9 @@
-
 /**
  * This class will Create the engine the powers the constellations simulation.
  *
  * Author Francis Perez Last Updated: 9/29/2019
  */
+
 class AstroAppEngine {
     IMAGE_ROOT = "./img/";
     WIDTH_SEGMENTS = 40;
@@ -70,10 +70,20 @@ class AstroAppEngine {
      * @param {decimal} _longitude Longitude of where the user still be looking up to the sky from.
      */
     bringUpLocation(_latitude, _longitude) {
-        this.earth.moveLocationDotPosition(_latitude, _longitude);
+        
+        let url = "./javascript/sampleConst.Json";
 
-        //Look at our long lat point.
-        this.worldCamera.getMesh().lookAt(this.earth.getLocationDot().getMesh().position);
+        $.ajax({url: url, 
+                type:'GET',
+                dataType: 'json', 
+                context: this, 
+                complete: function(data) {
+                    this.celestialSphere.plotStars(data.responseText);
+                    this.earth.moveLocationDotPosition(_latitude, _longitude);
+
+                    //Look at our long lat point.
+                    this.worldCamera.getMesh().lookAt(this.earth.getLocationDot().getMesh().position);
+                }});        
     }
 
     //==========private functions=========================
@@ -272,6 +282,6 @@ class AstroAppEngine {
     }
 
     setIsCelestSphereVisible  = function (_visible) {
-        this.celestSphere.setIsVisable(_visible);
+        this.celestSphere.setIsVisible(_visible);
     }
 }

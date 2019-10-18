@@ -25,6 +25,8 @@ class CelestialSphere {
     celestialAxis = null;
     celestialVernalEquinox = null;
 
+    starPlotter = null;
+
     /**
      * 
      * @param {decimal} _radius - Radius of the object.
@@ -35,7 +37,18 @@ class CelestialSphere {
         this.radius = _radius;
         this.widthSegments = _widthSegments;
         this.heightSegments = _heightSegments;
+        this.starPlotter = new StarPlotter(this, this.widthSegments, this.heightSegments);
         this.create();
+    }
+    
+    //==========public functions=========================
+
+    /**
+     * Place the stars on the Celestial Sphere.
+     * @param {json} starsCollectionFile - A JSON array of star items.
+     */
+    plotStars(_starsCollectionFile) {
+        this.starPlotter.plot(_starsCollectionFile);
     }
 
     //==========private functions=========================
@@ -101,8 +114,8 @@ class CelestialSphere {
 
 
     //============SETTERS==================================
-    setIsVisable = function (_visable) {
-        return this.mesh.material.opacity = _visable;
+    setIsVisible = function (_visible) {
+        return this.mesh.material.opacity = _visible;
     }
 
     setIsCelestialEquatorVisible = function (_visible) {
@@ -127,11 +140,11 @@ class CelestialSphere {
         return this.hostingObjectMesh;
     }
 
-    getIsVisable = function () {
+    getIsVisible = function () {
         return this.hostingObjectMesh.Visable;
     }
 
-    getIsCelestialEquatorVisable = function () {
+    getIsCelestialEquatorVisible = function () {
         return this.celestialEquator.getMesh().visible;
     }
 
@@ -144,7 +157,11 @@ class CelestialSphere {
     }
 
     getIsCelestialVernalEquinoxVisible = function () {
-        this.celestialVernalEquinox.getMesh().material.wireframe;
+        return this.celestialVernalEquinox.getMesh().material.wireframe;
+    }
+
+    getRadius = function () {
+        return this.radius;
     }
 }
 

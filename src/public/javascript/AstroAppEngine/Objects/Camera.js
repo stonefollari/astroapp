@@ -1,3 +1,8 @@
+/**
+ * This class will Create the Camera for a our world.
+ * 
+ * Author Francis Perez Last Updated: 10/18/2019
+ */
 class Camera {
     CAMERA_POSITION_DEFAULT_X = 8.284;
     CAMERA_POSITION_DEFAULT_Y = 0.184;
@@ -10,7 +15,7 @@ class Camera {
     t3CameraDebuger = null;
 
     constructor() {
-        this.setUpT3Camera();
+        this.create();
     }
 
     //==========private functions=========================
@@ -18,7 +23,7 @@ class Camera {
     /**
      * Setup the camera and position it in the space.
      */
-    setUpT3Camera() {
+    create() {
         //calculate the aspect ratio of the screen.
         let cameraAspectRatio = window.innerWidth / window.innerHeight;
        

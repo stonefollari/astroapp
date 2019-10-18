@@ -3,6 +3,7 @@
  *
  * Author Francis Perez Last Updated: 9/29/2019
  */
+
 class Earth {
     TEXTURE_MAP_NAME = "earthlights2k.jpg";
     TEXTUREMAP_MAP_REPEAT_Y = -1;
