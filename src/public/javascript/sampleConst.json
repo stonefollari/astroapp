@@ -1,0 +1,20 @@
+[
+    {
+        "name":"star_1",
+        "rightAscension":0.000,
+        "declination ":0.000,
+        "altitude":0.000,
+        "azimuth":0.000,
+        "ConnectedTo":""
+    },
+    {
+        "name":"star_2",
+        "rightAscension":10.000,
+        "declination ":5.000,
+        "altitude":0.000,
+        "azimuth":0.000,
+        "ConnectedTo":""
+    }
+]
+
+

@@ -12,10 +12,10 @@ class Dot {
 
     /**
      * 
-     * @param {string} _color - the color of the object "red" or "#FF0000".
-     * @param {decimal} _radius - radius of the object.
-     * @param {int} _widthSegments - number of triangles that represents the object.
-     * @param {int} _heightSegments - number of triangles that represents the object.
+     * @param {string} _color - The color of the object "red" or "#FF0000".
+     * @param {decimal} _radius - Radius of the object.
+     * @param {int} _widthSegments - Number of triangles that represents the object.
+     * @param {int} _heightSegments - Number of triangles that represents the object.
      */
     constructor(_color, _radius, _widthSegments, _heightSegments) {
         this.color = _color;
@@ -31,12 +31,12 @@ class Dot {
      * Initialize all need objects for the creation for a simple Sphere.
      */
     create() {
-        //create the sphere with the need radius.
+        //Create the sphere with the need radius.
         let geometry  = new THREE.SphereGeometry(this.radius, this.widthSegments, this.heightSegments);
-        //create the material that will be used the skin the our sphere
-        //in this case just a simple color skin.
+        //Create the material that will be used the skin the our sphere.
+        //In this case just a simple color skin.
         let material = new THREE.MeshBasicMaterial( { color: this.color } );
-        //link the geometry and the material.
+        //Link the geometry and the material.
         this.objectMesh = new THREE.Mesh(geometry, material); 
     }
 
