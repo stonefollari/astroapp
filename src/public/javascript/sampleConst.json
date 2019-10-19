@@ -6,7 +6,7 @@
         "declination":0.000,
         "altitude":0.000,
         "azimuth":0.000,
-        "ConnectedTo":""
+        "connectedTo":""
     },
     {
         "name":"star_2",
@@ -14,7 +14,7 @@
         "declination":5.000,
         "altitude":0.000,
         "azimuth":0.000,
-        "ConnectedTo":"star_1"
+        "connectedTo":"star_1"
     },
     {
         "name":"star_3",
@@ -22,7 +22,7 @@
         "declination":10.000,
         "altitude":0.000,
         "azimuth":0.000,
-        "ConnectedTo":"star_1"
+        "connectedTo":"star_1"
     },
     {
         "name":"star_4",
@@ -30,7 +30,7 @@
         "declination":90.000,
         "altitude":0.000,
         "azimuth":0.000,
-        "ConnectedTo":""
+        "connectedTo":""
     },
     {
         "name":"star_5",
@@ -38,7 +38,7 @@
         "declination":0.000,
         "altitude":0.000,
         "azimuth":0.000,
-        "ConnectedTo":""
+        "connectedTo":""
     }
 
 ]

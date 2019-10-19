@@ -30,32 +30,32 @@ class StarPlotItem extends Dot{
         this.declination = _jsonObject["declination"];
         this.altitude = _jsonObject["altitude"];
         this.azimuth = _jsonObject["azimuth"];
-        this.ConnectedTo = _jsonObject["ConnectedTo"];
+        this.connectedTo = _jsonObject["connectedTo"];
     }
 
     //============SETTERS==================================
 
-    setName= function (_name) {
+    setName = function (_name) {
         return this.name = _name;
     }
 
-    setRightAscension= function (_rightAscension) {
+    setRightAscension = function (_rightAscension) {
         return this.rightAscension = _rightAscension;
     }
 
-    setDeclination= function (_declination) {
+    setDeclination = function (_declination) {
         return this.declination = _declination;
     }
 
-    setAltitude= function (_altitude) {
+    setAltitude = function (_altitude) {
         return this.altitude = _altitude;
     }
 
-    setAzimuth= function (_azimuth) {
+    setAzimuth = function (_azimuth) {
         return this.azimuth = _azimuth;
     }
 
-    setConnectedTo= function (_connectedTo) {
+    setConnectedTo = function (_connectedTo) {
         return this.connectedTo = _connectedTo;
     }
 
@@ -65,27 +65,27 @@ class StarPlotItem extends Dot{
 
     //============GETTERS==================================
 
-    getName= function () {
+    getName = function () {
         return this.name;
     }
 
-    getRightAscension= function (_rigtAscension) {
+    getRightAscension = function (_rigtAscension) {
         return this.rightAscension;
     }
 
-    getDeclination= function () {
+    getDeclination = function () {
         return this.declination;
     }
 
-    getAltitude= function () {
+    getAltitude = function () {
         return this.altitude;
     }
 
-    getAzimuth= function () {
+    getAzimuth = function () {
         return this.azimuth;
     }
 
-    getConnectedTo= function () {
+    getConnectedTo = function () {
         return this.connectedTo;
     }
 

@@ -76,7 +76,7 @@ class StarPlotItem extends Dot{
         this.declination = _jsonObject["declination"];
         this.altitude = _jsonObject["altitude"];
         this.azimuth = _jsonObject["azimuth"];
-        this.ConnectedTo = _jsonObject["ConnectedTo"];
+        this.connectedTo = _jsonObject["connectedTo"];
     }
 
     //============SETTERS==================================
