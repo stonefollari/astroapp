@@ -70,19 +70,25 @@ class AstroAppEngine {
      * @param {decimal} _longitude Longitude of where the user still be looking up to the sky from.
      */
     bringUpLocation(_latitude, _longitude) {
-        
+        //https://videlais.com/2017/01/15/learning-three-js-part-5-controls/
+        //Creat the url of where constellations data is.
         let url = "./javascript/sampleConst.Json";
 
-        $.ajax({url: url, 
-                type:'GET',
-                dataType: 'json', 
-                context: this, 
+        //Download the constellations data.
+        $.ajax({url: url, type:'GET', dataType: 'json', context: this, 
                 complete: function(data) {
+                    this.setIsEarthRotationOn(false);
                     this.celestialSphere.plotStars(data.responseText);
                     this.earth.moveLocationDotPosition(_latitude, _longitude);
+                    this.celestialSphere.moveObserversDotPosition(_latitude, _longitude);
 
                     //Look at our long lat point.
-                    this.worldCamera.getMesh().lookAt(this.earth.getLocationDot().getMesh().position);
+                    this.worldCamera.getMesh().position.x = this.earth.getLocationDot().getMesh().getWorldPosition().x;
+                    this.worldCamera.getMesh().position.y = this.earth.getLocationDot().getMesh().getWorldPosition().y;
+                    this.worldCamera.getMesh().position.z = this.earth.getLocationDot().getMesh().getWorldPosition().z;
+                   
+                    this.worldCamera.getMesh().lookAt(this.celestialSphere.getObserversDot().getMesh().getWorldPosition());
+
                 }});        
     }
 
@@ -154,6 +160,7 @@ class AstroAppEngine {
 
         //Tell the engine what html control is our scene readered too.
         this.t3MouseControls = new THREE.OrbitControls(this.worldCamera.getMesh(), this.htmlHostControlObject);
+    
         //Set the range of allow zoom.
         this.t3MouseControls.minDistance = this.T3_MOUSE_CONTROLS_MIN_DISTANCE;
         this.t3MouseControls.maxDistance = this.T3_MOUSE_CONTROLS_MAX_DISTANCE;
@@ -237,8 +244,12 @@ class AstroAppEngine {
 
         //Update mouse control if they are active.
         if (this.t3MouseControls !== null) {
-            this.t3MouseControls.update();
+            this.t3MouseControls.update(this.t3spaceTimeDelta);
+            
         }
+        
+        if (this.celestialSphere.getObserversDot())
+            this.worldCamera.getMesh().lookAt(this.celestialSphere.getObserversDot().getMesh().getWorldPosition());
 
         if (this.isDebugObjectsShown) {
             console.log("Camera Position: " + this.worldCamera.getPositions());

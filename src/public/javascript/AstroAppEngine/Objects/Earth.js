@@ -20,9 +20,7 @@ class Earth {
     EARTHS_TILT = -23.5;
     PRIME_MERIDIAN_TILT = 90;
     EARTHS_ROTATION_DEFAULT_DEGREE = .08;
-    EARTHS_STARTING_DEGREE = 90;
     EARTHS_DEFAULT_ROTATOIN_STARTING_POINT = 180;
-    MATH_NEGATIVE_INT = -1;
     AXIS_COLOR = "yellow";
     AXIS_WIDTH = .01;
     AXIS_EXTENSION_HEIGHT = .5;
@@ -81,15 +79,12 @@ class Earth {
         this.locationDotLatitude = _latitude;
         this.locationDotLongitude = _longitude;
 
-        //Convert lat long position to local world position based on rads.
-        let radLat = THREE.Math.degToRad(this.EARTHS_STARTING_DEGREE - _latitude);
-        let radLong = THREE.Math.degToRad(this.EARTHS_STARTING_DEGREE - (_longitude * this.MATH_NEGATIVE_INT));
-
         //Move the dot on the local sphere.
-        this.locationDot.getMesh().position.setFromSphericalCoords(this.radius, radLat, radLong);
-        //Position the dot on the surface of the earth based on its radius.
-        this.locationDot.getMesh().rotation.z = THREE.Math.degToRad(this.EARTHS_STARTING_DEGREE);
+        SphereObjectPositioner.positionObject(this.earth, this.radius, this.locationDot.getMesh(), 
+                                              _latitude,  _longitude);
     }
+
+    
 
     //==========private functions=========================
 

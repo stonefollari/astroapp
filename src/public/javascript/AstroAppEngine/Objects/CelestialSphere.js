@@ -13,6 +13,8 @@ class CelestialSphere {
     HOSTING_OBJECT_TILT = -23.5;
     ECLIPTIC_TILT = 23.5;
     VERNAL_EQUINOX_TILT = 90;
+    OBSERVERS_DOT_COLOR = "green";
+    OBSERVERS_DOT_RADIUS = .01;
 
     radius;
     widthSegments;
@@ -24,6 +26,7 @@ class CelestialSphere {
     celestialEcliptic = null;
     celestialAxis = null;
     celestialVernalEquinox = null;
+    observersDot = null;
 
     starPlotter = null;
 
@@ -111,7 +114,23 @@ class CelestialSphere {
         return mesh;
     }
 
+    /**
+     * Move the lat long dot to a passed in lat long values.
+     * @param {decimal} _latitude
+     * @param {decimal} _longitude
+     */
+    moveObserversDotPosition(_latitude, _longitude) {
+        
+        this.observersDot = new Dot(this.OBSERVERS_DOT_COLOR, this.OBSERVERS_DOT_RADIUS,
+                               this.widthSegments, this.heightSegments);
 
+        this.celestialSphere.add(this.observersDot.getMesh());
+        //this.observersDot.getMesh().position
+
+        //Move the dot on the local sphere.
+       SphereObjectPositioner.positionObject(this.celestialSphere, this.radius, this.observersDot.getMesh(), 
+                                             _latitude,  _longitude);
+    }
 
     //============SETTERS==================================
     setIsVisible = function (_visible) {
@@ -163,5 +182,10 @@ class CelestialSphere {
     getRadius = function () {
         return this.radius;
     }
+
+    getObserversDot = function () {
+        return this.observersDot;
+    }
+
 }
 
