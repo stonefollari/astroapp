@@ -4,8 +4,9 @@
  * Author Francis Perez Last Updated: 9/29/2019
  */
 class Sun {
-    TEXTURE_MAP_PATH = "./img/sunmap.jpg";
+    TEXTURE_MAP_NAME = "sunmap.jpg";
 
+    texturePath;
     radius;
     widthSegments;
     heightSegments;
@@ -18,10 +19,11 @@ class Sun {
      * @param {int} _widthSegments - number of triangles that represents the object.
      * @param {int} _heightSegments - number of triangles that represents the object.
      */
-    constructor(_radius, _widthSegments, _heightSegments) {
+    constructor(_radius, _widthSegments, _heightSegments, _imgRoot) {
         this.radius = _radius;
         this.widthSegments = _widthSegments;
         this.heightSegments = _heightSegments;
+        this.texturePath = _imgRoot + this.TEXTURE_MAP_NAME;
         this.create();
     }
 
@@ -35,7 +37,7 @@ class Sun {
          let geometry = new THREE.SphereGeometry(this.radius, this.widthSegments, this.heightSegments);
 
          //load the earth texture from url path.
-         let textureMap = THREE.ImageUtils.loadTexture(this.TEXTURE_MAP_PATH);
+         let textureMap = THREE.ImageUtils.loadTexture(this.texturePath);
 
          //load texture into the material.
          let material = new THREE.MeshPhongMaterial({

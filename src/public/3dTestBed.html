@@ -7,19 +7,28 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-    <script src="javascript/jquery.min.js"></script>
+    <script src="javascript/ThirdParty/jquery.min.js"></script>
 
-    <script src="javascript/three.min.js"></script>
-    <script src="javascript/OrbitControls.js"></script>
-    <script src="javascript/TweenMax.min.js"></script>
+    <script src="javascript/ThirdParty/three.min.js"></script>
+    <script src="javascript/ThirdParty/OrbitControls.js"></script>
+    <script src="javascript/ThirdParty/TweenMax.min.js"></script>
+    <script src="javascript/ThirdParty/tween.umd.js"></script>
+
 
     <script src="javascript/AstroAppEngine/AstroAppEngine.js"></script>
+    <script src="javascript/AstroAppEngine/Models/StarPlotter.js"></script>
+    <script src="javascript/AstroAppEngine/Models/SphereObjectPositioner.js"></script>
+    <script src="javascript/AstroAppEngine/Models/CameraMouseMoverOnEarth.js"></script>
+
+    <script src="javascript/AstroAppEngine/Objects/Camera.js"></script>
     <script src="javascript/AstroAppEngine/Objects/StarField.js"></script>
+    <script src="javascript/AstroAppEngine/Objects/Line.js"></script>
     <script src="javascript/AstroAppEngine/Objects/Pipe.js"></script>
     <script src="javascript/AstroAppEngine/Objects/Earth.js"></script>
     <script src="javascript/AstroAppEngine/Objects/Dot.js"></script>
     <script src="javascript/AstroAppEngine/Objects/Sun.js"></script>
     <script src="javascript/AstroAppEngine/Objects/CelestialSphere.js"></script>
+    
 
 
     <title>Document</title>
@@ -34,7 +43,9 @@
         <input type="checkbox" id="chkRotateEarth" checked>Rotate Earth</Button>
     </div>
     <div id="asteroSpaceContainer"></div>
-    <script>
+    <script type="module">
+        
+
         let mySpaceEngine = null;
         //start the astro space engine when browser
         //completes loading the page
@@ -46,10 +57,10 @@
            mySpaceEngine.setIsDebugObjectsShown(true);
 
            //allow user to move scene around
-           mySpaceEngine.setIsMouseControlOn(true);
+           mySpaceEngine.setIsMouseControlOn(false);
 
            //set earth to spin
-           mySpaceEngine.setIsEarthRotationOn(true);
+           mySpaceEngine.setIsEarthRotationOn(false);
 
            $("#btnTakeToLocation").on("click", function()
            {
@@ -66,6 +77,8 @@
            {
                mySpaceEngine.setIsEarthRotationOn($("#chkRotateEarth").prop("checked"));
            });
+
+
 
         });
     </script>

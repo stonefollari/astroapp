@@ -14,11 +14,11 @@ class Pipe {
 
     /**
      * 
-     * @param {string} _color - the color of the object "red" or "#FF0000"
-     * @param {decimal} _width - with of the object
-     * @param {decimal} _height - height on the object
-     * @param {int} _segments - number of triangles that represents the object
-     * @param {boolean} _isHollow - is the pipe empty
+     * @param {string} _color - The color of the object "red" or "#FF0000".
+     * @param {decimal} _width - With of the object.
+     * @param {decimal} _height - Height on the object.
+     * @param {int} _segments - Number of triangles that represents the object.
+     * @param {boolean} _isHollow - Is the pipe empty.
      */
     constructor(_color, _width, _height, _segments, _isHollow) {
         this.color = _color;
@@ -35,12 +35,12 @@ class Pipe {
      * Creates a pipe.
      */
     create() {
-        //create geometry, a cylinder.
+        //Create geometry, a cylinder.
         let geometry  = new THREE.CylinderGeometry(this.width, this.width, this.height, this.segments, this.segments, this.isHollow);
-        //create the material that will be used the skin the our sphere
-        //in this case just a simple color skin.
+        //Create the material that will be used the skin the our sphere.
+        //In this case just a simple color skin.
         let material = new THREE.MeshBasicMaterial( { color: this.color } );
-        //link the geometry and the material.
+        //Link the geometry and the material.
         this.hostingObjectMesh = new THREE.Mesh( geometry, material );
     }
 
