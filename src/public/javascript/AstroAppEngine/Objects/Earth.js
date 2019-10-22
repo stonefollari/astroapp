@@ -1,7 +1,7 @@
 /**
  * This class will Create the earth and its need objects.
  *
- * Author Francis Perez Last Updated: 9/29/2019
+ * Author Francis Perez Last Updated: 10/21/2019
  */
 
 class Earth {

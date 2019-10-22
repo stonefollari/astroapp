@@ -1,13 +1,13 @@
 /**
  * This class will Create the Camera for a our world.
  * 
- * Author Francis Perez Last Updated: 10/18/2019
+ * Author Francis Perez Last Updated: 10/21/2019
  */
 class Camera {
     CAMERA_POSITION_DEFAULT_X = 8.284;
     CAMERA_POSITION_DEFAULT_Y = 0.184;
     CAMERA_POSITION_DEFAULT_Z = 0.732;
-    CAMERA_VERTICAL_FIELD_OF_VIEW = 45;
+    CAMERA_VERTICAL_FIELD_OF_VIEW = 50;
     CAMERA_NEAR_PLANE = 0.001;
     CAMERA_FAR_PLANE = 1000;
 

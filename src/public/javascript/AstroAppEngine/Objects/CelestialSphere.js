@@ -1,7 +1,7 @@
 /**
  * This class will Create the Celestial Sphere and all its need objects.
  * 
- * Author Francis Perez Last Updated: 9/29/2019
+ * Author Francis Perez Last Updated: 10/21/2019
  */
 class CelestialSphere {
     CELESTIAL_EQUATOR_COLOR = "red";

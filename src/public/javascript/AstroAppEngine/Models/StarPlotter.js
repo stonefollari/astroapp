@@ -35,21 +35,22 @@ class StarPlotter {
      * @param {string} _starsCollectionFile - JSON string of array items that are the stars.
      */
     plot(_starsCollectionFile) {
-        //alert(_starsCollectionFile);
         this.starsCollectionJsonObject = $.parseJSON(_starsCollectionFile);
         this.parseJsonToStarPlotItems();
         this.placeStars();
         this.placeConnections();
-        //alert(this.starsCollectionJsonObject [0]['name']);
     }
 
     //==========private functions=========================
 
+    /**
+     * Convert the json object into an array of StarPlotItems.
+     */
     parseJsonToStarPlotItems() {
         this.starPlotItemsArray = new Array();
         
         for (let k = 0; k < this.starsCollectionJsonObject.length; k++) {
-            //alert(this.starsCollectionJsonObject[k]["connectedTo"]);
+            
             let newStarItem = new StarPlotItem(this.starsCollectionJsonObject[k], 
                                             this.STAR_COLOR,this.STAR_DOT_RADIUS, 
                                             this.widthSegments, this.heightSegments);
@@ -58,11 +59,12 @@ class StarPlotter {
         }
     }
 
+    /**
+     * Plot the stars on the celestial shpere.
+     */
     placeStars() {
         for (let k = 0; k < this.starPlotItemsArray.length; k++) {
-            //et starDot = new Dot(this.STAR_COLOR,this.STAR_DOT_RADIUS, this.widthSegments, this.heightSegments);
-            //this.starPlotItemsArray[k].setStarDot(starDot);
-
+            //Add the star object on to the sphere.
             this.celestialSphere.getMesh().add(this.starPlotItemsArray[k].getMesh());
 
             //Move the star it place on the celestial sphere.
@@ -72,28 +74,27 @@ class StarPlotter {
                                                   this.starPlotItemsArray[k].getDeclination(), 
                                                   this.starPlotItemsArray[k].getRightAscension());
                                                   
-            //Convert lat long position to local world position based on rads.
-            //let radLat = THREE.Math.degToRad(this.STARTING_DEGREE - this.starPlotItemsArray[k].getDeclination());
-            //let radLong = THREE.Math.degToRad(this.STARTING_DEGREE - this.starPlotItemsArray[k].getRightAscension());
-
-            //Move the dot on the local sphere.
-            //this.starPlotItemsArray[k].getMesh().position.setFromSphericalCoords(this.celestialSphere.getRadius(), radLat, radLong);
-            //Position the dot on the surface of the earth based on its radius.
-            //this.starPlotItemsArray[k].getMesh().rotation.z = THREE.Math.degToRad(this.STARTING_DEGREE);
         }
     }
 
+    /**
+     * Plot the connecting line between starts.
+     */
     placeConnections() {
 
         for (let k = 0; k < this.starPlotItemsArray.length; k++) {
             
+            //Get the name of the what other star this star is connection to.
             let connectedToStarName = this.starPlotItemsArray[k].getConnectedTo();
-            //alert(connectedToStarName);
+            
+            //if no name, then the star is not connect to any other star, just skip.
             if (!connectedToStarName) {
                 continue;
             }
 
+            //Go get the star that this one is connected too.
             let connectedToStarObject = this.retriveStarByName(connectedToStarName);
+            //If the connecting star can not found, just skip.
             if (!connectedToStarObject) {
                 continue;
             }
@@ -102,11 +103,13 @@ class StarPlotter {
             let line = new Line(this.CONNECTING_LINE_COLOR, this.CONNECTING_LINE_THICKNESS, this.starPlotItemsArray[k], connectedToStarObject);
             //Add the line to sphere.
             this.celestialSphere.getMesh().add(line.getMesh());
-
-            console.log(connectedToStarObject.getMesh().position.x);
         }
     }
 
+    /**
+     * Get the star object from the star array based on the name.
+     * @param {String} _name - The name of the star.
+     */
     retriveStarByName(_name) {
         for (let k = 0; k < this.starPlotItemsArray.length; k++) {
             if (this.starPlotItemsArray[k].getName() === _name) {

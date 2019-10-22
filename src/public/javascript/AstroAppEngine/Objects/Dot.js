@@ -50,6 +50,11 @@ class Dot {
    
 }
 
+/**
+ * This class will extend the Dot object, give it the properties of star that will be ploted on the Celestial Sphere.
+ * 
+ * Author Francis Perez Last Updated: 10/21/2019
+ */
 class StarPlotItem extends Dot{
     name;
     rightAscension;
@@ -57,8 +62,6 @@ class StarPlotItem extends Dot{
     altitude;
     azimuth;
     connectedTo;
-
-    //starDot = null;
 
     /**
      * 
@@ -105,10 +108,6 @@ class StarPlotItem extends Dot{
         return this.connectedTo = _connectedTo;
     }
 
-    //setStarDot = function (_starDotObject) {
-    //    return this.starDot = _starDotObject;
-    //}
-
     //============GETTERS==================================
 
     getName= function () {
@@ -134,8 +133,4 @@ class StarPlotItem extends Dot{
     getConnectedTo= function () {
         return this.connectedTo;
     }
-
-    //getStarDot = function () {
-    //    return this.starDot;
-    //}
 }

@@ -1,7 +1,7 @@
 /**
  * This class will Create the engine the powers the constellations simulation.
  *
- * Author Francis Perez Last Updated: 9/29/2019
+ * Author Francis Perez Last Updated: 10/21/2019
  */
 
 class AstroAppEngine {
@@ -35,6 +35,7 @@ class AstroAppEngine {
     worldCamera = null;
     earth = null;
     celestialSphere = null;
+    earthCameraMover = null;
 
     constructor() {
 
@@ -54,14 +55,15 @@ class AstroAppEngine {
 
         // Get the html object that we need to project too
         this.htmlHostControlObject = window.document.getElementById(_hostingElemenId);
-
        
-        this.setUpT3World();
-        
+        //Set our world and objects.
+        this.setUpT3World(); 
         this.hookUpWindowOnResizeEvent();
         this.setUpT3MouseControls();
         this.setupT3InitSceneItems();
         this.screenRenderer();
+
+        this.earthCameraMover = new CameraMouseMoverOnEarth(this.htmlHostControlObject,  this.celestialSphere, this.worldCamera);    
     }
 
     /**
@@ -70,7 +72,7 @@ class AstroAppEngine {
      * @param {decimal} _longitude Longitude of where the user still be looking up to the sky from.
      */
     bringUpLocation(_latitude, _longitude) {
-        //https://videlais.com/2017/01/15/learning-three-js-part-5-controls/
+        
         //Creat the url of where constellations data is.
         let url = "./javascript/sampleConst.Json";
 
@@ -88,6 +90,7 @@ class AstroAppEngine {
                     this.worldCamera.getMesh().position.z = this.earth.getLocationDot().getMesh().getWorldPosition().z;
                    
                     this.worldCamera.getMesh().lookAt(this.celestialSphere.getObserversDot().getMesh().getWorldPosition());
+                    this.earthCameraMover.setIsEnabled(true);
 
                 }});        
     }
@@ -223,7 +226,7 @@ class AstroAppEngine {
         this.t3spaceTimeDelta += this.t3spaceTime.getDelta();
 
         //Can we rendere a new frame.
-        if (this.t3spaceTimeDelta > this.T3_SPACE_TIME_FRAMES_PER_SECONDS ){
+        if (this.t3spaceTimeDelta > this.T3_SPACE_TIME_FRAMES_PER_SECONDS ) {
 
             //Tell all objects to update themselves.
             this.screenUpdate();
@@ -251,9 +254,9 @@ class AstroAppEngine {
         if (this.celestialSphere.getObserversDot())
             this.worldCamera.getMesh().lookAt(this.celestialSphere.getObserversDot().getMesh().getWorldPosition());
 
-        if (this.isDebugObjectsShown) {
-            console.log("Camera Position: " + this.worldCamera.getPositions());
-        }
+        //if (this.isDebugObjectsShown) {
+        //    console.log("Camera Position: " + this.worldCamera.getPositions());
+        //}
         
        
     };

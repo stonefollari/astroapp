@@ -1,7 +1,7 @@
 /**
  * This class will Create the Camera for a our world.
  * 
- * Author Francis Perez Last Updated: 10/18/2019
+ * Author Francis Perez Last Updated: 10/21/2019
  */
 
 class StarPlotItem extends Dot{
