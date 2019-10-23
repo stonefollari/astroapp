@@ -3,7 +3,7 @@
  * 
  * Author Francis Perez Last Updated: 9/29/2019
  */
-class Pipe {
+export default class Pipe {
     color;
     width;
     height;

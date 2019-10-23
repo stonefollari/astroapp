@@ -3,7 +3,7 @@
  *
  * Author Francis Perez Last Updated: 9/29/2019
  */
-class Sun {
+export default class Sun {
     TEXTURE_MAP_NAME = "sunmap.jpg";
 
     texturePath;
