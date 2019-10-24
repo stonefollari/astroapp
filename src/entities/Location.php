@@ -1,7 +1,5 @@
 <?php
 
-namespace AstroApp\Web\Prot\Priv\Entities;
-
 class Location {
 
     private $locationId;

@@ -1,6 +1,4 @@
 <?php
-namespace AstroApp\Web\Prot\Priv\Entities;
-
 class User {
     private $userId;
     private $firstName;

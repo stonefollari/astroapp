@@ -5,7 +5,7 @@ head {
 body {
     font-family: "Arial";
     color: #000;
-    background-image: url(img/img1.jpg);
+    background-image: url(/img1.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: auto;
@@ -29,6 +29,18 @@ body {
 }
 .loginForm input {
     border: 2px solid #eaeded;
+    border-radius: 5px;
+    padding: 8px;
+    width: 20%;
+}
+.badLoginForm label{
+    position:relative;
+    display: block;
+    border-radius: 5px;
+    padding: 8px;
+}
+.badLoginForm input {
+    border: 2px solid red;
     border-radius: 5px;
     padding: 8px;
     width: 20%;
@@ -85,7 +97,29 @@ body {
     display: grid;
 
 }
+.deleteAccountButton {
+    background-color: red;
+    padding: 5px;
+    transform: translateY(100%);
+    margin: 5px;
+    border-radius: 5px;
+    border: 2px solid #eaeded;
+    color: #FFF;
+}
 #guest {
+    color: #000;
+    transform: translateY(240%);
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: 1px solid #000;
+    border-radius :10px;
+    cursor: pointer;
+}
+#guest:hover
+{
+    background-color: white;
+}
+#deleteAccount {
     color: #000;
     transform: translateY(210%);
     background-color: Transparent;
@@ -94,6 +128,11 @@ body {
     border-radius :10px;
     cursor: pointer;
 }
+#deleteAccount:hover
+{
+    background-color: white;
+}
+
 @keyframes bounceIn {
     0% {
         transform: scale(0.1);

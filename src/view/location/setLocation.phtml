@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Set Location</title>
+        <link rel="stylesheet" href="/style.css" media="all">
+    </head>
+    <body>
+        <div class="loginContainer">
+            <img src="/logo.png" class="logo" alt="astro-logo">
+            <form action="http://localhost/location/formParser/" class="loginForm" method="get">
+                <div>
+                    <label></label>
+                    <input type = "text" name= "country" placeholder="Country">
+                </div>
+                <div>
+                    <label></label>
+                    <input type = "text" name= "state" placeholder="State">
+                </div>
+                <div>
+                    <label></label>
+                    <input type = "text" name= "city" placeholder="City">
+                </div>
+                <div>
+                    <input onclick="main.php" type="submit" value="Go!" class="loginButton" method="get">
+                </div>
+            </form>
+            <form action="../../login/login/">
+                <input id="guest" type="submit" value="Back">
+            </form>
+    </body>
+</html>

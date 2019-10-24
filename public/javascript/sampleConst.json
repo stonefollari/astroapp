@@ -1,0 +1,71 @@
+
+[
+    {
+        "name":"NorthStar",
+        "rightAscension":0.000,
+        "declination":90.000,
+        "altitude":0.000,
+        "azimuth":0.000,
+        "connectedTo":""
+    },
+    {
+        "name":"star_1",
+        "rightAscension":0.000,
+        "declination":0.000,
+        "altitude":0.000,
+        "azimuth":0.000,
+        "connectedTo":""
+    },
+    {
+        "name":"star_2",
+        "rightAscension":10.000,
+        "declination":5.000,
+        "altitude":0.000,
+        "azimuth":0.000,
+        "connectedTo":"star_1"
+    },
+    {
+        "name":"star_3",
+        "rightAscension":10.000,
+        "declination":10.000,
+        "altitude":0.000,
+        "azimuth":0.000,
+        "connectedTo":"star_1"
+    },
+    {
+        "name":"star_4",
+        "rightAscension":0.000,
+        "declination":90.000,
+        "altitude":0.000,
+        "azimuth":0.000,
+        "connectedTo":""
+    },
+    {
+        "name":"star_5",
+        "rightAscension":20.000,
+        "declination":0.000,
+        "altitude":0.000,
+        "azimuth":0.000,
+        "connectedTo":"star_2"
+    },
+    {
+        "name":"temp",
+        "rightAscension":-80.500,
+        "declination":36.500,
+        "altitude":0.000,
+        "azimuth":0.000,
+        "connectedTo":""
+    },
+    {
+        "name":"temp2",
+        "rightAscension":-79.500,
+        "declination":32.500,
+        "altitude":0.000,
+        "azimuth":0.000,
+        "connectedTo":"temp"
+    }
+
+]
+
+
+

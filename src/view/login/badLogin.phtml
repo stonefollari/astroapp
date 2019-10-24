@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Astroapp Login</title>
+        <link rel="stylesheet" href="/style.css" media="all">
+    </head>
+    <body>
+        <div class="loginContainer">
+            <img src="/logo.png" class="logo" alt="astro-logo">
+            <form action= "../../login/checkUserActive/" class="badLoginForm" method="post">
+                <div>
+                    <label></label>
+                    <input type = "text" name= "username" placeholder="Email">	
+                </div>
+                <div>
+                    <label></label>
+                    <input type = "password" name= "password" placeholder="Password">
+                </div>
+                <div>
+                    <input onclick="../HomeController.php" type="submit" value="Login" class="loginButton">
+                </div>
+            </form>
+
+            <form action="\account\createAccount" class="login-form">
+                <div>
+                    <input class="createAccountButton" onclick = "createAccount.php" type="submit" value="Create Account">
+                </div>
+            </form>
+            <form action="../../account/deleteAccount/">
+                <input id="deleteAccount" type="submit" value="Delete Account">
+            </form>
+            <form action="../../location/setLocation/">
+                <input id="guest" type="submit" value="Guest User">
+            </form>
+    </body>
+</html>
