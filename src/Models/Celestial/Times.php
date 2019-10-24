@@ -14,7 +14,7 @@ class Times{
     $universalDateEnd = 19;
 
     //query the world time api and store the result in a string.
-    $URL = "http://worldtimeapi.org/api/timezone/UTC.txt";
+    $URL = "http://worldtimeapi.org/api/timezone/Etc/UTC.txt";
     $dataStream = curl_init();
     curl_setopt($dataStream, CURLOPT_URL, $URL);
     curl_setopt($dataStream, CURLOPT_RETURNTRANSFER, true);
