@@ -1,0 +1,7 @@
+
+# Run command in cmd/PowerShell (in astroapp directory) to establish a connection to sql.
+# Runs cloud_sql_proxy.exe, uses proxy credentials given by google to connect.
+# astroapp340-***********.json is the credential. 
+# Proxy keys can be deleted and expire. The key in the repo is temporary.
+
+./cloud_sql_proxy -instances=astroapp340:us-east1:astroappdb=tcp:3306

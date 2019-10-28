@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "astroapp340",
+  "private_key_id": "5eded093362aa9612be410a70c04e9c28d215c3d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDXb/s/A17DSe3K\n+PAKu/f1k4sXRHWBhJ0HOBPDGFKAFw5X6wroBY/AYapNhX6L3bd9oyZFERtOMUD2\na7We+pRSbIi3ulTRe/BWyYGAOYaKXVBk5Dlsca4inFRWZpKVZK504//ft9iNCBUB\nUCZ9eAcy0EKyYfNn1bpanGeLZYzQ+DaL+mrrKpcUJyObs4kLt0ue7/48exjnqm4g\n8XrROjYH6JeEzoZUnmHoSAQjZ1G3NrQB/tmC0qPjETKEjy63dWkIKYep2ygGeZVs\n3OnAiD8lyDP6k4uFybZfyFp7OC8QH+2PrNvmb2oLZPpWYxAdiWli2DxT3GfCuDQk\noKvfvuzJAgMBAAECggEAKh3ONEdoYy00u5Vm9/I/S1cIvge4IRXXzO19j4pVtozL\nVQyyGSHdNHLjZDxQvO8fTAR1GtN5TxP56zKrUuUR0fs9zw0yP7HHDnBeTL7yOmJ7\nsP2c7EJdFI8TPcDXrzT7lgZso0PBpfCKirMskyK/5YMpRs43U3lI8SXaaDn2CXPh\nA2wHX//XecvproQFcsUMF3vgVHFUNy7kvKH3lynOUVBDcxlzRaTwjw3QybhbWohw\nsuJrKcBUIyvIj52kAwENG4Z9OW3JTA9Pl6gQPdWtaEeiUC6ZJUE9tLBs9TUNr+be\nWHZYeHoroYOuLAeGJhtX9cfX64DJUbTdbzCUUMGA8QKBgQDrmGx2dr7vwjlfS7Y1\nwfyf8giMTZkwMeUBWSvRJQSmml3tf60L0GsN9KH8NYTuCFuhknngUcriBkp/6yyy\noCw3ZOf3YxwsP8d5Xpae2vDKiO7Uh8L7X1m/CLB3OqYO1ytfyiVmYwdMxwJJXRIY\noirFTtUibgkU2wXVTfVXwh2dbwKBgQDqGJ5xiXTa/7K2b9h7CPCkjSyp9EjCamtu\nTvOJCmm4xEno2pe4ZYFKcNf8v76kNGonOslZLZqKuV711AF2kDD5cFoV6acw+Cg+\n7Hkgf6YY0dGRfDpHBYpcuf96RyoV5J+MbR5CTgs9PlMxLfP4aI626wO04rG9J9U8\nJmTsqoBtRwKBgAEpQCeZUDmYSHYaxmwfZ6JWLAqc+0tMg6dtDBU8zHgRvLLF9VFg\nlpZ8BSxcCyqtKd5y/VzIqmpQw587xn2e4njna2lBuMrTCaWkfLONurAU2rB7ds+M\nWcHiRhRgWp8qGlGfim2lwUx0kqNP7R3n9rQAPnar+il7Jt01RCdJkqHLAoGBAM8j\ndZ+1J2dY9kOj+AP2Ryjzml/QPkl5bRIwXiIWyrGpTlTyh2mst5is/REygXg+wOdx\nhxSX27WAjVwsehb1Q8CT/8J/+2bDTqlPCWcOTGSN1EhNiiup5WJjWoJSUhUJNXxG\nWY4GDL/mVCqiJMzbh9ynW6JFLUzY4D/XIVqhC/6lAoGAYB2Pe2SoUzGm2oSfae6C\nvYKcKDsc9Xs3X0tO7Sxksr4FRkS0olGwwI4QakTjez42Uu+XPX4w2fWEBMpAxrY+\n4OaglBS+GvCEm/RkmzSpcVSfXxsNOxpuABk4LLtSW960EqQbuAsIpBASoSGqz6YN\nW7Aj7T+8czQMnd2gihAW+84=\n-----END PRIVATE KEY-----\n",
+  "client_email": "astroappproxy@astroapp340.iam.gserviceaccount.com",
+  "client_id": "100304393050759983878",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/astroappproxy%40astroapp340.iam.gserviceaccount.com"
+}
