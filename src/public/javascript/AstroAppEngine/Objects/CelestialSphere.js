@@ -3,7 +3,16 @@
  * 
  * Author Francis Perez Last Updated: 10/21/2019
  */
-class CelestialSphere {
+
+
+import Pipe from "./Pipe.js";
+import Dot from "./Dot.js";
+import StarPlotter from "../Libs/StarPlotter.js";
+import SphereObjectPositioner from "../Libs/SphereObjectPositioner.js";
+
+
+
+export default class CelestialSphere {
     CELESTIAL_EQUATOR_COLOR = "red";
     CELESTIAL_ECLIPTIC_COLOR = "blue";
     CELESTIAL_VERNAL_EQUINOX_COLOR = "green";

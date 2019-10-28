@@ -3,11 +3,11 @@
  * 
  * Author Francis Perez Last Updated: 10/21/2019
  */
-class Camera {
-    CAMERA_POSITION_DEFAULT_X = 8.284;
-    CAMERA_POSITION_DEFAULT_Y = 0.184;
-    CAMERA_POSITION_DEFAULT_Z = 0.732;
-    CAMERA_VERTICAL_FIELD_OF_VIEW = 50;
+export default class Camera {
+    CAMERA_POSITION_DEFAULT_X = 4.284;
+    CAMERA_POSITION_DEFAULT_Y = 0.094;
+    CAMERA_POSITION_DEFAULT_Z = 0.375;
+    CAMERA_VERTICAL_FIELD_OF_VIEW = 45;
     CAMERA_NEAR_PLANE = 0.001;
     CAMERA_FAR_PLANE = 1000;
 
@@ -40,6 +40,6 @@ class Camera {
     }
 
     getPositions = function() {
-        return this.t3Camera.position.x + "|" + this.t3Camera.position.y + "|" +this.t3Camera.position.z
+        return this.t3Camera.position.x + "|" + this.t3Camera.position.y + "|" + this.t3Camera.position.z
     }
 }

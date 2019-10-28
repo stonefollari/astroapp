@@ -3,7 +3,7 @@
  * 
  * Author Francis Perez Last Updated: 10/20/2019
  */
-class SphereObjectPositioner {
+export default class SphereObjectPositioner {
 
 
      //==========Static functions=========================

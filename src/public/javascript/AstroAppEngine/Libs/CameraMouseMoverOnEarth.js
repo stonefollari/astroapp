@@ -3,7 +3,7 @@
  * 
  * Author Francis Perez Last Updated: 10/21/2019
  */
-class CameraMouseMoverOnEarth {
+export default class CameraMouseMoverOnEarth {
     hostingElement = null;
     celestialSphere = null;
     camera = null;
