@@ -4,10 +4,18 @@
  * Author Francis Perez Last Updated: 10/21/2019
  */
 
-class AstroAppEngine {
-    IMAGE_ROOT = "./public/";
-    WIDTH_SEGMENTS = 40;
-    HEIGHT_SEGMENTS = 40;
+import Pipe from "./Objects/Pipe.js";
+import Camera from "./Objects/Camera.js";
+import StarField from "./Objects/StarField.js";
+import Earth from "./Objects/Earth.js";
+import Sun from "./Objects/Sun.js";
+import CelestialSphere from "./Objects/CelestialSphere.js";
+import CameraMouseMoverOnEarth from "./Libs/CameraMouseMoverOnEarth.js";
+
+export default class AstroAppEngine {
+    IMAGE_ROOT = "./img/";
+    WIDTH_SEGMENTS = 80;
+    HEIGHT_SEGMENTS = 80;
     SPACE_WORLD_COLOR = "black";
     SPACE_WORLD_LIGHT_COLOR = "white";
     STARS_RADIUS = 30;
@@ -18,11 +26,12 @@ class AstroAppEngine {
     T3_SPACE_TIME_FRAMES_PER_SECONDS = 1 / 30;
     T3_MOUSE_CONTROLS_MIN_DISTANCE = 1;
     T3_MOUSE_CONTROLS_MAX_DISTANCE = 20;
+    T3_MOUSE_CONTROLS_MAX_INERTIA_ENABLED = true;
+    T3_MOUSE_CONTROLS_MAX_INERTIA_FACTOR = .09;
 
     htmlHostControlObject = null;
 
     isDebugObjectsShown = false;
-    isMouseControlOn = false;
     hostElementId = "";
 
     t3spaceTime = null;
@@ -79,12 +88,13 @@ class AstroAppEngine {
         //Download the constellations data.
         $.ajax({url: url, type:'GET', dataType: 'json', context: this, 
                 complete: function(data) {
+                    this.t3MouseControls.enabled  = false;
                     this.setIsEarthRotationOn(false);
                     this.celestialSphere.plotStars(data.responseText);
                     this.earth.moveLocationDotPosition(_latitude, _longitude);
                     this.celestialSphere.moveObserversDotPosition(_latitude, _longitude);
 
-                    //Look at our long lat point.
+                    //Move the camera to the long lat point.
                     this.worldCamera.getMesh().position.x = this.earth.getLocationDot().getMesh().getWorldPosition().x;
                     this.worldCamera.getMesh().position.y = this.earth.getLocationDot().getMesh().getWorldPosition().y;
                     this.worldCamera.getMesh().position.z = this.earth.getLocationDot().getMesh().getWorldPosition().z;
@@ -116,7 +126,8 @@ class AstroAppEngine {
         //Set the world color.
         this.t3Renderer.setClearColor(this.SPACE_WORLD_COLOR);
         //Set the renderer size based on where we are projecting too.
-        this.t3Renderer.setSize(window.innerWidth, window.innerHeight);
+        this.setUpT3RenderSize(); 
+        
     }
 
     /**
@@ -150,23 +161,27 @@ class AstroAppEngine {
          //Insert the light into the scene.
          this.t3Scene.add(light);
     }
-
    
     /**
      * Set up the mouse controls, allow user to control the camera.
      */
-    setUpT3MouseControls() {
-        //Check to see if we want to allow the user to move the camera.
-        if (this.isMouseControlOn === false) {
-            return;
-        }
-
+    setUpT3MouseControls() {        
         //Tell the engine what html control is our scene readered too.
         this.t3MouseControls = new THREE.OrbitControls(this.worldCamera.getMesh(), this.htmlHostControlObject);
-    
+
+        //Give controls some inertia when panning.
+        this.t3MouseControls.enableDamping = this.T3_MOUSE_CONTROLS_MAX_INERTIA_ENABLED;
+        this.t3MouseControls.dampingFactor = this.T3_MOUSE_CONTROLS_MAX_INERTIA_FACTOR;
+        
         //Set the range of allow zoom.
         this.t3MouseControls.minDistance = this.T3_MOUSE_CONTROLS_MIN_DISTANCE;
         this.t3MouseControls.maxDistance = this.T3_MOUSE_CONTROLS_MAX_DISTANCE;
+        this.t3MouseControls.enabled = this.isMouseControlOn;
+    }
+
+    setUpT3RenderSize() {
+        //Set the render to the correct size of the hosting control.
+        this.t3Renderer.setSize(this.htmlHostControlObject.offsetWidth, this.htmlHostControlObject.offsetHeight);
     }
 
     /**
@@ -177,9 +192,10 @@ class AstroAppEngine {
         //Hook up to the browser resize event.
         window.addEventListener('resize', () => {
 
-            this.t3Renderer.setSize(window.innerWidth, window.innerHeight);
+            this.setUpT3RenderSize();            
 
-            this.worldCamera.getMesh().aspect = window.innerWidth /  window.innerHeight;
+            this.worldCamera.getMesh().aspect = this.htmlHostControlObject.offsetWidth / this.htmlHostControlObject.offsetHeight;
+
             //Update the camera internal sized so the the screen size changes get applied to the camera.
             this.worldCamera.getMesh().updateProjectionMatrix();
         });
@@ -245,17 +261,15 @@ class AstroAppEngine {
         // Update objects.
         this.earth.update();
 
-        //Update mouse control if they are active.
-        if (this.t3MouseControls !== null) {
-            this.t3MouseControls.update(this.t3spaceTimeDelta);
-            
-        }
+        //Update mouse controls.
+        this.t3MouseControls.update(this.t3spaceTimeDelta);
+        
         
         if (this.celestialSphere.getObserversDot())
             this.worldCamera.getMesh().lookAt(this.celestialSphere.getObserversDot().getMesh().getWorldPosition());
 
         //if (this.isDebugObjectsShown) {
-        //    console.log("Camera Position: " + this.worldCamera.getPositions());
+            console.log("Camera Position: " + this.worldCamera.getPositions());
         //}
         
        
@@ -267,7 +281,7 @@ class AstroAppEngine {
     }
 
     getIsMouseControlOn = function() {
-        return this.isMouseControlOn;
+        return this.t3MouseControls.enabled;
     }
 
     getIsEarthRotationOn = function () {
@@ -287,8 +301,7 @@ class AstroAppEngine {
     }
 
     setIsMouseControlOn = function (_on) {
-        this.isMouseControlOn = _on;
-        this.setUpT3MouseControls();
+        this.t3MouseControls.enabled = _on;
     }
 
     setIsEarthRotationOn = function (_rotate) {

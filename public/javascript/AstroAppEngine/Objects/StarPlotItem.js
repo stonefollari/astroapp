@@ -1,18 +1,18 @@
 /**
- * This class will Create the Camera for a our world.
+ * This class will extend the Dot object, give it the properties of star that will be ploted on the Celestial Sphere.
  * 
  * Author Francis Perez Last Updated: 10/21/2019
  */
 
-class StarPlotItem extends Dot{
+import Dot from "./Dot.js";
+
+export default class StarPlotItem extends Dot{
     name;
     rightAscension;
     declination;
     altitude;
     azimuth;
     connectedTo;
-
-    //starDot = null;
 
     /**
      * 
@@ -35,61 +35,53 @@ class StarPlotItem extends Dot{
 
     //============SETTERS==================================
 
-    setName = function (_name) {
+    setName= function (_name) {
         return this.name = _name;
     }
 
-    setRightAscension = function (_rightAscension) {
+    setRightAscension= function (_rightAscension) {
         return this.rightAscension = _rightAscension;
     }
 
-    setDeclination = function (_declination) {
+    setDeclination= function (_declination) {
         return this.declination = _declination;
     }
 
-    setAltitude = function (_altitude) {
+    setAltitude= function (_altitude) {
         return this.altitude = _altitude;
     }
 
-    setAzimuth = function (_azimuth) {
+    setAzimuth= function (_azimuth) {
         return this.azimuth = _azimuth;
     }
 
-    setConnectedTo = function (_connectedTo) {
+    setConnectedTo= function (_connectedTo) {
         return this.connectedTo = _connectedTo;
     }
 
-    //setStarDot = function (_starDotObject) {
-    //    return this.starDot = _starDotObject;
-    //}
-
     //============GETTERS==================================
 
-    getName = function () {
+    getName= function () {
         return this.name;
     }
 
-    getRightAscension = function (_rigtAscension) {
+    getRightAscension= function (_rigtAscension) {
         return this.rightAscension;
     }
 
-    getDeclination = function () {
+    getDeclination= function () {
         return this.declination;
     }
 
-    getAltitude = function () {
+    getAltitude= function () {
         return this.altitude;
     }
 
-    getAzimuth = function () {
+    getAzimuth= function () {
         return this.azimuth;
     }
 
-    getConnectedTo = function () {
+    getConnectedTo= function () {
         return this.connectedTo;
     }
-
-    //getStarDot = function () {
-    //    return this.starDot;
-    //}
 }

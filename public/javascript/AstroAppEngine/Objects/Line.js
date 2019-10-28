@@ -3,7 +3,7 @@
  * 
  * Author Francis Perez Last Updated: 10/19/2019
  */
-class Line {
+export default class Line {
     color;
     thickness;
     object1;

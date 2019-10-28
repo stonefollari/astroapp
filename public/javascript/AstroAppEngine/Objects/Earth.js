@@ -4,7 +4,12 @@
  * Author Francis Perez Last Updated: 10/21/2019
  */
 
-class Earth {
+import Dot from "./Dot.js";
+import Pipe from "./Pipe.js";
+import SphereObjectPositioner from "../Libs/SphereObjectPositioner.js";
+
+
+export default class Earth {
     TEXTURE_MAP_NAME = "earthlights2k.jpg";
     TEXTUREMAP_MAP_REPEAT_Y = -1;
     TEXTUREMAP_MAP_REPEAT_X = -1;

@@ -3,7 +3,14 @@
  * 
  * Author Francis Perez Last Updated: 10/18/2019
  */
-class StarPlotter {
+
+
+import StarPlotItem from "../Objects/StarPlotItem.js";
+import Line from "../Objects/Line.js";
+import SphereObjectPositioner from "./SphereObjectPositioner.js";
+
+
+export default class StarPlotter {
     STARTING_DEGREE = 90;
     STAR_DOT_RADIUS = .01;
     STAR_COLOR = "white";
