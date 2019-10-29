@@ -14,8 +14,8 @@ import CameraMouseMoverOnEarth from "./Libs/CameraMouseMoverOnEarth.js";
 
 export default class AstroAppEngine {
     IMAGE_ROOT = "./img/";
-    WIDTH_SEGMENTS = 80;
-    HEIGHT_SEGMENTS = 80;
+    WIDTH_SEGMENTS = 45;
+    HEIGHT_SEGMENTS = 45;
     SPACE_WORLD_COLOR = "black";
     SPACE_WORLD_LIGHT_COLOR = "white";
     STARS_RADIUS = 30;
@@ -80,7 +80,7 @@ export default class AstroAppEngine {
      * @param {decimal} _latitude Latitude of where the user still be looking up to the sky from.
      * @param {decimal} _longitude Longitude of where the user still be looking up to the sky from.
      */
-    bringUpLocation(_latitude, _longitude) {
+    bringUpLocation(_latitude, _longitude, z) {
         
         //Creat the url of where constellations data is.
         let url = "./javascript/sampleConst.Json";
@@ -88,21 +88,24 @@ export default class AstroAppEngine {
         //Download the constellations data.
         $.ajax({url: url, type:'GET', dataType: 'json', context: this, 
                 complete: function(data) {
-                    this.t3MouseControls.enabled  = false;
+                    //this.t3MouseControls.enabled  = false;
                     this.setIsEarthRotationOn(false);
                     this.celestialSphere.plotStars(data.responseText);
                     this.earth.moveLocationDotPosition(_latitude, _longitude);
+                    this.earth.setGroundIsVisible(true);
                     this.celestialSphere.moveObserversDotPosition(_latitude, _longitude);
 
                     //Move the camera to the long lat point.
-                    this.worldCamera.getMesh().position.x = this.earth.getLocationDot().getMesh().getWorldPosition().x;
-                    this.worldCamera.getMesh().position.y = this.earth.getLocationDot().getMesh().getWorldPosition().y;
-                    this.worldCamera.getMesh().position.z = this.earth.getLocationDot().getMesh().getWorldPosition().z;
-                   
-                    this.worldCamera.getMesh().lookAt(this.celestialSphere.getObserversDot().getMesh().getWorldPosition());
-                    this.earthCameraMover.setIsEnabled(true);
+                    
+                    //this.worldCamera.getMesh().position.x = this.earth.getLocationDot().getMesh().getWorldPosition().x;
+                    //this.worldCamera.getMesh().position.y = this.earth.getLocationDot().getMesh().getWorldPosition().y;
+                    //this.worldCamera.getMesh().position.z = this.earth.getLocationDot().getMesh().getWorldPosition().z;
+                    //this.earthCameraMover.setIsEnabled(true);
 
-                }});        
+                    //this.worldCamera.getMesh().lookAt(this.celestialSphere.getObserversDot().getMesh().getWorldPosition());
+                    
+
+        }});        
     }
 
     //==========private functions=========================
@@ -168,7 +171,7 @@ export default class AstroAppEngine {
     setUpT3MouseControls() {        
         //Tell the engine what html control is our scene readered too.
         this.t3MouseControls = new THREE.OrbitControls(this.worldCamera.getMesh(), this.htmlHostControlObject);
-
+        this.t3MouseControls.screenSpacePanning = true;
         //Give controls some inertia when panning.
         this.t3MouseControls.enableDamping = this.T3_MOUSE_CONTROLS_MAX_INERTIA_ENABLED;
         this.t3MouseControls.dampingFactor = this.T3_MOUSE_CONTROLS_MAX_INERTIA_FACTOR;
@@ -212,7 +215,7 @@ export default class AstroAppEngine {
         this.t3Scene.add(stars.getMesh());
 
         //Create the earth and place it in the middle of the scene.
-        this.earth = new Earth(this.EARTH_RADIUS, this.WIDTH_SEGMENTS, this.HEIGHT_SEGMENTS, this.IMAGE_ROOT);
+        this.earth = new Earth(this.EARTH_RADIUS, this.WIDTH_SEGMENTS, this.HEIGHT_SEGMENTS, this.IMAGE_ROOT, this.t3Scene);
         //Add earth to the scene.
         this.t3Scene.add(this.earth.getMesh());
 
@@ -266,10 +269,10 @@ export default class AstroAppEngine {
         
         
         if (this.celestialSphere.getObserversDot())
-            this.worldCamera.getMesh().lookAt(this.celestialSphere.getObserversDot().getMesh().getWorldPosition());
+           this.worldCamera.getMesh().lookAt(this.celestialSphere.getObserversDot().getMesh().getWorldPosition());
 
         //if (this.isDebugObjectsShown) {
-            console.log("Camera Position: " + this.worldCamera.getPositions());
+        //    console.log("Camera Position: " + this.worldCamera.getPositions());
         //}
         
        

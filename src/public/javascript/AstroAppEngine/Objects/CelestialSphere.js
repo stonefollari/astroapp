@@ -36,8 +36,10 @@ export default class CelestialSphere {
     celestialAxis = null;
     celestialVernalEquinox = null;
     observersDot = null;
-
+    observersDotLong = null;
+    observersDotLat = null;
     starPlotter = null;
+    
 
     /**
      * 
@@ -78,7 +80,7 @@ export default class CelestialSphere {
         this.celestialEcliptic = new Pipe(this.CELESTIAL_ECLIPTIC_COLOR, this.radius + this.MERIDIAN_HEIGHT, this.MERIDIAN_WIDTH, this.widthSegments, true);
         //Create the equinox.
         this.celestialVernalEquinox = new Pipe(this.CELESTIAL_VERNAL_EQUINOX_COLOR, this.radius + this.MERIDIAN_HEIGHT, this.MERIDIAN_WIDTH, this.widthSegments, true);
-
+        
         //Create the object that will host all of our scene objects.
         this.hostingObjectMesh = new THREE.Object3D();
         //Add the celestial sphere to the "hosting object".
@@ -89,7 +91,8 @@ export default class CelestialSphere {
         this.hostingObjectMesh.add(this.celestialEcliptic.getMesh());
         //Add the Equinox to the "hosting object".
         this.hostingObjectMesh.add(this.celestialVernalEquinox.getMesh());
-
+        
+        
         //Tilt the the entire hosting object to match earth's tilt.
         this.hostingObjectMesh.rotation.x = THREE.Math.degToRad(this.HOSTING_OBJECT_TILT);
 
@@ -129,12 +132,17 @@ export default class CelestialSphere {
      * @param {decimal} _longitude
      */
     moveObserversDotPosition(_latitude, _longitude) {
+
+        //Save the new position of the observer dot.
+        this.observersDotLat = _latitude;
+        this.observersDotLong = _longitude;
         
-        this.observersDot = new Dot(this.OBSERVERS_DOT_COLOR, this.OBSERVERS_DOT_RADIUS,
+        if (!this.observersDot) {   
+            this.observersDot = new Dot(this.OBSERVERS_DOT_COLOR, this.OBSERVERS_DOT_RADIUS,
                                this.widthSegments, this.heightSegments);
 
-        this.celestialSphere.add(this.observersDot.getMesh());
-        //this.observersDot.getMesh().position
+            this.celestialSphere.add(this.observersDot.getMesh());
+        }
 
         //Move the dot on the local sphere.
        SphereObjectPositioner.positionObject(this.celestialSphere, this.radius, this.observersDot.getMesh(), 
@@ -196,5 +204,12 @@ export default class CelestialSphere {
         return this.observersDot;
     }
 
+    getObserversLatitude = function () {
+        return this.observersDotLat;
+    }
+
+    getObserversLongitude = function () {
+        return this.observersDotLong;
+    }
 }
 

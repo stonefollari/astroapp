@@ -44,8 +44,12 @@ export default class StarPlotter {
     plot(_starsCollectionFile) {
         this.starsCollectionJsonObject = $.parseJSON(_starsCollectionFile);
         this.parseJsonToStarPlotItems();
-        this.placeStars();
         this.placeConnections();
+
+        //Release the memory used for the json file.
+        this.starsCollectionJsonObject = null;
+        //Lease the memory used for the array;
+        this.starPlotItemsArray = null;
     }
 
     //==========private functions=========================
@@ -55,33 +59,54 @@ export default class StarPlotter {
      */
     parseJsonToStarPlotItems() {
         this.starPlotItemsArray = new Array();
-        
+        let newStarItem = null;
+
+        let csMesh = this.celestialSphere.getMesh();
+        let csRadius = this.celestialSphere.getRadius();
         for (let k = 0; k < this.starsCollectionJsonObject.length; k++) {
             
-            let newStarItem = new StarPlotItem(this.starsCollectionJsonObject[k], 
-                                            this.STAR_COLOR,this.STAR_DOT_RADIUS, 
-                                            this.widthSegments, this.heightSegments);
+            //newStarItem = new StarPlotItem(this.starsCollectionJsonObject[k], 
+            //                                this.STAR_COLOR,this.STAR_DOT_RADIUS, 
+            //                                this.widthSegments, this.heightSegments);
 
-            this.starPlotItemsArray.push(newStarItem);
+            //this.starPlotItemsArray.push(newStarItem);
+
+            //this.placeStars(newStarItem);
+            
+
+             //Create the sphere with the need radius.
+            let geometry  = new THREE.SphereGeometry(.01, 10, 10);
+            //Create the material that will be used the skin the our sphere.
+            //In this case just a simple color skin.
+            let material = new THREE.MeshBasicMaterial( { color: "white" } );
+            //Link the geometry and the material.
+            let mesh = new THREE.Mesh(geometry, material);
+
+            csMesh.add(mesh);
+
+            SphereObjectPositioner.positionObject(csMesh, 
+                                                  csRadius,
+                                                  mesh,                                                   
+                                                  this.starsCollectionJsonObject[k]["declination"], 
+                                                  this.starsCollectionJsonObject[k]["right ascension"]);
         }
     }
 
     /**
      * Plot the stars on the celestial shpere.
      */
-    placeStars() {
-        for (let k = 0; k < this.starPlotItemsArray.length; k++) {
-            //Add the star object on to the sphere.
-            this.celestialSphere.getMesh().add(this.starPlotItemsArray[k].getMesh());
+    placeStars(_starPlotItem) {
+        //Add the star object on to the sphere.
+        this.celestialSphere.getMesh().add(_starPlotItem.getMesh());
 
-            //Move the star it place on the celestial sphere.
-            SphereObjectPositioner.positionObject(this.celestialSphere.getMesh(), 
-                                                  this.celestialSphere.getRadius(),
-                                                  this.starPlotItemsArray[k].getMesh(),                                                   
-                                                  this.starPlotItemsArray[k].getDeclination(), 
-                                                  this.starPlotItemsArray[k].getRightAscension());
+        //Move the star it place on the celestial sphere.
+        SphereObjectPositioner.positionObject(this.celestialSphere.getMesh(), 
+                                                this.celestialSphere.getRadius(),
+                                                _starPlotItem.getMesh(),                                                   
+                                                _starPlotItem.getDeclination(), 
+                                                _starPlotItem.getRightAscension());
                                                   
-        }
+        
     }
 
     /**

@@ -6,6 +6,7 @@
 
 import Dot from "./Dot.js";
 import Pipe from "./Pipe.js";
+import Horizon from "./Horizon.js";
 import SphereObjectPositioner from "../Libs/SphereObjectPositioner.js";
 
 
@@ -41,12 +42,14 @@ export default class Earth {
     primeMeridian = null;
     axis = null;
     celestSphere = null;
+    observersGround = null;
 
     locationDot = null;
     locationDotLatitude = 0;
     locationDotLongitude = 0;
 
     hostingObjectMesh = null;
+    scene = null;
 
 
     /**
@@ -55,11 +58,12 @@ export default class Earth {
      * @param {int} _widthSegments - Number of triangles that represents the object.
      * @param {int} _heightSegments - Number of triangles that represents the object.
      */
-    constructor(_radius, _widthSegments, _heightSegments, _imgRoot) {
+    constructor(_radius, _widthSegments, _heightSegments, _imgRoot, _scene) {
         this.radius = _radius;
         this.widthSegments = _widthSegments;
         this.heightSegments = _heightSegments;
         this.texturePath = _imgRoot + this.TEXTURE_MAP_NAME;
+        this.scene = _scene;
         this.create();
     }
 
@@ -71,6 +75,7 @@ export default class Earth {
     update() {
         if (this.isEarthRotationOn) {
             this.hostingObjectMesh.rotation.y += THREE.Math.degToRad(this.EARTHS_ROTATION_DEFAULT_DEGREE);
+            this.observersGround.getMesh().rotation.y += THREE.Math.degToRad(this.EARTHS_ROTATION_DEFAULT_DEGREE);
         }
     }
 
@@ -87,6 +92,11 @@ export default class Earth {
         //Move the dot on the local sphere.
         SphereObjectPositioner.positionObject(this.earth, this.radius, this.locationDot.getMesh(), 
                                               _latitude,  _longitude);
+
+        //Position the Observer's horizon.                                              
+        if (this.observersGround) {
+            this.observersGround.positionHorizon(_latitude, _longitude);
+         }
     }
 
     
@@ -108,7 +118,10 @@ export default class Earth {
         this.equator = new Pipe(this.EQUATOR_COLOR, this.radius + this.MERIDIAN_HEIGHT, this.MERIDIAN_WIDTH, this.widthSegments, true);
         //Create our spining axis.
         this.axis = new Pipe(this.EQUATOR_COLOR, this.AXIS_WIDTH, this.radius + this.AXIS_EXTENSION_HEIGHT, this.widthSegments, false);
-
+        //Create our ground.
+        this.observersGround = new Horizon("green", this.radius, this.radius, this.widthSegments, this.heightSegments);
+        this.observersGround.setIsVisible(false);
+       
         //Create the object that will host all of our scene objects.
         this.hostingObjectMesh = new THREE.Object3D();
         //Add earth to the "hosting object".
@@ -122,6 +135,8 @@ export default class Earth {
         //Add axis to the "hosting object".
         this.hostingObjectMesh.add(this.axis.getMesh());
 
+        this.hostingObjectMesh.add(this.observersGround.getMesh());
+
         //Aet prime vertical.
         this.primeMeridian.getMesh().rotation.x = THREE.Math.degToRad(this.PRIME_MERIDIAN_TILT);
 
@@ -129,7 +144,7 @@ export default class Earth {
         this.hostingObjectMesh.rotation.x = THREE.Math.degToRad(this.EARTHS_TILT);
 
         //Set move the start dot position.
-        this.moveLocationDotPosition(this.LOCATION_DOT_DEFAULT_LAT, this.LOCATION_DOT_DEFAULT_LONG);
+        this.moveLocationDotPosition(this.LOCATION_DOT_DEFAULT_LAT, this.LOCATION_DOT_DEFAULT_LONG);       
     }
 
 
@@ -208,5 +223,9 @@ export default class Earth {
     setIsEarthRotationOn = function (_rotate) {
         this.isEarthRotationOn = _rotate;
     }
-}
 
+    setGroundIsVisible = function(_isVisible) {
+        this.observersGround.setIsVisible(true);        
+    }
+    
+}

@@ -26,11 +26,11 @@ export default class StarPlotItem extends Dot{
     constructor(_jsonObject, _color, _radius, _widthSegments, _heightSegments) {
         super(_color, _radius, _widthSegments, _heightSegments);
         this.name = _jsonObject["name"];
-        this.rightAscension = _jsonObject["rightAscension"];
+        this.rightAscension = _jsonObject["right ascension"];
         this.declination = _jsonObject["declination"];
         this.altitude = _jsonObject["altitude"];
         this.azimuth = _jsonObject["azimuth"];
-        this.connectedTo = _jsonObject["connectedTo"];
+        this.connectedTo = _jsonObject["connection"];
     }
 
     //============SETTERS==================================

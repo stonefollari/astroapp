@@ -21,6 +21,7 @@
     <script type="module" src="javascript/AstroAppEngine/Libs/CameraMouseMoverOnEarth.js"></script>
 
     <script type="module" src="javascript/AstroAppEngine/Objects/Camera.js"></script>
+    <script type="module" src="javascript/AstroAppEngine/Objects/Horizon.js"></script>
     <script type="module" src="javascript/AstroAppEngine/Objects/StarField.js"></script>
     <script type="module" src="javascript/AstroAppEngine/Objects/Line.js"></script>
     <script type="module" src="javascript/AstroAppEngine/Objects/Pipe.js"></script>
@@ -39,8 +40,13 @@
         <input type="text" id="txtLat" placeholder="Enter Lat"/>
         <input type="text" id="txtLong" placeholder="Enter Lat"/>
         <Button id="btnTakeToLocation">Take Me There</Button>
-        <input type="checkbox" id="chkShowDebug" checked><label for="checkbox" style="color: white;">Show Debug</label></Button>
+        <input type="checkbox" id="chkShowDebug"><label for="checkbox" style="color: white;">Show Debug</label></Button>
         <input type="checkbox" id="chkRotateEarth" checked><label for="checkbox" style="color: white;">Rotate Earth</label></Button>
+
+        <input type="range" min="-90" max="90" value="0" class="slider" id="myRangeLat">
+        <input type="range" min="-180" max="180" value="0" class="slider" id="myRangeLong">
+        <input type="range" min="0" max="360" value="0" class="slider" id="myRangeZ">
+        
     </div>
     <div id="asteroSpaceContainer" style="position:absolute;top:50px;width:100%;bottom: 0;background-color: black;"></div>
     <script type="module">
@@ -79,6 +85,26 @@
            {
                mySpaceEngine.setIsEarthRotationOn($("#chkRotateEarth").prop("checked"));
            });
+
+           $("#myRangeLat").on("input", function() {
+                $("#txtLat").val($("#myRangeLat").val());
+                $("#txtLong").val($("#myRangeLong").val());
+                mySpaceEngine.bringUpLocation($("#myRangeLat").val(), $("#myRangeLong").val(), $("#myRangeZ").val());
+           });
+            
+
+            $("#myRangeLong").on("input", function() {
+                $("#txtLat").val($("#myRangeLat").val());
+                $("#txtLong").val($("#myRangeLong").val());
+                mySpaceEngine.bringUpLocation($("#myRangeLat").val(), $("#myRangeLong").val(), $("#myRangeZ").val());
+            });
+
+            $("#myRangeZ").on("input", function() {
+                $("#txtLat").val($("#myRangeLat").val());
+                $("#txtLong").val($("#myRangeLong").val());
+                mySpaceEngine.bringUpLocation($("#myRangeLat").val(), $("#myRangeLong").val(), $("#myRangeZ").val());
+            });
+           
 
 
 
