@@ -11,6 +11,8 @@
 
     <script src="javascript/ThirdParty/three.min.js"></script>
     <script src="javascript/ThirdParty/OrbitControls.js"></script>
+    <script src="javascript/ThirdParty/FirstPersonControls.js"></script>
+    
     <script src="javascript/ThirdParty/TweenMax.min.js"></script>
     <script src="javascript/ThirdParty/tween.umd.js"></script>
 
@@ -18,7 +20,6 @@
     <script type="module" src="javascript/AstroAppEngine/AstroAppEngine.js"></script>
     <script type="module" src="javascript/AstroAppEngine/Libs/StarPlotter.js"></script>
     <script type="module" src="javascript/AstroAppEngine/Libs/SphereObjectPositioner.js"></script>
-    <script type="module" src="javascript/AstroAppEngine/Libs/CameraMouseMoverOnEarth.js"></script>
 
     <script type="module" src="javascript/AstroAppEngine/Objects/Camera.js"></script>
     <script type="module" src="javascript/AstroAppEngine/Objects/Horizon.js"></script>
@@ -43,9 +44,9 @@
         <input type="checkbox" id="chkShowDebug"><label for="checkbox" style="color: white;">Show Debug</label></Button>
         <input type="checkbox" id="chkRotateEarth" checked><label for="checkbox" style="color: white;">Rotate Earth</label></Button>
 
-        <input type="range" min="-90" max="90" value="0" class="slider" id="myRangeLat">
-        <input type="range" min="-180" max="180" value="0" class="slider" id="myRangeLong">
-        <input type="range" min="0" max="360" value="0" class="slider" id="myRangeZ">
+        <input type="range" min="-180" max="180" value="0" class="slider" id="myRangeX">
+        <input type="range" min="-180" max="180" value="0" class="slider" id="myRangeY">
+        <input type="range" min="-180" max="180" value="0" class="slider" id="myRangeZ">
         
     </div>
     <div id="asteroSpaceContainer" style="position:absolute;top:50px;width:100%;bottom: 0;background-color: black;"></div>
@@ -68,7 +69,7 @@
            mySpaceEngine.setIsMouseControlOn(true);
 
            //set earth to spin
-           mySpaceEngine.setIsEarthRotationOn(true);
+           mySpaceEngine.setIsEarthRotationOn(false);
 
            $("#btnTakeToLocation").on("click", function()
            {
@@ -86,24 +87,20 @@
                mySpaceEngine.setIsEarthRotationOn($("#chkRotateEarth").prop("checked"));
            });
 
-           $("#myRangeLat").on("input", function() {
-                $("#txtLat").val($("#myRangeLat").val());
-                $("#txtLong").val($("#myRangeLong").val());
-                mySpaceEngine.bringUpLocation($("#myRangeLat").val(), $("#myRangeLong").val(), $("#myRangeZ").val());
+           $("#myRangeX").on("input", function() {
+                mySpaceEngine.test($("#myRangeX").val(), $("#myRangeY").val(), $("#myRangeZ").val());
            });
             
 
-            $("#myRangeLong").on("input", function() {
-                $("#txtLat").val($("#myRangeLat").val());
-                $("#txtLong").val($("#myRangeLong").val());
-                mySpaceEngine.bringUpLocation($("#myRangeLat").val(), $("#myRangeLong").val(), $("#myRangeZ").val());
+            $("#myRangeY").on("input", function() {
+                mySpaceEngine.test($("#myRangeX").val(), $("#myRangeY").val(), $("#myRangeZ").val());
             });
 
             $("#myRangeZ").on("input", function() {
-                $("#txtLat").val($("#myRangeLat").val());
-                $("#txtLong").val($("#myRangeLong").val());
-                mySpaceEngine.bringUpLocation($("#myRangeLat").val(), $("#myRangeLong").val(), $("#myRangeZ").val());
+                mySpaceEngine.test($("#myRangeX").val(), $("#myRangeY").val(), $("#myRangeZ").val());
             });
+
+        
            
 
 

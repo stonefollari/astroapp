@@ -31,6 +31,7 @@ export default class Earth {
     AXIS_WIDTH = .01;
     AXIS_EXTENSION_HEIGHT = .5;
 
+    imgRoot;
     texturePath;
     radius;
     widthSegments;
@@ -62,6 +63,7 @@ export default class Earth {
         this.radius = _radius;
         this.widthSegments = _widthSegments;
         this.heightSegments = _heightSegments;
+        this.imgRoot = _imgRoot;
         this.texturePath = _imgRoot + this.TEXTURE_MAP_NAME;
         this.scene = _scene;
         this.create();
@@ -119,7 +121,7 @@ export default class Earth {
         //Create our spining axis.
         this.axis = new Pipe(this.EQUATOR_COLOR, this.AXIS_WIDTH, this.radius + this.AXIS_EXTENSION_HEIGHT, this.widthSegments, false);
         //Create our ground.
-        this.observersGround = new Horizon("green", this.radius, this.radius, this.widthSegments, this.heightSegments);
+        this.observersGround = new Horizon("green", this.radius, this.radius, this.widthSegments, this.heightSegments, this.imgRoot);
         this.observersGround.setIsVisible(false);
        
         //Create the object that will host all of our scene objects.

@@ -1,0 +1,135 @@
+[{
+    "name": "SUN",
+    "right ascension": 216.1875,
+    "declination": -13.643333333333334,
+    "altitude": -60.634087062650366,
+    "azimuth": 45.617969168606315,
+    "connection": null
+}, {
+    "name": "MOON",
+    "right ascension": 260.85,
+    "declination": 5.982777777777777,
+    "altitude": -42.51072417899927,
+    "azimuth": 327.4205695911062,
+    "connection": null
+}, {
+    "name": "Pi Hydra",
+    "right ascension": 211.59166666666664,
+    "declination": 65.1,
+    "altitude": 13.148710133978085,
+    "azimuth": 10.821309455846936,
+    "connection": "Gamma Hydra"
+}, {
+    "name": "Gamma Hydra",
+    "right ascension": 199.72916666666669,
+    "declination": 56.05,
+    "altitude": 7.5128119978272005,
+    "azimuth": 20.101615602894576,
+    "connection": "Beta Hydra"
+}, {
+    "name": "Beta Hydra",
+    "right ascension": 178.22500000000002,
+    "declination": -32.091944444444444,
+    "altitude": -41.63955066432022,
+    "azimuth": 103.4078927571295,
+    "connection": "Xi Hydra"
+}, {
+    "name": "Xi Hydra",
+    "right ascension": 173.25,
+    "declination": 59.01694444444444,
+    "altitude": 18.83646109073366,
+    "azimuth": 29.287350073619187,
+    "connection": "Nu Hydra"
+}, {
+    "name": "Nu Hydra",
+    "right ascension": 137.57916666666665,
+    "declination": 680.0836111111112,
+    "altitude": -15.832447973841441,
+    "azimuth": 128.21324778193545,
+    "connection": "Mu Hydra"
+}, {
+    "name": "Mu Hydra",
+    "right ascension": 128.4416666666667,
+    "declination": 79.0025,
+    "altitude": 38.89328547635693,
+    "azimuth": 13.409298867239842,
+    "connection": "Lambda Hydra"
+}, {
+    "name": "Lambda Hydra",
+    "right ascension": 152.64583333333334,
+    "declination": 115.08388888888888,
+    "altitude": 34.4027022773642,
+    "azimuth": 30.770901654159136,
+    "connection": "Theta Hydra"
+}, {
+    "name": "Theta Hydra",
+    "right ascension": 138.58749999999998,
+    "declination": 453.0172222222222,
+    "altitude": 35.55555342416679,
+    "azimuth": 3.666442648635848,
+    "connection": "Upsilon1 Hydra"
+}, {
+    "name": "Upsilon1 Hydra",
+    "right ascension": 147.86666666666665,
+    "declination": 76.06666666666666,
+    "altitude": 34.723633841290386,
+    "azimuth": 17.034928251020677,
+    "connection": "Alphard"
+}, {
+    "name": "Alphard",
+    "right ascension": 141.89583333333334,
+    "declination": -7.341666666666666,
+    "altitude": 0.0372839676651835,
+    "azimuth": 99.1237027546207,
+    "connection": "Iota Hydra"
+}, {
+    "name": "Iota Hydra",
+    "right ascension": 144.9625,
+    "declination": 57.01888888888889,
+    "altitude": 30.800537020039407,
+    "azimuth": 39.28733349621929,
+    "connection": "Zeta Hydra"
+}, {
+    "name": "Zeta Hydra",
+    "right ascension": 133.84583333333333,
+    "declination": 52.085,
+    "altitude": 35.47125736310894,
+    "azimuth": 47.20043217609804,
+    "connection": "Ashlesha"
+}, {
+    "name": "Ashlesha",
+    "right ascension": 131.6916666666667,
+    "declination": 6.418611111111112,
+    "altitude": 16.39819108398805,
+    "azimuth": 94.02481621961638,
+    "connection": "Delta Hydra"
+}, {
+    "name": "Delta Hydra",
+    "right ascension": 129.41250000000002,
+    "declination": 195.1513888888889,
+    "altitude": -23.19641893508541,
+    "azimuth": 92.27264645580492,
+    "connection": "Minchir"
+}, {
+    "name": "Minchir",
+    "right ascension": 129.68749999999997,
+    "declination": 49.05,
+    "altitude": 37.24517414711902,
+    "azimuth": 51.68358356844054,
+    "connection": "Eta Hydra"
+}, {
+    "name": "Eta Hydra",
+    "right ascension": 130.80416666666667,
+    "declination": 27.050833333333333,
+    "altitude": 28.196771596155145,
+    "azimuth": 75.64784663101366,
+    "connection": "Ashlesha"
+}, {
+    "name": "Ashlesha",
+    "right ascension": 131.6916666666667,
+    "declination": 6.418611111111112,
+    "altitude": 16.39819108398805,
+    "azimuth": 94.02481621961638,
+    "connection": null
+}
+]

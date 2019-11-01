@@ -2,6 +2,8 @@ import Pipe from "./Pipe.js";
 import SphereObjectPositioner from "../Libs/SphereObjectPositioner.js";
 
 export default class Horizon {
+    TEXTURE_MAP_NAME = "grass2.jpg";
+    texturePath;
     color;
     radius;
     widthSegments;
@@ -12,12 +14,13 @@ export default class Horizon {
     ground;
 
     
-    constructor(_color, _radius, _groundAltitude, _widthSegments, _heightSegments) {
+    constructor(_color, _radius, _groundAltitude, _widthSegments, _heightSegments, _imgRoot) {
         this.color = _color;
         this.radius = _radius;
         this.widthSegments = _widthSegments;
         this.heightSegments = _heightSegments;
         this.groundAltitude = _groundAltitude;
+        this.texturePath = _imgRoot + this.TEXTURE_MAP_NAME;
         this.create();
     }
 
@@ -57,7 +60,7 @@ export default class Horizon {
         
 
         //Create the horizon "ground".
-        this.ground = new Pipe(this.color, 4, .001, this.widthSegments, false);
+        this.ground = new Pipe(this.color, this.radius, .001, this.widthSegments, false, this.texturePath);
         this.objectInner.add(this.ground.getMesh());
 
         //Poition the "ground" at a standard location.

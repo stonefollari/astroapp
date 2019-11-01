@@ -8,6 +8,7 @@
 import StarPlotItem from "../Objects/StarPlotItem.js";
 import Line from "../Objects/Line.js";
 import SphereObjectPositioner from "./SphereObjectPositioner.js";
+import Dot from "../Objects/Dot.js";
 
 
 export default class StarPlotter {
@@ -28,6 +29,8 @@ export default class StarPlotter {
     /**
      * 
      * @param {CelestialSphere} _celestialSphere  - The Celestial Sphere where the stars where be ploted too.
+     * @param {int} _widthSegments - Number of triangles that represents the object.
+     * @param {int} _heightSegments - Number of triangles that represents the object.
      */
     constructor(_celestialSphere, _widthSegments, _heightSegments) {
         this.celestialSphere = _celestialSphere;
@@ -63,30 +66,28 @@ export default class StarPlotter {
 
         let csMesh = this.celestialSphere.getMesh();
         let csRadius = this.celestialSphere.getRadius();
+
+        //Create the sphere with the need radius.
+        let geometry  = new THREE.SphereGeometry(.01, 10, 10);
+        //Create the material that will be used the skin the our sphere.
+        //In this case just a simple color skin.
+        let material = new THREE.MeshBasicMaterial( { color: "white" } );
+
+        let primeDot = new Dot(this.STAR_COLOR, this.STAR_DOT_RADIUS, this.widthSegments, this.heightSegments);
+
         for (let k = 0; k < this.starsCollectionJsonObject.length; k++) {
             
-            //newStarItem = new StarPlotItem(this.starsCollectionJsonObject[k], 
-            //                                this.STAR_COLOR,this.STAR_DOT_RADIUS, 
-            //                                this.widthSegments, this.heightSegments);
+            //Create a new star object based on the primeDot.
+            let newStarItem = new StarPlotItem(this.starsCollectionJsonObject[k], primeDot);
+            this.starPlotItemsArray.push(newStarItem);
 
-            //this.starPlotItemsArray.push(newStarItem);
+            //Add the new star to the celestial sphere.
+            csMesh.add(newStarItem.getMesh());
 
-            //this.placeStars(newStarItem);
-            
-
-             //Create the sphere with the need radius.
-            let geometry  = new THREE.SphereGeometry(.01, 10, 10);
-            //Create the material that will be used the skin the our sphere.
-            //In this case just a simple color skin.
-            let material = new THREE.MeshBasicMaterial( { color: "white" } );
-            //Link the geometry and the material.
-            let mesh = new THREE.Mesh(geometry, material);
-
-            csMesh.add(mesh);
-
+            //Position the star based on the Json object position.
             SphereObjectPositioner.positionObject(csMesh, 
                                                   csRadius,
-                                                  mesh,                                                   
+                                                  newStarItem.getMesh(),                                                   
                                                   this.starsCollectionJsonObject[k]["declination"], 
                                                   this.starsCollectionJsonObject[k]["right ascension"]);
         }
@@ -101,10 +102,10 @@ export default class StarPlotter {
 
         //Move the star it place on the celestial sphere.
         SphereObjectPositioner.positionObject(this.celestialSphere.getMesh(), 
-                                                this.celestialSphere.getRadius(),
-                                                _starPlotItem.getMesh(),                                                   
-                                                _starPlotItem.getDeclination(), 
-                                                _starPlotItem.getRightAscension());
+                                              this.celestialSphere.getRadius(),
+                                              _starPlotItem.getMesh(),                                                   
+                                              _starPlotItem.getDeclination(), 
+                                              _starPlotItem.getRightAscension());
                                                   
         
     }
@@ -143,8 +144,10 @@ export default class StarPlotter {
      * @param {String} _name - The name of the star.
      */
     retriveStarByName(_name) {
+        //Scan the array to find the star by its name.
         for (let k = 0; k < this.starPlotItemsArray.length; k++) {
             if (this.starPlotItemsArray[k].getName() === _name) {
+                //Star found, return object.
                 return this.starPlotItemsArray[k];
             }
         }

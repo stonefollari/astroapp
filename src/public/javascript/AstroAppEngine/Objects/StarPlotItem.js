@@ -6,7 +6,7 @@
 
 import Dot from "./Dot.js";
 
-export default class StarPlotItem extends Dot{
+export default class StarPlotItem extends Dot {
     name;
     rightAscension;
     declination;
@@ -16,15 +16,11 @@ export default class StarPlotItem extends Dot{
 
     /**
      * 
-     * @param {string} _name - Name of star.
-     * @param {decimal} _rightAscension - Position on the horizontal.
-     * @param {decimal} _declination - Position on the vertical.
-     * @param {decimal} _altitude  - Position, as orgin of long/lat, on the vertical.
-     * @param {decimal _azimuth - Position, as orgin of long/lat, on the horizontal.
-     * @param {string} _connectedTo 
+     * @param {Json} _jsonObject - Json Objects of stars.
+     * @param {Dot} _primeDot - A Dot to copy.
      */
-    constructor(_jsonObject, _color, _radius, _widthSegments, _heightSegments) {
-        super(_color, _radius, _widthSegments, _heightSegments);
+    constructor(_jsonObject, _primeDot) {
+        super(null, null, null, null, _primeDot);
         this.name = _jsonObject["name"];
         this.rightAscension = _jsonObject["right ascension"];
         this.declination = _jsonObject["declination"];
@@ -61,27 +57,27 @@ export default class StarPlotItem extends Dot{
 
     //============GETTERS==================================
 
-    getName= function () {
+    getName = function () {
         return this.name;
     }
 
-    getRightAscension= function (_rigtAscension) {
+    getRightAscension = function (_rigtAscension) {
         return this.rightAscension;
     }
 
-    getDeclination= function () {
+    getDeclination = function () {
         return this.declination;
     }
 
-    getAltitude= function () {
+    getAltitude = function () {
         return this.altitude;
     }
 
-    getAzimuth= function () {
+    getAzimuth = function () {
         return this.azimuth;
     }
 
-    getConnectedTo= function () {
+    getConnectedTo = function () {
         return this.connectedTo;
     }
 }

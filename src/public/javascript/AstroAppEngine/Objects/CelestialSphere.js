@@ -22,7 +22,7 @@ export default class CelestialSphere {
     HOSTING_OBJECT_TILT = -23.5;
     ECLIPTIC_TILT = 23.5;
     VERNAL_EQUINOX_TILT = 90;
-    OBSERVERS_DOT_COLOR = "green";
+    OBSERVERS_DOT_COLOR = "purple";
     OBSERVERS_DOT_RADIUS = .01;
 
     radius;
