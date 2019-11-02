@@ -1,9 +1,8 @@
 /**
  * This class will plot stars on the Celestial Sphere.
  * 
- * Author Francis Perez Last Updated: 10/18/2019
+ * Author Francis Perez Last Updated: 11/2/2019
  */
-
 
 import StarPlotItem from "../Objects/StarPlotItem.js";
 import Line from "../Objects/Line.js";
@@ -18,11 +17,9 @@ export default class StarPlotter {
     CONNECTING_LINE_COLOR = "white";
     CONNECTING_LINE_THICKNESS = .009;
     
-    starsCollectionJsonObject = null;
-    celestialSphere = null;
-
-    starPlotItemsArray = null;
-
+    starsCollectionJsonObject;
+    celestialSphere;
+    starPlotItemsArray;
     widthSegments;
     heightSegments;
        
@@ -45,6 +42,7 @@ export default class StarPlotter {
      * @param {string} _starsCollectionFile - JSON string of array items that are the stars.
      */
     plot(_starsCollectionFile) {
+        //Convert json string to json object.
         this.starsCollectionJsonObject = $.parseJSON(_starsCollectionFile);
         this.parseJsonToStarPlotItems();
         this.placeConnections();
@@ -64,8 +62,8 @@ export default class StarPlotter {
         this.starPlotItemsArray = new Array();
         let newStarItem = null;
 
-        let csMesh = this.celestialSphere.getMesh();
-        let csRadius = this.celestialSphere.getRadius();
+        let celestialSphere = this.celestialSphere.getMesh();
+        let celestialSphereRadius = this.celestialSphere.getRadius();
 
         //Create the sphere with the need radius.
         let geometry  = new THREE.SphereGeometry(.01, 10, 10);
@@ -73,41 +71,35 @@ export default class StarPlotter {
         //In this case just a simple color skin.
         let material = new THREE.MeshBasicMaterial( { color: "white" } );
 
+        //Create a dot that wil be our dot to copy when we place the star. This will speed the plotting process.
         let primeDot = new Dot(this.STAR_COLOR, this.STAR_DOT_RADIUS, this.widthSegments, this.heightSegments);
 
         for (let k = 0; k < this.starsCollectionJsonObject.length; k++) {
-            
-            //Create a new star object based on the primeDot.
-            let newStarItem = new StarPlotItem(this.starsCollectionJsonObject[k], primeDot);
-            this.starPlotItemsArray.push(newStarItem);
-
-            //Add the new star to the celestial sphere.
-            csMesh.add(newStarItem.getMesh());
-
-            //Position the star based on the Json object position.
-            SphereObjectPositioner.positionObject(csMesh, 
-                                                  csRadius,
-                                                  newStarItem.getMesh(),                                                   
-                                                  this.starsCollectionJsonObject[k]["declination"], 
-                                                  this.starsCollectionJsonObject[k]["right ascension"]);
+            this.placeStars(celestialSphere, celestialSphereRadius, this.starsCollectionJsonObject[k], primeDot);           
         }
     }
 
     /**
-     * Plot the stars on the celestial shpere.
+     * Plot the stars on the celestial sphere.
+     * @param {Mesh} _celestialSphere - The sphere to the place the object on. 
+     * @param {decimal} _celestialSphereRadius - The radius of the sphere where objects will be placed on. 
+     * @param {JsonObject} _starPlotItem - The star information.
+     * @param {Dot} _primeDot - The Dot that will be used for the reuse object.
      */
-    placeStars(_starPlotItem) {
-        //Add the star object on to the sphere.
-        this.celestialSphere.getMesh().add(_starPlotItem.getMesh());
+    placeStars(_celestialSphere, _celestialSphereRadius,  _starPlotItem, _primeDot) {
+         //Create a new star object based on the primeDot.
+         let newStarItem = new StarPlotItem(_starPlotItem, _primeDot);
+         this.starPlotItemsArray.push(newStarItem);
 
-        //Move the star it place on the celestial sphere.
-        SphereObjectPositioner.positionObject(this.celestialSphere.getMesh(), 
-                                              this.celestialSphere.getRadius(),
-                                              _starPlotItem.getMesh(),                                                   
-                                              _starPlotItem.getDeclination(), 
-                                              _starPlotItem.getRightAscension());
-                                                  
-        
+         //Add the new star to the celestial sphere.
+         _celestialSphere.add(newStarItem.getMesh());
+
+         //Position the star based on the Json object position.
+         SphereObjectPositioner.positionObject(_celestialSphere, 
+                                               _celestialSphereRadius,
+                                               newStarItem.getMesh(),                                                   
+                                               _starPlotItem["declination"], 
+                                               _starPlotItem["right ascension"]);   
     }
 
     /**
@@ -153,8 +145,5 @@ export default class StarPlotter {
         }
 
         return null;
-    }
-
-    
-    
+    }    
 }

@@ -1,7 +1,7 @@
 /**
  * This class will Create a sun object.
  *
- * Author Francis Perez Last Updated: 9/29/2019
+ * Author Francis Perez Last Updated: 11/2/2019
  */
 export default class Sun {
     TEXTURE_MAP_NAME = "sunmap.jpg";
@@ -10,7 +10,6 @@ export default class Sun {
     radius;
     widthSegments;
     heightSegments;
-
     hostingObjectMesh;
 
     /**

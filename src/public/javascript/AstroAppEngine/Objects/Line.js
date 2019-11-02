@@ -1,7 +1,7 @@
 /**
  * This class will Create simple line between two objects.
  * 
- * Author Francis Perez Last Updated: 10/19/2019
+ * Author Francis Perez Last Updated: 11/2/2019
  */
 export default class Line {
     color;
@@ -14,8 +14,8 @@ export default class Line {
      * 
      * @param {string} _color - The color of the object "red" or "#FF0000".
      * @param {decimal} _thickness - The thickness of the line.
-     * @param {int} _objectMesh1 - Connect the to this object.
-     * @param {int} _objectMesh2 - Connect the to this object.
+     * @param {Mesh} _object1 - Connect the to this object.
+     * @param {Mesh} _object2 - Connect the to this object.
      */
     constructor(_color, _thickness, _object1, _object2) {
         this.color = _color;
@@ -35,10 +35,10 @@ export default class Line {
         //In this case just a simple color skin.
         let material = new THREE.LineBasicMaterial( { color: this.color, linewidth: this.thickness } );
         
+        //Insert the vectors of the two items to connect.
         let geometry = new THREE.Geometry();
         geometry.vertices.push(this.object1.getMesh().position);
         geometry.vertices.push(this.object2.getMesh().position);
-
 
         //Link the geometry and the material.
         this.objectMesh = new THREE.Line( geometry, material );

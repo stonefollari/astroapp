@@ -1,16 +1,13 @@
 /**
  * This class will Create the Celestial Sphere and all its need objects.
  * 
- * Author Francis Perez Last Updated: 10/21/2019
+ * Author Francis Perez Last Updated: 11/2/2019
  */
-
 
 import Pipe from "./Pipe.js";
 import Dot from "./Dot.js";
 import StarPlotter from "../Libs/StarPlotter.js";
 import SphereObjectPositioner from "../Libs/SphereObjectPositioner.js";
-
-
 
 export default class CelestialSphere {
     CELESTIAL_EQUATOR_COLOR = "red";
@@ -22,23 +19,28 @@ export default class CelestialSphere {
     HOSTING_OBJECT_TILT = -23.5;
     ECLIPTIC_TILT = 23.5;
     VERNAL_EQUINOX_TILT = 90;
-    OBSERVERS_DOT_COLOR = "purple";
+    OBSERVERS_DOT_COLOR = "black";
     OBSERVERS_DOT_RADIUS = .01;
+    MATERIAL_OPACITY =  0;
+    MATERIAL_TRANSPARENT =  true;
+    MATERIAL_DEPTHWRITE = true;
+    MATERIAL_WIREFRAME =  true;
+    MATERIAL_RENDERORDER = 1;
 
     radius;
     widthSegments;
     heightSegments;
 
     hostingObjectMesh;
-    celestialSphere = null;
-    celestialEquator = null;
-    celestialEcliptic = null;
-    celestialAxis = null;
-    celestialVernalEquinox = null;
-    observersDot = null;
-    observersDotLong = null;
-    observersDotLat = null;
-    starPlotter = null;
+    celestialSphere;
+    celestialEquator;
+    celestialEcliptic;
+    celestialAxis;
+    celestialVernalEquinox;
+    observersDot;
+    observersDotLong;
+    observersDotLat;
+    starPlotter;
     
 
     /**
@@ -59,7 +61,7 @@ export default class CelestialSphere {
 
     /**
      * Place the stars on the Celestial Sphere.
-     * @param {json} starsCollectionFile - A JSON array of star items.
+     * @param {json} _starsCollectionFile - A JSON array of star items.
      */
     plotStars(_starsCollectionFile) {
         this.starPlotter.plot(_starsCollectionFile);
@@ -115,11 +117,11 @@ export default class CelestialSphere {
         //In the case we just need a transparent sphere.        
         let material = new THREE.MeshBasicMaterial({
             Color: this.COLOR,
-            opacity: 0,
-            transparent: true,
-            depthWrite: true,
-            wireframe: true,
-            renderOrder: 1
+            opacity: this.MATERIAL_OPACITY,
+            transparent: this.MATERIAL_TRANSPARENT,
+            depthWrite: this.MATERIAL_DEPTHWRITE,
+            wireframe: this.MATERIAL_WIREFRAME,
+            renderOrder: this.MATERIAL_RENDERORDER
         });
         //Link the geometry and the material.
         let mesh = new THREE.Mesh(geometry, material);

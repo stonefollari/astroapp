@@ -1,18 +1,18 @@
 /**
  * This class will Create the Camera for a our world.
  * 
- * Author Francis Perez Last Updated: 10/21/2019
+ * Author Francis Perez Last Updated: 11/2/2019
  */
 export default class Camera {
-    CAMERA_POSITION_DEFAULT_X = 4.284;
-    CAMERA_POSITION_DEFAULT_Y = 0.094;
-    CAMERA_POSITION_DEFAULT_Z = 0.375;
+    CAMERA_POSITION_DEFAULT_X = 0.210;
+    CAMERA_POSITION_DEFAULT_Y = 0.990;
+    CAMERA_POSITION_DEFAULT_Z = 3.888;
     CAMERA_VERTICAL_FIELD_OF_VIEW = 45;
     CAMERA_NEAR_PLANE = 0.001;
     CAMERA_FAR_PLANE = 1000;
 
-    t3Camera = null;
-    t3CameraDebuger = null;
+    t3Camera;
+    t3CameraDebuger;
 
     constructor() {
         this.create();
@@ -26,6 +26,7 @@ export default class Camera {
     update() {
         this.t3Camera.updateProjectionMatrix();
     }
+
     /**
      * 
      * @param {vector3d} position - Where to move the camera to.
@@ -38,7 +39,7 @@ export default class Camera {
     }
 
     /**
-     * 
+     * Move the camera forward in the direction that it's looking.
      * @param {decimal} delta - By how much to move the camera forward by.
      */
     moveForward(delta) {
@@ -51,7 +52,7 @@ export default class Camera {
     }
 
     /**
-     * 
+     * Rotate the camera to look at the vector position.
      * @param {vector3d} position - The vector to look at.
      */
     lookAt(position) {

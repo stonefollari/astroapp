@@ -1,9 +1,8 @@
 /**
  * This class will Create the engine the powers the constellations simulation.
  *
- * Author Francis Perez Last Updated: 10/21/2019
+ * Author Francis Perez Last Updated: 11/2/2019
  */
-
 
 import Camera from "./Objects/Camera.js";
 import StarField from "./Objects/StarField.js";
@@ -12,6 +11,7 @@ import Sun from "./Objects/Sun.js";
 import CelestialSphere from "./Objects/CelestialSphere.js";
 
 export default class AstroAppEngine {
+    CONSTELLATIONS_CONTROLLER_ACTION_URL = ""
     IMAGE_ROOT = "./img/";
     WIDTH_SEGMENTS = 45;
     HEIGHT_SEGMENTS = 45;
@@ -21,7 +21,7 @@ export default class AstroAppEngine {
     EARTH_RADIUS = 1;
     SUN_RADIUS = .2;
     SUN_POSITION_X = 25;
-    CELESTIAL_SPHERE_RADIUS = 4;
+    CELESTIAL_SPHERE_RADIUS = 6;
     T3_SPACE_TIME_FRAMES_PER_SECONDS = 1 / 30;
     T3_MOUSE_CONTROLS_MIN_DISTANCE = 1;
     T3_MOUSE_CONTROLS_MAX_DISTANCE = 20;
@@ -76,27 +76,56 @@ export default class AstroAppEngine {
  
     /**
      * Move camera to this location and move camera to look up to the stars.
-     * @param {decimal} _latitude Latitude of where the user still be looking up to the sky from.
-     * @param {decimal} _longitude Longitude of where the user still be looking up to the sky from.
+     * @param {decimal} _latitude - Latitude of where the user still be looking up to the sky from.
+     * @param {decimal} _longitude - Longitude of where the user still be looking up to the sky from.
      */
-    bringUpLocation(_latitude, _longitude) {
+    moveLocation(_latitude, _longitude) {
         
         //Move the lat long dot where the user is.
         this.earth.moveLocationDotPosition(_latitude, _longitude);
 
         //Move our observers dot above the users "head".
-        this.celestialSphere.moveObserversDotPosition(_latitude, _longitude);
+        this.celestialSphere.moveObserversDotPosition(_latitude, _longitude);     
+    }
 
+    /**
+     * Move the user's view down to Earth and looking up into space.
+     */
+    moveCameraToGroundBasedOnLocation() {
         //Creat the url of where constellations data is.
         let url = "./javascript/sampleConst.Json";
         //let url = "./javascript/EditedJson.Json";
 
         //Download the constellations data. When set camera to look at sky.
         $.ajax({url: url, 
-                type:'GET', 
-                dataType: 'json', 
-                context: this, 
-                complete: function(data) { this.positionTheCameraLookingToSky(data.responseText); }});        
+            type:'GET', 
+            dataType: 'json', 
+            context: this, 
+            complete: function(data) { this.positionTheCameraLookingToSky(data.responseText); }});        
+    }
+
+    /**
+     * Return a parameter from the url string after the "?" (ie http://somewebsite.com?param1=someValue).
+     * @param {String} _parameter - The parameter to retrive from the url string.
+     * @param {String} _defaultvalue - If parameter does not exists, this value will be returned.
+     */
+    getUrlParameters(_parameter, _defaultvalue) {
+        
+        //Create dictionary to hold url parameters.
+        var urlParamters = {};
+        //Parse the url string after the "?" into the dictionary.
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            urlParamters[key] = value;
+        });
+                
+        //Get the index value of the the parameter we are looking for.
+        if(window.location.href.indexOf(_parameter) > -1) {
+            //If the param is found then place the value in the temp variable.
+            return urlParamters[_parameter];
+        } else {
+            //Param was not found, just return the default value.
+            return _defaultvalue;
+        }
     }
 
     //==========private functions=========================
@@ -286,12 +315,12 @@ export default class AstroAppEngine {
 
             //Tell 3d engine to reneder a frame.
             this.t3Renderer.render(this.t3Scene, this.worldCamera.getMesh());
-            //Add ticks.
+            //Add time ticks.
             this.t3spaceTimeDelta %= this.T3_SPACE_TIME_FRAMES_PER_SECONDS;
         }
     };
 
-     /**
+    /**
      * Update our screen object positions. This function will be called by the system at a 30 frames per seconds.
      */
     screenUpdate() {

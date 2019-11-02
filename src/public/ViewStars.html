@@ -1,3 +1,10 @@
+<!--
+This page will show the 3d star constellations.
+Author Francis Perez Last Updated: 11/02/2019
+
+Can be called with these parameters
+ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,75 +44,54 @@
 
 </head>
 <body style="height:100%;width:100%;margin:0;background-color: black;">
-    <div style="height: 50px;">
-        <input type="text" id="txtLat" placeholder="Enter Lat"/>
-        <input type="text" id="txtLong" placeholder="Enter Lat"/>
-        <Button id="btnTakeToLocation">Take Me There</Button>
-        <input type="checkbox" id="chkShowDebug"><label for="checkbox" style="color: white;">Show Debug</label></Button>
-        <input type="checkbox" id="chkRotateEarth" checked><label for="checkbox" style="color: white;">Rotate Earth</label></Button>
-
-        <input type="range" min="-180" max="180" value="0" class="slider" id="myRangeX">
-        <input type="range" min="-180" max="180" value="0" class="slider" id="myRangeY">
-        <input type="range" min="-180" max="180" value="0" class="slider" id="myRangeZ">
-        
+    <div id="buttonTray" style="height: 50px;padding-top: 2px;">
+        <button id="btnViewConstellations"style="background-color: black; color: white;border-style: solid;border-width:1px;border-radius: 4px;">
+            View Constellations
+        </button>
     </div>
-    <div id="asteroSpaceContainer" style="position:absolute;top:50px;width:100%;bottom: 0;background-color: black;"></div>
+    <div id="asteroSpaceContainer" style="position:absolute;top:50px;width:100%;bottom: 0;background-color: black;font-weight: bold;"></div>
     <script type="module">
         import AstroAppEngine from "/javascript/AstroAppEngine/AstroAppEngine.js";
 
         let mySpaceEngine = null;
+
         //start the astro space engine when browser
         //completes loading the page
         $(document).ready(function() {
-            
+            let URL_PARAM_NAME_LATITUDE = "lat";
+            let URL_PARAM_NAME_LONGITUDE = "long";
+            let URL_PARAM_NAME_ISDEBUG = "debug";
+            let URL_PARAM_NAME_MOUSECONTROL = "mouseControl";
+            let URL_PARAM_NAME_LATITUDE_DEFAULT = "0";
+            let URL_PARAM_NAME_LONGITUDE_DEFAULT = "0";
+            let URL_PARAM_NAME_ISDEBUG_DEFAULT = "false";
+            let URL_PARAM_NAME_MOUSECONTROL_DEFAULT = "true";
 
+            //Create the space engine.
             mySpaceEngine = new AstroAppEngine();
+           
+            //Retrive the url Parameters settings passed in from url string.
+            let urlParamLatitudeValue = parseInt(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_LATITUDE, URL_PARAM_NAME_LATITUDE_DEFAULT));
+            let urlParamLongitudeValue = parseInt(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_LONGITUDE, URL_PARAM_NAME_LONGITUDE_DEFAULT));
+            let urlParamIsDebugValue = JSON.parse(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_ISDEBUG, URL_PARAM_NAME_ISDEBUG_DEFAULT));
+            let urlParamIsMouseControlOnValue = JSON.parse(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_MOUSECONTROL, URL_PARAM_NAME_MOUSECONTROL_DEFAULT));
+
+            //Start the engine.
             mySpaceEngine.run("asteroSpaceContainer");
 
-           //set engine to show debuging objects
-           mySpaceEngine.setIsDebugObjectsShown(false);
+            //set engine to show debuging objects
+            mySpaceEngine.setIsDebugObjectsShown(urlParamIsDebugValue);
+            //allow user to move scene around
+            mySpaceEngine.setIsMouseControlOn(urlParamIsMouseControlOnValue);
+            //Set the lat long dots positions.
+            mySpaceEngine.moveLocation(urlParamLatitudeValue, urlParamLongitudeValue);
 
-           //allow user to move scene around
-           mySpaceEngine.setIsMouseControlOn(true);
-
-           //set earth to spin
-           mySpaceEngine.setIsEarthRotationOn(false);
-
-           $("#btnTakeToLocation").on("click", function()
-           {
-               mySpaceEngine.bringUpLocation($("#txtLat").val(), $("#txtLong").val());
-           });
-
-           $("#chkShowDebug").on("click", function()
-           {
-               mySpaceEngine.setIsDebugObjectsShown($("#chkShowDebug").prop("checked"));
-               mySpaceEngine.setIsCelestSphereVisible($("#chkShowDebug").prop("checked"));
-           });
-
-           $("#chkRotateEarth").on("click", function()
-           {
-               mySpaceEngine.setIsEarthRotationOn($("#chkRotateEarth").prop("checked"));
-           });
-
-           $("#myRangeX").on("input", function() {
-                mySpaceEngine.test($("#myRangeX").val(), $("#myRangeY").val(), $("#myRangeZ").val());
-           });
             
-
-            $("#myRangeY").on("input", function() {
-                mySpaceEngine.test($("#myRangeX").val(), $("#myRangeY").val(), $("#myRangeZ").val());
+            $("#btnViewConstellations").on("click", function() {
+                $("#buttonTray").hide();
+                mySpaceEngine.moveCameraToGroundBasedOnLocation();
             });
-
-            $("#myRangeZ").on("input", function() {
-                mySpaceEngine.test($("#myRangeX").val(), $("#myRangeY").val(), $("#myRangeZ").val());
-            });
-
-        
-           
-
-
-
-        });
+        });        
     </script>
 </body>
 </html>

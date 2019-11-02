@@ -4,6 +4,7 @@
  * Author Francis Perez Last Updated: 9/29/2019
  */
 export default class Pipe {
+    TEXTUREMAP_REPEAT_SQUARE = 1000;
     color;
     width;
     height;
@@ -39,15 +40,15 @@ export default class Pipe {
     create() {
         //Create geometry, a cylinder.
         let geometry  = new THREE.CylinderGeometry(this.width, this.width, this.height, this.segments, this.segments, this.isHollow);
-
         let material = null;
 
+        //Check to see if a texture path was sent in.
         if (this.texturePath){
             //Load the earth texture from url path.
             let textureMap = THREE.ImageUtils.loadTexture(this.texturePath);
             textureMap.wrapS = THREE.RepeatWrapping;
             textureMap.wrapT = THREE.RepeatWrapping;
-            textureMap.repeat.set( 1000, 1000 );
+            textureMap.repeat.set( this.TEXTUREMAP_REPEAT_SQUARE, this.TEXTUREMAP_REPEAT_SQUARE );
             //Load texture into the material.
             material = new THREE.MeshPhongMaterial({map : textureMap});
         } else {

@@ -1,14 +1,13 @@
 /**
  * This class will Create the earth and its need objects.
  *
- * Author Francis Perez Last Updated: 10/21/2019
+ * Author Francis Perez Last Updated: 11/2/2019
  */
 
 import Dot from "./Dot.js";
 import Pipe from "./Pipe.js";
 import Horizon from "./Horizon.js";
 import SphereObjectPositioner from "../Libs/SphereObjectPositioner.js";
-
 
 export default class Earth {
     TEXTURE_MAP_NAME = "earthlights2k.jpg";
@@ -38,19 +37,19 @@ export default class Earth {
     heightSegments;
     isEarthRotationOn = false;
 
-    earth = null;
-    equator = null;
-    primeMeridian = null;
-    axis = null;
-    celestSphere = null;
-    observersGround = null;
+    earth;
+    equator;
+    primeMeridian;
+    axis;
+    celestSphere;
+    observersGround;
 
-    locationDot = null;
+    locationDot ;
     locationDotLatitude = 0;
     locationDotLongitude = 0;
 
-    hostingObjectMesh = null;
-    scene = null;
+    hostingObjectMesh;
+    scene;
 
 
     /**
@@ -83,8 +82,8 @@ export default class Earth {
 
     /**
      * Move the lat long dot to a passed in lat long values.
-     * @param {decimal} _latitude
-     * @param {decimal} _longitude
+     * @param {decimal} _latitude - latitude.
+     * @param {decimal} _longitude - longitude.
      */
     moveLocationDotPosition(_latitude, _longitude) {
         //Save the new location of the dot.

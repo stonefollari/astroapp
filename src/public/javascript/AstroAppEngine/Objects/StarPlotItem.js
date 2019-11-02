@@ -1,7 +1,7 @@
 /**
  * This class will extend the Dot object, give it the properties of star that will be ploted on the Celestial Sphere.
  * 
- * Author Francis Perez Last Updated: 10/21/2019
+ * Author Francis Perez Last Updated: 11/2/2019
  */
 
 import Dot from "./Dot.js";

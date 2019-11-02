@@ -1,8 +1,18 @@
+/**
+ * This class will Create the earth's Horizon when the user is on the ground viewing the stars.
+ *
+ * Author Francis Perez Last Updated: 11/2/2019
+ */
 import Pipe from "./Pipe.js";
-import SphereObjectPositioner from "../Libs/SphereObjectPositioner.js";
 
 export default class Horizon {
     TEXTURE_MAP_NAME = "grass2.jpg";
+    MATERIAL_OPACITY =  0;
+    MATERIAL_TRANSPARENT =  true;
+    MATERIAL_DEPTHWRITE = true;
+    MATERIAL_WIREFRAME =  true;
+    MATERIAL_RENDERORDER = 1;
+
     texturePath;
     color;
     radius;
@@ -42,11 +52,11 @@ export default class Horizon {
        //Create the material that will be used the skin the our sphere.
        //In the case we just need a transparent spheres.        
        let material = new THREE.MeshBasicMaterial({
-           opacity: 0,
-           transparent: true,
-           depthWrite: true,
-           wireframe: true,
-           renderOrder: 1
+           opacity: this.MATERIAL_OPACITY,
+           transparent: this.MATERIAL_TRANSPARENT,
+           depthWrite: this.MATERIAL_DEPTHWRITE,
+           wireframe: this.MATERIAL_WIREFRAME,
+           renderOrder: this.MATERIAL_RENDERORDER
        });
 
         //Link the geometry and the material on sphere X.
@@ -73,12 +83,9 @@ export default class Horizon {
     setIsVisible = function(_isVisible) {
         if (_isVisible) {
             this.objectInner.add(this.ground.getMesh());
-            //this.ground.getMesh().material.opacity  = 1;
         } else {
             this.objectInner.remove(this.ground.getMesh());
-            //this.ground.getMesh().material.opacity  = 0;
-        }
-        
+        }   
     }
 
     //============GETTERS==================================
