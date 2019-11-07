@@ -95,6 +95,7 @@ export default class AstroAppEngine {
         //Creat the url of where constellations data is.
         let url = "./javascript/sampleConst.Json";
         //let url = "./javascript/EditedJson.Json";
+        //let url = "./javascript/test.Json";
 
         //Download the constellations data. When set camera to look at sky.
         $.ajax({url: url, 
@@ -207,8 +208,8 @@ export default class AstroAppEngine {
         //Tell the light to cast a shadow.
         light.castShadow = true;
 
-         //Insert the light into the scene.
-         this.t3Scene.add(light);
+        //Insert the light into the scene.
+        this.t3Scene.add(light);
     }
    
     /**
@@ -235,9 +236,11 @@ export default class AstroAppEngine {
         //Tell the engine what html control is our scene readered too.
         this.t3GroundMouseControls = new THREE.FirstPersonControls(this.worldCamera.getMesh(), this.htmlHostControlObject);
         //Set the mouse speeds.
-        this.t3GroundMouseControls.lookSpeed = .008;
+        this.t3GroundMouseControls.lookSpeed = .09;
         //Dont let user move side to side or forward/back.
         this.t3GroundMouseControls.movementSpeed = 0;
+
+        this.worldCamera.getMesh().reset();
     }
 
     /**

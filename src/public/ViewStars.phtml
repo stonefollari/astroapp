@@ -53,19 +53,27 @@ ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
     <script type="module">
         import AstroAppEngine from "/javascript/AstroAppEngine/AstroAppEngine.js";
 
+        let URL_PARAM_NAME_LATITUDE = "lat";
+        let URL_PARAM_NAME_LONGITUDE = "long";
+        let URL_PARAM_NAME_ISDEBUG = "debug";
+        let URL_PARAM_NAME_MOUSECONTROL = "mouseControl";
+        let URL_PARAM_NAME_LATITUDE_DEFAULT = "0";
+        let URL_PARAM_NAME_LONGITUDE_DEFAULT = "0";
+        let URL_PARAM_NAME_ISDEBUG_DEFAULT = "false";
+        let URL_PARAM_NAME_MOUSECONTROL_DEFAULT = "true";
+        let PHP_CHECK = "<?php";
+
+        let phplat = "<?php json_decode($this->viewData)[0]; ?>";
+        let phplog = "<?php json_decode($this->viewData)[1]; ?>";
+        let debug = "<?php json_decode($this->viewData)[2]; ?>";
+        let mouseControl = "<?php json_decode($this->viewData)[3]; ?>";
+
         let mySpaceEngine = null;
 
         //start the astro space engine when browser
         //completes loading the page
         $(document).ready(function() {
-            let URL_PARAM_NAME_LATITUDE = "lat";
-            let URL_PARAM_NAME_LONGITUDE = "long";
-            let URL_PARAM_NAME_ISDEBUG = "debug";
-            let URL_PARAM_NAME_MOUSECONTROL = "mouseControl";
-            let URL_PARAM_NAME_LATITUDE_DEFAULT = "0";
-            let URL_PARAM_NAME_LONGITUDE_DEFAULT = "0";
-            let URL_PARAM_NAME_ISDEBUG_DEFAULT = "false";
-            let URL_PARAM_NAME_MOUSECONTROL_DEFAULT = "true";
+            
 
             //Create the space engine.
             mySpaceEngine = new AstroAppEngine();
@@ -75,6 +83,16 @@ ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
             let urlParamLongitudeValue = parseInt(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_LONGITUDE, URL_PARAM_NAME_LONGITUDE_DEFAULT));
             let urlParamIsDebugValue = JSON.parse(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_ISDEBUG, URL_PARAM_NAME_ISDEBUG_DEFAULT));
             let urlParamIsMouseControlOnValue = JSON.parse(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_MOUSECONTROL, URL_PARAM_NAME_MOUSECONTROL_DEFAULT));
+
+            //check to see if url params should be overwriten, lets check the document for values.
+            if (phplat.startsWith(PHP_CHECK) === false) {
+
+                //Page has been prefilled with php values, lets use those.
+                urlParamLatitudeValue = parseInt(phplat);
+                urlParamLongitudeValue = parseInt(phplog);
+                urlParamIsDebugValue = JSON.parse(debug);
+                urlParamIsMouseControlOnValue = JSON.parse(mouseControl);
+            }
 
             //Start the engine.
             mySpaceEngine.run("asteroSpaceContainer");

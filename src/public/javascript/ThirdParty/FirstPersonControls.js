@@ -18,7 +18,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	// API
 
-	this.enabled = true;
+	this.enabled = false;
 
 	this.movementSpeed = 1.0;
 	this.lookSpeed = 0.005;
@@ -91,6 +91,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	this.onMouseDown = function ( event ) {
 
+		this.enabled = true;
+
 		if ( this.domElement !== document ) {
 
 			this.domElement.focus();
@@ -116,6 +118,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	};
 
 	this.onMouseUp = function ( event ) {
+
+		this.enabled = false;
 
 		event.preventDefault();
 		event.stopPropagation();
