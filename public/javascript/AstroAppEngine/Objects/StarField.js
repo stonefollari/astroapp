@@ -1,7 +1,7 @@
 /**
  * This class will Create the background star field.
  *
- * Author Francis Perez Last Updated: 9/29/2019
+ * Author Francis Perez Last Updated: 11/2/2019
  */
 export default class StarField {
     TEXTURE_MAP_NAME = "galaxy_starfield.png";
@@ -12,15 +12,15 @@ export default class StarField {
     radius;
     widthSegments;
     heightSegments;
-
     hostingObjectMesh;
 
-    /**
-     *
-     * @param {decimal} _radius
-     * @param {int} _widthSegments
-     * @param {int} _heightSegments
-     */
+   /**
+   * 
+   * @param {*} _radius - Radius of the sphere where the star field will placed on.
+   * @param {*} _widthSegments - Number of triangles that represents the object.
+   * @param {*} _heightSegments - Number of triangles that represents the object.
+   * @param {*} _imgRoot - The img root url path.
+   */
     constructor(_radius, _widthSegments, _heightSegments, _imgRoot) {
         this.radius = _radius;
         this.widthSegments = _widthSegments;
