@@ -47,7 +47,7 @@ class locationController extends Controller {
         $ID = $this->model->getLocationID($_country, $_state, $_city);
         if ($ID != null) {
             $data = $this->model->getLatLong($ID);
-            $this->view('\home\3dTestBed', $this->setDisplaySettings("false", "true", $data));
+            $this->view('\home\ViewStars', $this->setDisplaySettings("false", "true", $data));
             $this->view->render();
         } else {
             $this->view('\location\setLocation', []);
