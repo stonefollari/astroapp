@@ -1,0 +1,117 @@
+<!--
+This page will show the 3d star constellations.
+Author Francis Perez Last Updated: 11/02/2019
+
+Can be called with these parameters
+ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+        <script src="/javascript/ThirdParty/jquery.min.js"></script>
+
+        <script src="/javascript/ThirdParty/three.min.js"></script>
+        <script src="/javascript/ThirdParty/OrbitControls.js"></script>
+        <script src="/javascript/ThirdParty/FirstPersonControls.js"></script>
+
+        <script src="/javascript/ThirdParty/TweenMax.min.js"></script>
+        <script src="/javascript/ThirdParty/tween.umd.js"></script>
+
+
+        <script type="module" src="/javascript/AstroAppEngine/AstroAppEngine.js"></script>
+        <script type="module" src="/javascript/AstroAppEngine/Libs/StarPlotter.js"></script>
+        <script type="module" src="/javascript/AstroAppEngine/Libs/SphereObjectPositioner.js"></script>
+
+        <script type="module" src="/javascript/AstroAppEngine/Objects/Camera.js"></script>
+        <script type="module" src="/javascript/AstroAppEngine/Objects/Horizon.js"></script>
+        <script type="module" src="/javascript/AstroAppEngine/Objects/StarField.js"></script>
+        <script type="module" src="/javascript/AstroAppEngine/Objects/Line.js"></script>
+        <script type="module" src="/javascript/AstroAppEngine/Objects/Pipe.js"></script>
+        <script type="module" src="/javascript/AstroAppEngine/Objects/Earth.js"></script>
+        <script type="module" src="/javascript/AstroAppEngine/Objects/Dot.js"></script>
+        <script type="module" src="/javascript/AstroAppEngine/Objects/Sun.js"></script>
+        <script type="module" src="/javascript/AstroAppEngine/Objects/CelestialSphere.js"></script>
+
+
+
+        <title>Document</title>
+
+    </head>
+    <body style="height:100%;width:100%;margin:0;background-color: black;">
+        <div id="buttonTray" style="height: 50px;padding-top: 2px;">
+            <button id="btnViewConstellations"style="background-color: black; color: white;border-style: solid;border-width:1px;border-radius: 4px;">
+                View Constellations
+            </button>
+        </div>
+        <div id="asteroSpaceContainer" style="position:absolute;top:50px;width:100%;bottom: 0;background-color: black;font-weight: bold;"></div>
+
+
+        <script type="module"> 
+        import AstroAppEngine from "/javascript/AstroAppEngine/AstroAppEngine.js";
+
+            let TRUE_VALUE = "true";
+            let URL_PARAM_NAME_LATITUDE = "lat";
+            let URL_PARAM_NAME_LONGITUDE = "long";
+            let URL_PARAM_NAME_ISDEBUG = "debug";
+            let URL_PARAM_NAME_MOUSECONTROL = "mouseControl";
+            let URL_PARAM_NAME_LATITUDE_DEFAULT = "0";
+            let URL_PARAM_NAME_LONGITUDE_DEFAULT = "0";
+            let URL_PARAM_NAME_ISDEBUG_DEFAULT = "false";
+            let URL_PARAM_NAME_MOUSECONTROL_DEFAULT = "true";
+            let PHP_CHECK = "php";
+
+            let phplat = "<?php echo json_decode($this->viewData)[0]; ?>";
+            let phplog = "<?php echo json_decode($this->viewData)[1]; ?>";
+            let phpdebug = "<?php echo json_decode($this->viewData)[2]; ?>";
+            let phpmouseControl = "<?php echo json_decode($this->viewData)[3]; ?>";
+
+            let mySpaceEngine = null;
+
+            //start the astro space engine when browser
+            //completes loading the page
+            $(document).ready(function() {
+            
+
+                //Create the space engine.
+                mySpaceEngine = new AstroAppEngine();
+           
+                //Retrive the url Parameters settings passed in from url string.
+                let urlParamLatitudeValue = parseInt(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_LATITUDE, URL_PARAM_NAME_LATITUDE_DEFAULT));
+                let urlParamLongitudeValue = parseInt(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_LONGITUDE, URL_PARAM_NAME_LONGITUDE_DEFAULT));
+                let urlParamIsDebugValue = JSON.parse(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_ISDEBUG, URL_PARAM_NAME_ISDEBUG_DEFAULT));
+                let urlParamIsMouseControlOnValue = JSON.parse(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_MOUSECONTROL, URL_PARAM_NAME_MOUSECONTROL_DEFAULT));
+
+                //check to see if url params should be overwriten, lets check the document for values.
+              if (phplat.includes(PHP_CHECK) === false) {
+                    //Page has been prefilled with php values, lets use those.
+                    urlParamLatitudeValue = phplat;
+                    urlParamLongitudeValue = phplog;
+                    urlParamIsDebugValue = phpdebug === TRUE_VALUE;
+                    urlParamIsMouseControlOnValue = phpmouseControl === TRUE_VALUE;
+              }
+
+                //Start the engine.
+                mySpaceEngine.run("asteroSpaceContainer");
+
+                //set engine to show debuging objects
+                mySpaceEngine.setIsDebugObjectsShown(urlParamIsDebugValue);
+                //allow user to move scene around
+                mySpaceEngine.setIsMouseControlOn(urlParamIsMouseControlOnValue);
+                //Set the lat long dots positions.
+                mySpaceEngine.moveLocation(urlParamLatitudeValue, urlParamLongitudeValue);
+
+            
+                $("#btnViewConstellations").on("click", function() {
+                    $("#buttonTray").hide();
+                    mySpaceEngine.moveCameraToGroundBasedOnLocation();
+                });
+            });        
+        </script>
+    </body>
+</html>
