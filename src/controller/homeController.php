@@ -16,4 +16,9 @@ class homeController extends Controller {
         $this->view('\home\3dTestBed');
         $this->view->render();
     }
+    
+    public function display($lat, $long) {
+        $this->model('Coordinates');
+        echo $this->model->acquireAllCoordinates($lat, $long);
+    }
 }

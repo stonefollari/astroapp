@@ -62,6 +62,11 @@ class Coordinates {
     }
 
     //return the encoded data for all objects.
+    $output = stripslashes(json_encode($output));
+    $output = str_replace('}","{', '},{', $output);
+    $output = str_replace('["', '[', $output);
+    $output = str_replace('"]', ']', $output);
+    
     return $output;
   }
 }

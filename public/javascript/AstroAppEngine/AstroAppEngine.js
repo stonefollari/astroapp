@@ -95,14 +95,16 @@ export default class AstroAppEngine {
         //Creat the url of where constellations data is.
         let url = "/javascript/sampleConst.Json";
         //let url = "/javascript/EditedJson.Json";
-        //let url = "/javascript/test.Json";
+        //let urlLiveServer = "http://localhost/home/display/10/10";
+        let urlLiveServer = "http://localhost/home/display/" + this.earth.getLat() + "/" + this.earth.getLong();
+        //alert(urlLiveServer);
 
         //Download the constellations data. When set camera to look at sky.
-        $.ajax({url: url, 
+        $.ajax({url: urlLiveServer, 
             type:'GET', 
             dataType: 'json', 
             context: this, 
-            complete: function(data) { this.positionTheCameraLookingToSky(data.responseText); }});        
+            complete: function(data) { alert(data.responseText) }});     // this.positionTheCameraLookingToSky(data.responseText); }});        
     }
 
     /**
