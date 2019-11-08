@@ -93,9 +93,9 @@ export default class AstroAppEngine {
      */
     moveCameraToGroundBasedOnLocation() {
         //Creat the url of where constellations data is.
-        let url = "./javascript/sampleConst.Json";
+        //let url = "./javascript/sampleConst.Json";
         //let url = "./javascript/EditedJson.Json";
-        //let url = "./javascript/test.Json";
+        let url = "./javascript/test.Json";
 
         //Download the constellations data. When set camera to look at sky.
         $.ajax({url: url, 
