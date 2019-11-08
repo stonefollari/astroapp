@@ -19,7 +19,7 @@ ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
     <script src="javascript/ThirdParty/three.min.js"></script>
     <script src="javascript/ThirdParty/OrbitControls.js"></script>
     <script src="javascript/ThirdParty/FirstPersonControls.js"></script>
-    
+
     <script src="javascript/ThirdParty/TweenMax.min.js"></script>
     <script src="javascript/ThirdParty/tween.umd.js"></script>
 
@@ -37,7 +37,7 @@ ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
     <script type="module" src="javascript/AstroAppEngine/Objects/Dot.js"></script>
     <script type="module" src="javascript/AstroAppEngine/Objects/Sun.js"></script>
     <script type="module" src="javascript/AstroAppEngine/Objects/CelestialSphere.js"></script>
-    
+
 
 
     <title>Document</title>
@@ -61,7 +61,7 @@ ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
         let URL_PARAM_NAME_LONGITUDE_DEFAULT = "0";
         let URL_PARAM_NAME_ISDEBUG_DEFAULT = "false";
         let URL_PARAM_NAME_MOUSECONTROL_DEFAULT = "true";
-        let PHP_CHECK = "<?php";
+        let PHP_CHECK = "<?php ?>";
 
         let phplat = "<?php json_decode($this->viewData)[0]; ?>";
         let phplog = "<?php json_decode($this->viewData)[1]; ?>";
@@ -73,11 +73,11 @@ ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
         //start the astro space engine when browser
         //completes loading the page
         $(document).ready(function() {
-            
+
 
             //Create the space engine.
             mySpaceEngine = new AstroAppEngine();
-           
+
             //Retrive the url Parameters settings passed in from url string.
             let urlParamLatitudeValue = parseInt(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_LATITUDE, URL_PARAM_NAME_LATITUDE_DEFAULT));
             let urlParamLongitudeValue = parseInt(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_LONGITUDE, URL_PARAM_NAME_LONGITUDE_DEFAULT));
@@ -104,12 +104,12 @@ ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
             //Set the lat long dots positions.
             mySpaceEngine.moveLocation(urlParamLatitudeValue, urlParamLongitudeValue);
 
-            
+
             $("#btnViewConstellations").on("click", function() {
                 $("#buttonTray").hide();
                 mySpaceEngine.moveCameraToGroundBasedOnLocation();
             });
-        });        
+        });
     </script>
 </body>
 </html>
