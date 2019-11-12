@@ -1,9 +1,4 @@
 <?php
-namespace Astroapp\Src\Models;
-use Mysqli;
-use Dotenv;
-// Load composer packages.
-require '..\..\vendor\autoload.php';
 /**
  * Establishes connection to SQL instance.
  *
@@ -11,10 +6,7 @@ require '..\..\vendor\autoload.php';
  *
  * Last updated 10/17/2019
  */
-class MySQLConnector implements Database{
-
-	// Path to the root directory, relative to the current dir.
-	private $RELATIVE_ROOT = '..\..\\';
+class MySQLConnector {
 
 	// Default values.
 	private $DEFAULT_DSN = 'localhost';
@@ -23,7 +15,6 @@ class MySQLConnector implements Database{
 
 	// Class variables.
 	private $conn;
-	private $sqlConnection;
 	private $sqlDSN;
 	private $sqlUser;
 	private $sqlPassword;
@@ -43,54 +34,88 @@ class MySQLConnector implements Database{
 		// Set default values for class variables.
 		$this->conn = null;
 		$this->sqlDSN = $DEFAULT_DSN;
-		$this->sqlUser = $_ENV['MYSQL_USER'];
+		$this->sqlUser = $_ENV['MYSQL_USERNAME'];
 		$this->sqlPassword = $_ENV['MYSQL_PASSWORD'];
 		$this->sqlPort = $this->DEFAULT_PORT;
 		$this->dbName = $this->DEFAULT_TABLE_NAME;
 	}
 
 	/**
-	 * Creates an instance of object and inserts it into the database.
+	 * Inserts object with values $_data into the table $_dbTable.
+	 * @param $_data - (Associative Array) - Array with key, value pairs for object.
+	 * @param $_dbTable - (String) - name of the table ot insert the object into.
+	 * @return Boolean - true on successful insert, false otherwise.
 	 */
 	public function createObject($_data, $_dbTable) {
 
-		// Generate a unique identifier.
-		$uuid = uniqid();
+		// Generate fields and values strings.
+		$fields = $this::generateInsertFields($_data);
+		$values = $this::generateInsertValues($_data);
 
-		// Hardcoded field and value for testing purposes.
-		$fields = $this::extractKeys($_data);
-		$values = $this::extractValues($_data);
-		$formattedValuePairs = "$fields VALUES $values";
+		// Construct the INSERT string.
+		$insertQuery = "INSERT INTO $_dbTable $fields VALUES $values";
 
-		// Construct the query string.
-		$insertQuery = "INSERT INTO $_dbTable $formattedValuePairs";
-
-		// Execute the insert query.
+		// Execute the INSERT query.
 		return $this->runQuery($insertQuery);
 	}
 
+	/**
+	 * Returns an associative array of the object's data.
+	 */
 	public function readObject($_data, $_dbTable) {
 
-		// Hardcoded field and value for testing purposes.
-		$fields = "uuid";
-		$values = "$uuid";
-		$valuePairs = "$fields = $uuid";
-		$formattedValuePairs = "*";
+		// String specifying which fields to select (All for now).
+		$selectFields = '*';
 
-		// Construct the select string
-		$readQuery = "SELECT $selectValues FROM $_dbTable WHERE $formattedValuePairs";
+		// Get the object uuid.
+		$field = 'uuid';
+		$uuid = $this::getFieldValue($_data, $field);
+		$condition = "$field = $uuid";
 
-		// Execute the run query.
+		// Construct the SELECT string.
+		$readQuery = "SELECT $selectValues FROM $_dbTable WHERE $condition";
+
+		// Execute the SELECT query.
 		$result = $this->runQuery($insertQuery);
-		return \mysqli_fetch_assoc($result);
+		return mysqli_fetch_assoc($result);
 	}
 
+	/**
+	 * Function top read object only requiring value for uuid as a firsst parameter.
+	 */
+	public function readObjectByUUID($uuid, $_dbTable) {
+
+		// Constructs a psuedo '$data' array with just uuid set to call readObject.
+		$data = array('uuid'=>$uuid);
+		return $this::readObject($data, $_dbTable);
+	}
+
+	/**
+	 * Updates object.
+	 */
 	public function updateObject($_data, $_dbTable) {
 
+		// Construct the condition string.
+		$uuidField = 'uuid';
+		$uuid = $this::getFieldValue($_data, $uuidField);
+		$condition = "$uuidField = $uuid";
+
+		// Construct the update value pairs string.
+		$updatePairs = $this::generateUpdatePairs($_data);
+
+		// Construct the SELECT string.
+		$readQuery = "UPDATE $_dbTable SET $updatePairs WHERE $condition";
+		
+		// Execute the SELECT query.
+		$result = $this->runQuery($insertQuery);
+		return mysqli_fetch_assoc($result);
 	}
 
-	public function destroyObject() {
-
+	/**
+	 * Sets the object active field to false (0).
+	 */
+	public function destroyObject($_data, $_dbTable) {
+		updateObject($_data, $_dbTable);
 	}
 
 
@@ -144,28 +169,54 @@ class MySQLConnector implements Database{
 		$this->conn->close();
 	}
 
+	/**
+	 * Returns the value of the field
+	 */
+	private function getFieldValue($_data, $_key) {
 
-	private function extractKeys($_data){
-		return "(uuid, username, password)";
+        // If value exists, return it.
+        if( isset($_data[$_key]) ){
+            return $_data[$_key];
+        
+            // If key value pair is not set, return null.
+        }else{
+            return null;
+        }
 	}
 
-	private function extractValues($_data){
-		return '("test","test","test")';
+	/**
+	 * Extracts the keys and formats for SQL query.
+	 */
+	private function generateInsertFields($_data) {
+		$keys = implode(', ', array_keys($_data));
+		return '('.$keys.')';
+	}
+	
+	/**
+	* Extracts the values and formats for SQL query.
+	 */
+	private function generateInsertValues($_data) {
+		$vals = implode(', ', array_values($_data));
+		return '('.$vals.')';
 	}
 
+	private function generateUpdatePairs($_data){
+		$stmtArray = array();
+		foreach( $_data as $key => $val ){
+			$stmtArray[] = "`$key`=$val";
+		}
+		$stmtString = implode(', ', $stmtArray);
+		echo $stmtString;
+	}
 
 	/**
 	 * Loads the environment variables stored in .env file.
 	 */
 	public function loadEnvVariables() {
-
 		// Load the environment variables.
-		// Accessed with $_ENV['<var_name>']
-		$dotenv = Dotenv\Dotenv::create( $this->RELATIVE_ROOT);
-
-		$dotenv->load();
+		// Access environment variables with getenv('varname') or $_ENV['varname']
+		LoadEnvironment::loadEvironmentVariables();
 	}
-
-//==================GETTERS==================
 }
+
 ?>

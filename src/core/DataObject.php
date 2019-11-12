@@ -8,21 +8,51 @@
  *
  * Last Updated: 11/11/19
  */
-Interface DataObject{
+class DataObject {
 
-    public function getValuePairs();
+    private $DATA_TYPE;
+    
+    private $id;
+    private $uuid;
+    private $active;
+    private $deleted;
+    private $timestamp;
+    private $valuePairs;
 
-    public function insertObject();
+    public function createTable(){
+        $valuePairs = $this::getValuePairs();
+        DatabaseAdapter::createTable($valuePairs, $DATA_TYPE);
+    }
 
-    public function readObject();
+    public function createObject(){
+        // Call the database adapter create function with key value pairs for users.
+        $valuePairs = $this::getValuePairs();
+        DatabaseAdapter::createObject($valuePairs, $DATA_TYPE);
+    }
 
-    public function updateObject();
+    public function readObject(){
+        // Call the database adapter read function with key value pairs for users.
+        $valuePairs = $this::getValuePairs();
+        $readObject = DatabaseAdapter::readObject($valuePairs, $DATA_TYPE);
+    }
 
-    public function destroyObject();
+    public function updateObject(){
+        // Call the database adapter update function with key value pairs for users.
+        $valuePairs = $this::getValuePairs();
+        DatabaseAdapter::updateObject($valuePairs, $DATA_TYPE);
+    }
 
-    public function restoreObject();
+    public function destroyObject(){
+        // Call the database adapter destroy function with key value pairs for users.
+        $valuePairs = $this::getValuePairs();
+        DatabaseAdapter::destroyObject($valuePairs, $DATA_TYPE);
+    }
 
-    public function createTable();
+    public function restoreObject(){
+        // Call the database adapter restore function with key value pairs for users.
+        $valuePairs = $this::getValuePairs();
+        DatabaseAdapter::restoreObject($valuePairs, $DATA_TYPE);
+    }
 
 }
 

@@ -1,9 +1,4 @@
 <?php
-namespace Astroapp\Src\Controller;
-use AstroApp\Src\Models as model;
-use Dotenv;
-
-require_once '..\Models\MySQLConnector.php';
 
 /**
  * Class to bridge the connection between application and Database connection.
@@ -11,7 +6,7 @@ require_once '..\Models\MySQLConnector.php';
  * @author Michael Follari
  * Last Updated: 11/11/2019
  */
-class DatabaseAdapter{
+class DatabaseAdapter {
 
     private $connection;
     private static $RELATIVE_ROOT = '..\..\\';
@@ -21,8 +16,8 @@ class DatabaseAdapter{
      * DatabaseAdapter->connection is defined as PHP does not allow it.
      * (Static variables must be initialized to constant / literal values)
      */
-    private static function connect(){
-        DatabaseAdapter::$connection = new model\MySQLConnector();
+    private static function connect() {
+        DatabaseAdapter::$connection = new MySQLConnector();
     }
 
     /**
