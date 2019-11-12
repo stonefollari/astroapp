@@ -7,6 +7,9 @@ require_once '..\Models\MySQLConnector.php';
 
 /**
  * Class to bridge the connection between application and Database connection.
+ *
+ * @author Michael Follari
+ * Last Updated: 11/11/2019
  */
 class DatabaseAdapter{
 
@@ -15,14 +18,11 @@ class DatabaseAdapter{
 
     /**
      * Establish connection the the SQL database. This cannot be done when
-     * DatabaseController->connection is defined as PHP does not allow it.
+     * DatabaseAdapter->connection is defined as PHP does not allow it.
      * (Static variables must be initialized to constant / literal values)
      */
     private static function connect(){
-        DatabaseController::$connection = new model\MySQLConnector();
-
-        // Switch the SQL DSN connection.
-        // DatabaseController::$connection->setDSN('127.0.0.1');
+        DatabaseAdapter::$connection = new model\MySQLConnector();
     }
 
     /**
@@ -30,9 +30,9 @@ class DatabaseAdapter{
      */
     public static function createObject($_data, $_dbTable) {
 
-        DatabaseController::connect();
+        DatabaseAdapter::connect();
         // Call connection's createObject function and return the result.
-        return DatabaseController::$connection->createObject($_data, $_dbTable);
+        return DatabaseAdapter::$connection->createObject($_data, $_dbTable);
 
     }
 
@@ -41,9 +41,9 @@ class DatabaseAdapter{
      */
     public static function readObject($_data, $_dbTable) {
 
-        DatabaseController::connect();
+        DatabaseAdapter::connect();
         // Call connection's readObject function and return the result.
-        return DatabaseController::$connection->readObject($_data, $_dbTable);
+        return DatabaseAdapter::$connection->readObject($_data, $_dbTable);
 
     }
 
@@ -52,9 +52,9 @@ class DatabaseAdapter{
      */
     public static function updateObject($_data, $_dbTable) {
 
-        DatabaseController::connect();
+        DatabaseAdapter::connect();
         // Call connection's updateObject function and return the result.
-        return DatabaseController::$connection->updateObject($_data, $_dbTable);
+        return DatabaseAdapter::$connection->updateObject($_data, $_dbTable);
 
     }
 
@@ -63,9 +63,9 @@ class DatabaseAdapter{
      */
     public static function destroyObject($_data, $_dbTable) {
 
-        DatabaseController::connect();
+        DatabaseAdapter::connect();
         // Call connection's destroyObject function and return the result.
-        return DatabaseController::$connection->destroyObject($_data, $_dbTable);
+        return DatabaseAdapter::$connection->destroyObject($_data, $_dbTable);
     }
 }
 ?>

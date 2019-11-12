@@ -11,12 +11,13 @@ require '..\..\vendor\autoload.php';
  *
  * Last updated 10/17/2019
  */
-class MySQLConnector{
+class MySQLConnector implements Database{
 
 	// Path to the root directory, relative to the current dir.
 	private $RELATIVE_ROOT = '..\..\\';
 
 	// Default values.
+	private $DEFAULT_DSN = 'localhost';
 	private $DEFAULT_PORT = 3306;
 	private $DEFAULT_TABLE_NAME = 'data';
 
@@ -41,40 +42,11 @@ class MySQLConnector{
 
 		// Set default values for class variables.
 		$this->conn = null;
-		$this->sqlDSN = $_ENV['MYSQL_DSN'];
+		$this->sqlDSN = $DEFAULT_DSN;
 		$this->sqlUser = $_ENV['MYSQL_USER'];
 		$this->sqlPassword = $_ENV['MYSQL_PASSWORD'];
 		$this->sqlPort = $this->DEFAULT_PORT;
 		$this->dbName = $this->DEFAULT_TABLE_NAME;
-	}
-
-	/**
-	 * Creates the users table if it does not exist.
-	 */
-	public function createUserTable() {
-
-		// Connect to the SQL server
-		$this->connect();
-
-		// Construct query for creating the users table if does not exist.
-		// This will come in handy if things are ever ported.
-		$tableName = "users";
-		$sql = "CREATE TABLE IF NOT EXISTS $tableName (
-			id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-			uuid VARCHAR(64) NOT NULL,
-			username VARCHAR(32) NOT NULL,
-			firstname VARCHAR(32) NOT NULL,
-			lastname VARCHAR(32) NOT NULL,
-			password VARCHAR(64) NOT NULL,
-			email VARCHAR(64) NOT NULL,
-			active INT(1) NOT NULL,
-			delete_date INT(11) NOT NULL,
-			timestamp INT(11) NOT NULL,
-			)";
-
-		// Run the query and return the result.
-		$result = $this->runQuery($sql);
-		return $result;
 	}
 
 	/**
@@ -86,8 +58,8 @@ class MySQLConnector{
 		$uuid = uniqid();
 
 		// Hardcoded field and value for testing purposes.
-		$fields = "(uuid, username, password)";
-		$values = "($uuid, $username, $password)";
+		$fields = $this::extractKeys($_data);
+		$values = $this::extractValues($_data);
 		$formattedValuePairs = "$fields VALUES $values";
 
 		// Construct the query string.
@@ -173,6 +145,15 @@ class MySQLConnector{
 	}
 
 
+	private function extractKeys($_data){
+		return "(uuid, username, password)";
+	}
+
+	private function extractValues($_data){
+		return '("test","test","test")';
+	}
+
+
 	/**
 	 * Loads the environment variables stored in .env file.
 	 */
@@ -186,44 +167,5 @@ class MySQLConnector{
 	}
 
 //==================GETTERS==================
-
-
-
-//==================SETTERS==================
-
-	public function setLocal($_sqlLocal) {
-		$this->sqlLocal = $_sqlLocal;
-	}
-
-	public function setDSN($_sqlDSN) {
-		$this->sqlDSN = $_sqlDSN;
-	}
-
-	public function setTable($_dbTable) {
-		$this->dbTable = $_dbTable;
-	}
-
-	public function setDatabase($_dbName) {
-		$this->dbName = $_dbName;
-	}
-	public function setPort($_sqlPort) {
-		$this->sqlPort = $_sqlPort;
-	}
-
-	public function setUsername($_sqlUser) {
-		$this->sqlUser = $_sqlUser;
-	}
-
-	public function setPassword($_sqlPassword) {
-		$this->sqlPassword = $_sqlPassword;
-	}
-
-	public function setLocalConnection() {
-		$this->connectionType = $this->LOCAL_CONNECTION;
-	}
-	public function setAppConnection() {
-		$this->connectionType = $this->APP_CONNECTION;
-	}
-
 }
 ?>
