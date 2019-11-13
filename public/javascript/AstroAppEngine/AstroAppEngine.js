@@ -93,18 +93,13 @@ export default class AstroAppEngine {
      */
     moveCameraToGroundBasedOnLocation() {
         //Creat the url of where constellations data is.
-        let url = "/javascript/sampleConst.Json";
-        //let url = "/javascript/EditedJson.Json";
-        //let urlLiveServer = "http://localhost/home/display/10/10";
-        let urlLiveServer = "http://localhost/home/display/" + this.earth.getLat() + "/" + this.earth.getLong();
-        //alert(urlLiveServer);
-
+        let urlLiveServer = "/home/display/" + this.earth.getLat() + "/" + this.earth.getLong();
         //Download the constellations data. When set camera to look at sky.
-        $.ajax({url: urlLiveServer, 
-            type:'GET', 
+       $.ajax({url: urlLiveServer, 
+           type:'Get', 
             dataType: 'json', 
             context: this, 
-            complete: function(data) { alert(data.responseText) }});     // this.positionTheCameraLookingToSky(data.responseText); }});        
+            complete: function(data) { this.positionTheCameraLookingToSky(data.responseText); }});        
     }
 
     /**
@@ -241,8 +236,6 @@ export default class AstroAppEngine {
         this.t3GroundMouseControls.lookSpeed = .09;
         //Dont let user move side to side or forward/back.
         this.t3GroundMouseControls.movementSpeed = 0;
-
-        this.worldCamera.getMesh().reset();
     }
 
     /**

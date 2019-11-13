@@ -17,8 +17,8 @@ class homeController extends Controller {
         $this->view->render();
     }
     
-    public function display($lat, $long) {
+    public function display($_lat,  $_long) {
         $this->model('Coordinates');
-        echo $this->model->acquireAllCoordinates($lat, $long);
+        echo $this->model->acquireAllCoordinates(urldecode($_lat), urldecode($_long));
     }
 }
