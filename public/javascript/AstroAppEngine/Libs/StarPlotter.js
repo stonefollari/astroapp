@@ -138,6 +138,7 @@ export default class StarPlotter {
     retriveStarByName(_name) {
         //Scan the array to find the star by its name.
         for (let k = 0; k < this.starPlotItemsArray.length; k++) {
+            
             if (this.starPlotItemsArray[k].getName() === _name) {
                 //Star found, return object.
                 return this.starPlotItemsArray[k];
