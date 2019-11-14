@@ -1,6 +1,5 @@
-# @@ Keeping vendor in git, as it is small and may simplify pulling.
-	# ignore composer packages -- use composer install after pull
-	#/vendor
+# ignore composer packages
+/vendor
 
 # ignore environment variables
 *.env
