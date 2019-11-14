@@ -5,6 +5,7 @@
     define('MODEL', ROOT . 'src' . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR);
     define('DATA', ROOT . 'src' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR);
     define('CORE', ROOT . 'src' . DIRECTORY_SEPARATOR . 'core'. DIRECTORY_SEPARATOR);
+    define('ADAPTER', ROOT. 'src' . DIRECTORY_SEPARATOR . 'adapter' . DIRECTORY_SEPARATOR);
     define('CONTROLLER', ROOT . 'src' . DIRECTORY_SEPARATOR . 'controller'. DIRECTORY_SEPARATOR);
     $modules = [ROOT,APP,CORE,CONTROLLER,DATA];
     
