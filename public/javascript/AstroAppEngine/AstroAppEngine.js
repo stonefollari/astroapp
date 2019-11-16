@@ -96,10 +96,11 @@ export default class AstroAppEngine {
         let urlLiveServer = "/home/display/" + this.earth.getLat() + "/" + this.earth.getLong();
         //Download the constellations data. When set camera to look at sky.
         $.ajax({url: urlLiveServer,
-            type: 'Get',
+            type: 'GET',
             dataType: 'json',
             context: this,
             complete: function (data) {
+                //alert(data.responseText);
                 this.positionTheCameraLookingToSky(data.responseText);
             }});
     }

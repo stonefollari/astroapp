@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Set Location</title>
+        <link rel="stylesheet" href="/css/style.css" media="all">
+    </head>
+    <body>
+        <div class="loginContainer">
+            <img src="/img/logo.png" class="logo" alt="astro-logo">
+            <form action="http://localhost/location/setCity/" class="loginForm" method="post">
+                <div class="dropdown">
+                    <br>
+                    <?php
+                    $list = $this->viewData[0];
+                    echo '<select name="state">';
+                    foreach ($list as $select => $row) {
+                        echo '<option value=' . urlencode($row) . '>' . $row . '</option>';
+                    }
+                    echo '</select>';
+                    ?>
+                    <br>
+                </div>
+                <div>
+                    <input onclick="main.php" type="submit" value="Next" class="loginButton" method="get">
+                </div>
+            </form>
+            <form action="../../login/login/">
+                <input id="guest" type="submit" value="Back">
+            </form>
+    </body>
+</html>
