@@ -24,7 +24,11 @@ class Application {
             //Determine if the method exists within that controller.
             if (method_exists($this->controller, $this->action)) {
                 call_user_func_array([$this->controller, $this->action], $this->prams);
+            } else {
+                header('Location: http://localhost/');
             }
+        } else {
+            header('Location: http://localhost/');
         }
     }
 

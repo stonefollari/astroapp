@@ -40,6 +40,9 @@ class locationController extends Controller {
      */
 
     public function displayLocation() {
+    
+        //Change this
+        
         $_country = $_GET['country'];
         $_state = $_GET['state'];
         $_city = $_GET['city'];

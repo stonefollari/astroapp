@@ -62,14 +62,18 @@ class Coordinates {
       $objectData->acquireObjectData($object, $generalData, $observerData); //convert all the data from non-relative to relative coordinates.
 
       // Encode all the data in json format.
-      $output[$objectNumber] = json_encode(array('name' => $objectData->objectName[VALUE], 'right ascension' => $objectData->RA[VALUE], 'declination' => $objectData->DEC[VALUE], 'altitude' => $objectData->ALT[VALUE], 'azimuth' => $objectData->AZ[VALUE], 'connection' => $objectData->CONNECTION[VALUE]));
+      $output[$objectNumber] = array('name' => $objectData->objectName[VALUE], 'right ascension' => $objectData->RA[VALUE], 'declination' => $objectData->DEC[VALUE], 'altitude' => $objectData->ALT[VALUE], 'azimuth' => $objectData->AZ[VALUE], 'connection' => $objectData->CONNECTION[VALUE]);
       $objectNumber++;
 
       // $testOutput->displayData(array($objectData), 3);
     }
-
+    
+    $output = str_replace('}","{', '},{', $output);
+    $output = str_replace('["', '[', $output);
+    $output = str_replace('"]', ']', $output);
+    
     // Return the encoded data for all objects.
-    return $output;
+    return json_encode($output);
   }
 }
 

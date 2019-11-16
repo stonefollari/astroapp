@@ -47,8 +47,8 @@ class location {
         if (($handle = fopen(DATA . 'worldcities.csv', "r")) !== false) {
             while (($data = fgetcsv($handle, 1000, ",")) !== false) {
                 if ($data[10] == $ID) {
-                    $array[0] = $data[2];
-                    $array[1] = $data[3];
+                    $array[0] = (int)$data[2];
+                    $array[1] = (int)$data[3];
                 }
             }
             fclose($handle);
