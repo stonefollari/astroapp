@@ -13,23 +13,28 @@ include 'ObserverData.php'; // Observer data (such as latitude).
 include 'ObjectData.php'; // Non-relative object coordinates.
 
 include 'DataReceiver.php'; // Connects and gets data from various storages.
-include "AstronomyDatabase.php"; // An astronomical database.
-include "StarNamesData.php"; // Basic star data storage.
-include "TimeReceiver.php"; // Time and date receiver.
+include 'AstronomyDatabase.php'; // An astronomical database.
+include 'StarNamesData.php'; // Basic star data storage.
+include 'TimeReceiver.php'; // Time and date receiver.
 
-include "Definitions.php"; // Holds various definitions.
+include 'Definitions.php'; // Holds various definitions.
 
 include 'TestOutput.php'; // Extended console data output.
+
+include 'BasicConverterTester.php'; // Tests the output of the Relative Converter.
 
 $latitude = 0; $longitude = 0; // Hold latitude and longitude.
 
 $UNIVERSAL_TIME = "0"; // Holds the universal time.
 $DAYS_SINCE_EPOCH = "0"; // Holds days since epoch.
 
-// Combines the results from all the other functions and converts these to a JSON array.
+/*
+  Combines the results from all the other functions and converts these to a JSON array.
+  Author: 56361160991438
+*/
 
 class Coordinates {
-  function acquireAllCoordinates($latitude, $longitude){
+  public function acquireAllCoordinates($_latitude, $_longitude){
     $definitions = new Definitions; // Specifies various definitions for other classes.
     $definitions->makeDefinitions(); // Make defintions.
 
@@ -52,7 +57,7 @@ class Coordinates {
 
     // Create an object, whihc will contain all the observer data.
     $observerData = new ObserverData;
-    $observerData->acquireObserverData($generalData, $latitude, $longitude);
+    $observerData->acquireObserverData($generalData, $_latitude, $_longitude);
 
     // $testOutput->displayData(array($generalData, $observerData) , null);
 
@@ -67,6 +72,13 @@ class Coordinates {
 
       // $testOutput->displayData(array($objectData), 3);
     }
+
+    $output = stripslashes(json_encode($output));
+    $output = str_replace('}","{', '},{', $output);
+    $output = str_replace('["', '[', $output);
+    $output = str_replace('"]', ']', $output);
+
+    //echo $output;
 
     // Return the encoded data for all objects.
     return $output;

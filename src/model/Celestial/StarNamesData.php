@@ -1,11 +1,14 @@
 <?php
 
-// Gets basic star data from a text document.
+/*
+  Gets basic star data from a text document.
+  Author: 56361160991438
+*/
 
 class StarNamesData{
 
   // Gets star names from a text document.
-  function getStarNames(){
+  public function getStarNames(){
     $starNameInput = fopen(__DIR__ . '/star_name_input.txt', 'r'); // Gets all the text from the speicified file.
 
     $lineNumber = 0; // Keeps track of the line number.
@@ -17,8 +20,12 @@ class StarNamesData{
       // If the current symbol is specified as the end of the line, break and keep the position.
       while (true){
         $stopLine++;
-        if (substr($line, $stopLine, 1) === '-'){break;}
-        if (substr($line, $stopLine, 1) === '+'){break;}
+        if (substr($line, $stopLine, 1) === '-'){
+          break;
+        }
+        if (substr($line, $stopLine, 1) === '+'){
+          break;
+        }
       }
 
       $starNames[$lineNumber] = substr($line, 0, $stopLine); // Extract the star names from the text document.
@@ -31,7 +38,7 @@ class StarNamesData{
     return $starNames; // Return the data.
   }
 
-  function getStarConnections(){
+  public function getStarConnections(){
     $starNameInput = fopen(__DIR__ . '/star_name_input.txt', 'r'); // Uploads all the text from the file.
     $lineNumber = 0; // Go to the first line.
 
@@ -47,8 +54,13 @@ class StarNamesData{
       $nextConnected = 0;
       while (true){
         $stopLine++;
-        if (substr($line, $stopLine, 1) === '-'){$nextConnected = 1; break;}
-        if (substr($line, $stopLine, 1) === '+'){break;}
+        if (substr($line, $stopLine, 1) === '-'){
+          $nextConnected = 1;
+          break;
+        }
+        if (substr($line, $stopLine, 1) === '+'){
+          break;
+        }
       }
 
       $starConnections[$lineNumber] = null;
@@ -64,9 +76,5 @@ class StarNamesData{
   }
 
 }
-
-
-
-
 
 ?>

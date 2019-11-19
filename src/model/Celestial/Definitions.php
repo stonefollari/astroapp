@@ -1,12 +1,15 @@
 <?php
 
-// Create definitions for other classes.
+/*
+  Create definitions for other classes.
+  Author: 56361160991438
+*/
 
 class Definitions {
 
   // Make the definitions.
 
-  function makeDefinitions(){
+  public function makeDefinitions(){
 
     // Specify locations of data inside the array for the Coordinates class.
     define("NAME", 0);

@@ -1,28 +1,35 @@
 <?php
 
-// This object contains various functions for handing basic unit conversions, such as hours to degrees.
+/*
+  This object contains various functions for handing basic unit conversions, such as hours to degrees.
+  Author: 56361160991438
+*/
 
 class BasicConverter {
 
   // Converts date/time in days, hours and seconds to decimal format.
-  function convertTimeToDecimal($days, $hours, $minutes){
-    return $days + ($hours + $minutes / 60) / 24;
+  public function convertTimeToDecimal($_days, $_hours, $_minutes){
+    return $_days + ($_hours + $_minutes / 60) / 24;
   }
 
   // Convert hours, minutes and seconds to degrees, for both right ascesion and declination.
-  function convertToDegrees($degrees, $hours, $minutes, $seconds, $sign){
-    $result = abs($degrees + $minutes / 60 + $seconds / 3600) * ($sign === "-" ? -1 : 1);
-    if ($hours == null) return abs($degrees + $minutes / 60 + $seconds / 3600) * ($sign === "-" ? -1 : 1);
-    else return abs($hours + $minutes / 60 + $seconds / 3600) * 15 * ($sign === "-" ? -1 : 1);
+  public function convertToDegrees($_degrees, $_hours, $_minutes, $_seconds, $_sign){
+    //echo $_hours, "  ", $_minutes, "  ", $_seconds, "\n";
+    //$result = abs($_degrees + $_minutes / 60 + $_seconds / 3600) * ($_sign === "-" ? -1 : 1);
+    //echo $result, "\n";
+    if ($_hours == null) return abs($_degrees + $_minutes / 60 + $_seconds / 3600) * ($_sign === "-" ? -1 : 1);
+    else return abs($_hours + $_minutes / 60 + $_seconds / 3600) * 15 * ($_sign === "-" ? -1 : 1);
   }
 
   // Convert right ascension to hours from degrees.
-  function convertToHours($degrees, $RA){
-    if ($RA == true){$degrees /= 15;}
-    $hours = (int)$degrees;
-    $minutes = (int)(($degrees - $hours) * 60);
-    $seconds = (int)(($minutes - ($degrees - $hours) * 60) * 60);
-    if ($RA == false){
+  public function convertToHours($_degrees, $_RA){
+    if ($_RA == true){
+      $_degrees /= 15;
+    }
+    $hours = (int)$_degrees;
+    $minutes = (int)(($_degrees - $hours) * 60);
+    $seconds = (int)(($minutes - ($_degrees - $hours) * 60) * 60);
+    if ($_RA == false){
       if ($hours < 0 || $minutes < 0 || $seconds < 0){
         $result = "-";
       }
@@ -41,25 +48,25 @@ class BasicConverter {
   }
 
   // Normalize degree value in the range from 0 to 360.
-  function normalizeDegree($degree){
-    while ($degree < 0){$degree += 360;}
-    while ($degree > 360){$degree -= 360;}
-    return $degree;
+  public function normalizeDegree($_degree){
+    while ($_degree < 0){
+      $_degree += 360;
+    }
+    while ($_degree > 360){
+      $_degree -= 360;
+    }
+    return $_degree;
   }
 
   // Normalize observer position coordinates, if given as a string.
-  function normalizeCoordinates($type, $hemisphere, $value){
-    if ($type === "LAT" && $hemisphere === "S"){return $value * -1;}
-    if ($type === "LONG" && $hemisphere === "W"){return $value * -1;}
-    return $value;
-  }
-
-  // Convert ecliptic to equatorial observer-specific coordinates.
-  function eclipticToEquatorial($longitude, $latitude, $obliquity){
-    if ($obliquity == null){$obliquity = 23.4;} //an estimation of obliquity.
-    $equatorial['rightAscention'] = normalizeDegree(rad2deg(atan2(sin(deg2rad($longitude)) * cos(deg2rad($obliquity)) - tan(deg2rad($latitude)) * sin(deg2rad($obliquity)), cos(deg2rad($longitude)))));
-    $equatorial['declination'] = normalizeDegree(rad2deg(asin(sin(deg2rad($latitude)) * cos(deg2rad($obliquity)) + cos(deg2rad($latitude))) * sin(deg2rad($obliquity)) * sin(deg2rad($longitude))));
-    return $equatorial;
+  public function normalizeCoordinates($_type, $_hemisphere, $_value){
+    if ($_type === "LAT" && $_hemisphere === "S"){
+      return $_value * -1;
+    }
+    if ($_type === "LONG" && $_hemisphere === "W"){
+      return $_value * -1;
+    }
+    return $_value;
   }
 }
 
