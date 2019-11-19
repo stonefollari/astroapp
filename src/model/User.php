@@ -112,7 +112,7 @@ class User extends DataObject {
     /**
      * Wrapper for password_hash.
      */
-    public function hashPass( $_pass ) {
+    private function hashPass( $_pass ) {
        return password_hash( $_pass, PASSWORD_DEFAULT );
     }
 

@@ -101,7 +101,7 @@ class MySQLConnector {
 
 		// Construct the SELECT string.
 		$readQuery = "UPDATE $_dbTable SET $updatePairs WHERE $condition";
-		
+
 		// Execute the SELECT query.
 		$result = $this->runQuery($insertQuery);
 		return mysqli_fetch_assoc($result);
@@ -135,7 +135,7 @@ class MySQLConnector {
 
 		// Run the query, close the connection, and return.
 		$result = $this->conn->query($_query);
-		
+
 		$_debug = true;
 		$this->error($_debug);
 
@@ -205,7 +205,7 @@ class MySQLConnector {
 	 * Returns the UUID of the data.
 	 */
 	private function getUUID($_data){
-		$uuid =  $this->getFieldValue($_data, 'uuid'); 
+		$uuid =  $this->getFieldValue($_data, 'uuid');
 		return $this->formatValue($uuid);
 	}
 
@@ -218,7 +218,7 @@ class MySQLConnector {
 		$keyStr = implode(', ', $keys);
 		return '('.$keyStr.')';
 	}
-	
+
 	/**
 	* Extracts the values and formats for SQL query.
 	*/
@@ -294,7 +294,7 @@ class MySQLConnector {
 	 * Generates database and subsequent tables if they do not exist.
 	 */
 	private function initializeConfiguration() {
-		
+
 		// Create the database being used (If not exists).
 		$this->createDatabase($this->DEFAULT_DATABASE);
 
@@ -306,7 +306,7 @@ class MySQLConnector {
 	 * Creates database if it does not exist.
 	 */
 	private function createDatabase($_databaseName) {
-		
+
 		// Create the passed database if it does not exist.
 		$sql = "CREATE DATABASE IF NOT EXISTS $_databaseName";
 		$mysqli = new mysqli($this->sqlDSN, $this->sqlUser, $this->sqlPassword);
