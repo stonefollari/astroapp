@@ -1,3 +1,3 @@
 See "test_program.php" for receiving the output from the program. Essentially, a new "Coordinates" object has to be created, from which the
 "acquireAllCoordinates" function is to be called. The values which are passed to it are two doubles for latitude and longitude. The output is
-a string, formatted according to the agreed specifications.
+a string, formatted according to the agreed specifications. For the example of the output see "EXAMPLE_OUTPUT.txt"
