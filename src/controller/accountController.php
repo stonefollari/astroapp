@@ -42,23 +42,73 @@ class accountController extends Controller {
      * operation in the database. So far the database is a .csv file but it will
      * change to the SQL, so this is a dummy method to test logic components.
      */
-
     public function createUserAccount() {
-        $this->model('account');
+        // Postfiled input data from the user form.
+        $_username = $_POST["username"];
         $_firstName = $_POST['firstName'];
         $_lastName = $_POST['lastName'];
         $_email = $_POST['email'];
-        $_password1 = $_POST['password1'];
-        $_password2 = $_POST['password2'];
-        if ($_password1 == $_password2 && !$this->model->isUserActive($_email)) {
-            if ($this->model->createNewUser($_firstName, $_lastName, $_email, $_password1)) {
-                $this->view('\login\login');
-                $this->view->render();
-            }
-        } else {
+        $_password = $_POST['password'];
+        $_passwordConfirm = $_POST['passwordConfirm'];
+        
+        // Must clean all of this, still.
+        $dataArray = array(
+            'username'=> $_username,
+            'firstname'=>$_firstName,
+            'lastname'=>$_lastName,
+            'email'=>$_email,
+            'password'=> $_password,
+        );
+        $user = new User($dataArray);
+
+        // If passwords do not match, render bad credentials view.
+        if( $_password !== $_passwordConfirm ){
             $this->view('\account\badEmail');
-                $this->view->render();
+            $this->view->render();
         }
+
+        // If user alread exists, render bad credentials view.
+        if( $user->usernameExists() ){
+            $this->view('\account\badEmail');
+            $this->view->render(); 
+        }else if( $user->legalParams()){
+            $user->createObject();
+        }else{
+            $this->view('\account\badEmail');
+            $this->view->render(); 
+        }
+
+        
+
+        // Render the login view.
+        $this->view('\login\login');
+        $this->view->render();
+
+        // if ($_password1 == $_password2 && !$this->model->isUserActive($_email)) {
+        //     if ($this->model->createNewUser($_firstName, $_lastName, $_email, $_password1)) {
+        //         $this->view('\login\login');
+        //         $this->view->render();
+        //     }
+        // } else {
+        //     $this->view('\account\badEmail');
+        //         $this->view->render();
+        // }
+
+        // $this->model('account');
+        // $_firstName = $_POST['firstName'];
+        // $_lastName = $_POST['lastName'];
+        // $_email = $_POST['email'];
+        // $_password1 = $_POST['password1'];
+        // $_password2 = $_POST['password2'];
+        // if ($_password1 == $_password2 && !$this->model->isUserActive($_email)) {
+        //     if ($this->model->createNewUser($_firstName, $_lastName, $_email, $_password1)) {
+        //         $this->view('\login\login');
+        //         $this->view->render();
+        //     }
+        // } else {
+        //     $this->view('\account\badEmail');
+        //         $this->view->render();
+        // }
     }
 
     /*

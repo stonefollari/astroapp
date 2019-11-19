@@ -8,8 +8,7 @@
  */
 class DatabaseAdapter {
 
-    private $connection;
-    private static $RELATIVE_ROOT = '..\..\\';
+    private static $connection; //= new MySQLConnector();
 
     /**
      * Establish connection the the SQL database. This cannot be done when
@@ -34,11 +33,11 @@ class DatabaseAdapter {
     /**
      * Calls the SQL connections's readObject function.
      */
-    public static function readObject($_data, $_dbTable) {
+    public static function readObject($_data, $_dbTable, $_cond=null) {
 
         DatabaseAdapter::connect();
         // Call connection's readObject function and return the result.
-        return DatabaseAdapter::$connection->readObject($_data, $_dbTable);
+        return DatabaseAdapter::$connection->readObject($_data, $_dbTable, $_cond);
 
     }
 

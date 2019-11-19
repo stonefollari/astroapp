@@ -2,12 +2,16 @@
 <html>
     <head>
         <title>Create Account</title>
-        <link rel="stylesheet" href="/style.css" media="all">
+        <link rel="stylesheet" href="/css/style.css" media="all">
     </head>
     <body>
         <div class="createAccountContainer">
-            <img src="/logo.png" class="logo" alt = "astro-logo">
+            <img src="/img/logo.png" class="logo" alt = "astro-logo">
             <form action="http://localhost/account/createUserAccount/" class="createAccountForm" method="post">
+                <div>
+                    <label></label>
+                    <input type = "text" name= "username" placeholder="Username">
+                </div>
                 <div>
                     <label></label>
                     <input type = "text" name= "firstName" placeholder="First Name">
@@ -22,11 +26,11 @@
                 </div>
                 <div>
                     <label></label>
-                    <input type = "password" name= "password1" placeholder="Password">
+                    <input type = "password" name= "password" placeholder="Password">
                 </div>
                 <div>
                     <label></label>
-                    <input type = "password" name= "password2" placeholder="Re-enter Password">
+                    <input type = "password" name= "passwordConfirm" placeholder="Confirm Password">
                 </div>
                 <br>
                 <input type="submit" value="Create Account" class="createAccountButton">
