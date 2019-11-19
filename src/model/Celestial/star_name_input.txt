@@ -96,8 +96,4 @@ eta herculis-
 zeta herculis+
 m92+
 rasalgethi+
-<<<<<<< HEAD
 m13+
-=======
-m13+
->>>>>>> 5dd9cef21dfbfa4bd11b0b0563bfbba6ac81cd9e

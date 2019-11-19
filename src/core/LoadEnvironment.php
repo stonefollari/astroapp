@@ -84,7 +84,7 @@ class LoadEnvironment {
      * Searches pre-defined (anticipated) locations for an .env file.
      * If an .env file is found, the file path is returned.
      */
-    private static function findEnvFile(){
+    private static function findEnvFile() {
 
         // Loop through array of possible environment file paths.
         foreach( LoadEnvironment::$envFilePaths as $filePath ){
