@@ -16,6 +16,7 @@
  *
  * @author: Gabriel H.C.O.
  */
+
 class accountController extends Controller {
     /*
      * This controller function is to be called when the create account view
@@ -42,45 +43,48 @@ class accountController extends Controller {
      * operation in the database. So far the database is a .csv file but it will
      * change to the SQL, so this is a dummy method to test logic components.
      */
+
     public function createUserAccount() {
-        // Postfiled input data from the user form.
-        $_username = $_POST["username"];
-        $_firstName = $_POST['firstName'];
-        $_lastName = $_POST['lastName'];
-        $_email = $_POST['email'];
-        $_password = $_POST['password'];
-        $_passwordConfirm = $_POST['passwordConfirm'];
+
+        if (isset($_POST)) {
+            // Postfiled input data from the user form.
+            $_username = $_POST["username"];
+            $_firstName = $_POST['firstName'];
+            $_lastName = $_POST['lastName'];
+            $_email = $_POST['email'];
+            $_password = $_POST['password'];
+            $_passwordConfirm = $_POST['passwordConfirm'];
+        }
 
         // Must clean all of this, still.
         $dataArray = array(
-            'username'=> $_username,
-            'firstname'=>$_firstName,
-            'lastname'=>$_lastName,
-            'email'=>$_email,
-            'password'=> $_password,
+            'username' => $_username,
+            'firstname' => $_firstName,
+            'lastname' => $_lastName,
+            'email' => $_email,
+            'password' => $_password,
         );
 
         // Create a user object.
         $user = new User($dataArray);
 
         // Check bad signs, and return proper view. If all is good, create the object and return login screen.
-        if(true){
+        if (true) {
             echo '';
         }
-        if( $_password !== $_passwordConfirm ){
-            $this->view('\account\createAccount',array('error'=>"Supplied passwords do not match."))->render();
-        }else if( $user->usernameExists() ){
-            $this->view('\account\createAccount',array('error'=>"This username is already taken."))->render();
-        }else if( !$user->legalParams()){
-            $this->view('\account\createAccount',array('error'=>"Illegal username/password."))->render();
-        }else{
+        if ($_password !== $_passwordConfirm) {
+            $this->view('\account\createAccount', array('error' => "Supplied passwords do not match."))->render();
+        } else if ($user->usernameExists()) {
+            $this->view('\account\createAccount', array('error' => "This username is already taken."))->render();
+        } else if (!$user->legalParams()) {
+            $this->view('\account\createAccount', array('error' => "Illegal username/password."))->render();
+        } else {
             $user->createObject();
             $this->view('\login\login')->render();
         }
 
         // Render the login view.
         //$this->view('\login\login')->render();
-
         // if ($_password1 == $_password2 && !$this->model->isUserActive($_email)) {
         //     if ($this->model->createNewUser($_firstName, $_lastName, $_email, $_password1)) {
         //         $this->view('\login\login');
@@ -90,7 +94,6 @@ class accountController extends Controller {
         //     $this->view('\account\badEmail');
         //         $this->view->render();
         // }
-
         // $this->model('account');
         // $_firstName = $_POST['firstName'];
         // $_lastName = $_POST['lastName'];
