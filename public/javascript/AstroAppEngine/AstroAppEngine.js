@@ -133,13 +133,14 @@ export default class AstroAppEngine {
 
     positionTheCameraLookingToSky(_starData) {
         //Remove the globe controls.
-        this.removeT3MouseControls();
+       this.removeT3MouseControls();
 
         //Stop the earth from spining if it is.
         this.setIsEarthRotationOn(false);
 
         //Plot the downloaded stars.
         this.celestialSphere.plotStars(_starData);
+
 
         //Turn on the ground, now that we are going to be on the earth.
         this.earth.setGroundIsVisible(true);
