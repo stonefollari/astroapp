@@ -73,7 +73,7 @@ class User extends DataObject {
             return false;
         }else if( $u === null ) {
             return false;
-        }else if( length($u) < $USERNAME_MIN_LENGTH  ) {
+        }else if( strlen($u) < $this->USERNAME_MIN_LENGTH  ) {
             return false;
         }
         return true;
@@ -86,7 +86,7 @@ class User extends DataObject {
             return false;
         }else if( $u === null ) {
             return false;
-        }else if( length($u) < $PASSWORD_MIN_LENGTH  ) {
+        }else if( strlen($u) < $this->PASSWORD_MIN_LENGTH  ) {
             return false;
         }
         return true;
