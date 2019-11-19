@@ -57,9 +57,9 @@ class User extends DataObject {
      * Checks to see if all nessecary parameters and present and legal.
      */
     public function legalParams() {
-        $username = $this->legalUsername($this->username);
-        $pass = $this->password !== null;
-        if( $username && $pass) {
+        $legalUsername = $this->legalUsername($this->username);
+        $legalPassword = $this->legalPassword($this->password);
+        if( $legalUsername && $legalPassword) {
             return true;
         }else{
             return false;
@@ -82,11 +82,11 @@ class User extends DataObject {
     private function legalPassword($_password) {
         $p = $this->sanitizeInput($_password);
 
-        if( $u !== $_username ){
+        if( $p !== $_password ){
             return false;
-        }else if( $u === null ) {
+        }else if( $p === null ) {
             return false;
-        }else if( strlen($u) < $this->PASSWORD_MIN_LENGTH  ) {
+        }else if( strlen($p) < $this->PASSWORD_MIN_LENGTH  ) {
             return false;
         }
         return true;
