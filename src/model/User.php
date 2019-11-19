@@ -8,6 +8,8 @@ class User extends DataObject {
 
     protected $DATA_TYPE = 'users';
     private static $TABLE_NAME = 'users';
+    private $USERNAME_MIN_LENGTH = 3;
+    private $PASSWORD_MIN_LENGTH = 6;
 
     public $id;
     private $uuid;
@@ -43,7 +45,7 @@ class User extends DataObject {
     public function usernameExists() {
         $cond = "`username` = '$this->username'";
         $result = $this->readObject($cond);
-        
+
         if( $result ) {
             return true;
         }else{
@@ -55,13 +57,89 @@ class User extends DataObject {
      * Checks to see if all nessecary parameters and present and legal.
      */
     public function legalParams() {
-        $username = $this->username !== null;
+        $username = $this->legalUsername($this->username);
         $pass = $this->password !== null;
         if( $username && $pass) {
             return true;
         }else{
             return false;
         }
+    }
+
+    private function legalUsername($_username) {
+
+        $u = $this->scrubInput($_username);
+        if( $u !== $_username ){
+            return false;
+        }else if( $u === null ) {
+            return false;
+        }else if( length($u) < $USERNAME_MIN_LENGTH  ) {
+            return false;
+        }
+        return true;
+    }
+
+    private function legalPassword($_password) {
+        $p = $this->sanitizeInput($_password);
+
+        if( $u !== $_username ){
+            return false;
+        }else if( $u === null ) {
+            return false;
+        }else if( length($u) < $PASSWORD_MIN_LENGTH  ) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if a supplied password matches the database.
+     */
+    public function checkPass( $_pass=false ) {
+        $hashPass = $this->readValue('password');
+        if( !$_pass ){
+            $_pass = $this->password;
+        }
+
+        if( $hashPass ) {
+            return password_verify( $_pass, $hashPass );
+        }else{
+            return false;
+        }
+
+    }
+
+    /**
+     * Wrapper for password_hash.
+     */
+    public function hashPass( $_pass ) {
+       return password_hash( $_pass, PASSWORD_DEFAULT );
+    }
+
+    /**
+     * Cleans the input data.
+     */
+    private function cleanInput($_data) {
+        return $_data;
+    }
+
+    /**
+     * Sanatizes the  input data.
+     */
+    private function sanitizeInput($_data){
+        return $_data;
+    }
+
+    private function scrubInput($_data) {
+        return $this->sanitizeInput($this->cleanInput($_data));
+    }
+
+    /**
+     * Returns the value of the passed field, stored in the database.
+     */
+    public function readValue($_field){
+        $readData = $this->readObject();
+        return $this->extractValue($readData, $_field);
     }
 
     /**
@@ -110,11 +188,11 @@ class User extends DataObject {
      * Returns the key value if set, null otherwise.
      */
     private function extractValue($_valuePairs, $_key) {
-        
+
         // If value exists, return it.
         if( isset($_valuePairs[$_key]) ){
             return $_valuePairs[$_key];
-        
+
         // If key value pair is not set, return null.
         }else{
             return null;
@@ -130,7 +208,7 @@ class User extends DataObject {
     }
 
     //=================GETTERS===============
-    
+
     /**
      * Returns the key,value pairs for the object.
      */

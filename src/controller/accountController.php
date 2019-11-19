@@ -13,7 +13,7 @@
  * -----------------------------------
  * $this->view('\viewFolder\viewFile', []);
  * $this->view->render();
- * 
+ *
  * @author: Gabriel H.C.O.
  */
 class accountController extends Controller {
@@ -50,7 +50,7 @@ class accountController extends Controller {
         $_email = $_POST['email'];
         $_password = $_POST['password'];
         $_passwordConfirm = $_POST['passwordConfirm'];
-        
+
         // Must clean all of this, still.
         $dataArray = array(
             'username'=> $_username,
@@ -59,30 +59,27 @@ class accountController extends Controller {
             'email'=>$_email,
             'password'=> $_password,
         );
+
+        // Create a user object.
         $user = new User($dataArray);
 
-        // If passwords do not match, render bad credentials view.
+        // Check bad signs, and return proper view. If all is good, create the object and return login screen.
+        if(true){
+            echo '';
+        }
         if( $_password !== $_passwordConfirm ){
-            $this->view('\account\badEmail');
-            $this->view->render();
-        }
-
-        // If user alread exists, render bad credentials view.
-        if( $user->usernameExists() ){
-            $this->view('\account\badEmail');
-            $this->view->render(); 
-        }else if( $user->legalParams()){
-            $user->createObject();
+            $this->view('\account\createAccount',array('error'=>"Supplied passwords do not match."))->render();
+        }else if( $user->usernameExists() ){
+            $this->view('\account\createAccount',array('error'=>"This username is already taken."))->render();
+        }else if( !$user->legalParams()){
+            $this->view('\account\createAccount',array('error'=>"Illegal username/password."))->render();
         }else{
-            $this->view('\account\badEmail');
-            $this->view->render(); 
+            $user->createObject();
+            $this->view('\login\login')->render();
         }
-
-        
 
         // Render the login view.
-        $this->view('\login\login');
-        $this->view->render();
+        //$this->view('\login\login')->render();
 
         // if ($_password1 == $_password2 && !$this->model->isUserActive($_email)) {
         //     if ($this->model->createNewUser($_firstName, $_lastName, $_email, $_password1)) {

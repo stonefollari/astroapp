@@ -3,9 +3,16 @@
     <head>
         <title>Create Account</title>
         <link rel="stylesheet" href="/css/style.css" media="all">
+    <script>
+        let viewData = <?php $this->printViewData(); ?>
+    </script>
     </head>
     <body>
+        <div id="demo"></div>
         <div class="createAccountContainer">
+            <div class="badEmailMessage">
+                <h4 id="errorMessage"></h4>
+            </div>
             <img src="/img/logo.png" class="logo" alt = "astro-logo">
             <form action="http://localhost/account/createUserAccount/" class="createAccountForm" method="post">
                 <div>
@@ -39,5 +46,13 @@
                 <input id="guest" type="submit" value="Back">
             </form>
         </div>
+
+        <script>
+
+            let errorKey = 'error';
+            if( viewData.hasOwnProperty(errorKey) ) {
+                document.getElementById("errorMessage").innerHTML = viewData[errorKey];
+            }
+        </script>
     </body>
 </html>

@@ -52,7 +52,7 @@ ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
         <div id="asteroSpaceContainer" style="position:absolute;top:50px;width:100%;bottom: 0;background-color: black;font-weight: bold;"></div>
 
 
-        <script type="module"> 
+        <script type="module">
         import AstroAppEngine from "/javascript/AstroAppEngine/AstroAppEngine.js";
 
             let TRUE_VALUE = "true";
@@ -76,11 +76,11 @@ ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
             //start the astro space engine when browser
             //completes loading the page
             $(document).ready(function() {
-            
+
 
                 //Create the space engine.
                 mySpaceEngine = new AstroAppEngine();
-           
+
                 //Retrive the url Parameters settings passed in from url string.
                 let urlParamLatitudeValue = parseInt(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_LATITUDE, URL_PARAM_NAME_LATITUDE_DEFAULT));
                 let urlParamLongitudeValue = parseInt(mySpaceEngine.getUrlParameters(URL_PARAM_NAME_LONGITUDE, URL_PARAM_NAME_LONGITUDE_DEFAULT));
@@ -106,12 +106,12 @@ ViewStars.html?lat=35&long=-80&debug=false&mouseControl=true
                 //Set the lat long dots positions.
                 mySpaceEngine.moveLocation(urlParamLatitudeValue, urlParamLongitudeValue);
 
-            
+
                 $("#btnViewConstellations").on("click", function() {
                     $("#buttonTray").hide();
                     mySpaceEngine.moveCameraToGroundBasedOnLocation();
                 });
-            });        
+            });
         </script>
     </body>
 </html>
