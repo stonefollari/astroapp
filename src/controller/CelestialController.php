@@ -1,15 +1,10 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of celestialController
- *
- * @author Admin
+ * This is just a test controller for the celestial function acquireAllCoordinates(lat, long)
+ * 
+ * @author Gabriel H.C.O.
+ * 
+ * Last updated: 10/19/2019
  */
 class celestialController extends Controller {
 

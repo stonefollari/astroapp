@@ -15,6 +15,7 @@
  * These methods should be accessible from the location controller.
  * @author Gabriel H.C.O.
  */
+
 class location {
 
     protected static $dataFile;
@@ -27,6 +28,7 @@ class location {
      * This function finds the location ID related to $_country, $_state, $_city
      * parameters passed. It searches for the location in the database, .csv file.
      */
+
     public function getLocationID($_country, $_state, $_city) {
         $ID = null;
         if (($handle = fopen(DATA . 'worldcities.csv', "r")) !== false) {
@@ -38,22 +40,79 @@ class location {
         }
         return $ID;
     }
+
     /*
      * This function retrieves the lat long in JSON format based on a location ID
      * passed as the parameter. It searches for the location in the database, .csv file.
      */
-    function getLatLong($ID) {
+
+    public function getLatLong($ID) {
         $array = null;
         if (($handle = fopen(DATA . 'worldcities.csv', "r")) !== false) {
             while (($data = fgetcsv($handle, 1000, ",")) !== false) {
                 if ($data[10] == $ID) {
-                    $array[0] = (int)$data[2];
-                    $array[1] = (int)$data[3];
+                    $array[0] = (int) $data[2];
+                    $array[1] = (int) $data[3];
                 }
             }
             fclose($handle);
         }
         return json_encode($array);
+    }
+
+    public function getCountries() {
+        $array = [];
+        if (($handle = fopen(DATA . 'worldcities.csv', "r")) !== false) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
+                if (!in_array($data[4], $array)) {
+                    array_push($array, $data[4]);
+                }
+            }
+            fclose($handle);
+        }
+        return implode("\", \"", $array);
+    }
+
+    public function getStates() {
+        $array = [];
+        if (($handle = fopen(DATA . 'worldcities.csv', "r")) !== false) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
+                if (!in_array($data[7], $array)) {
+                    array_push($array, $data[7]);
+                }
+            }
+            fclose($handle);
+        }
+        return json_encode($array);
+    }
+
+    public function getCities() {
+        $array = [];
+        if (($handle = fopen(DATA . 'worldcities.csv', "r")) !== false) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
+                if (!in_array($data[1], $array)) {
+                    array_push($array, $data[1]);
+                }
+            }
+            fclose($handle);
+        }
+        return json_encode($array);
+    }
+
+    public function csvToJson($fileName) {
+        // open csv file
+        if (!($fp = fopen($fileName, 'r'))) {
+            die("Can't open file...");
+        }
+        $key = fgetcsv($fp, "1024", ",");
+        // parse csv rows into array
+        $json = array();
+        while ($row = fgetcsv($fp, "1024", ",")) {
+            $json[] = array_combine($key, $row);
+        }
+        fclose($fp);
+        // encode array to json
+        return json_encode($json);
     }
 
 }

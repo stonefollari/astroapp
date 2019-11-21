@@ -15,6 +15,8 @@
  * $this->view->render();
  * 
  * @author: Gabriel H.C.O.
+ * 
+ * Last updated: 10/19/2019
  */
 class loginController extends Controller {
 

@@ -4,6 +4,8 @@
  * This is the Application class that starts when you first open the site.
  *
  * @author Gabriel
+ * 
+ * Last updated: 09/20/2019
  */
 class Application {
 

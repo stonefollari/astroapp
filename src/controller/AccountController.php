@@ -15,6 +15,8 @@
  * $this->view->render();
  *
  * @author: Gabriel H.C.O.
+ * 
+ * Last updated: 11/19/2019
  */
 
 class accountController extends Controller {

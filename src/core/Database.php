@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines functions neccesary for Database classes.
+ * Defines functions necessary for Database classes.
  *
  * @author Michael Follari
  *

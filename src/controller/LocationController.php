@@ -15,6 +15,8 @@
  * $this->view->render();
  * 
  * @author: Gabriel H.C.O.
+ * 
+ * Last updated: 10/19/2019
  */
 
 class locationController extends Controller {
@@ -25,7 +27,7 @@ class locationController extends Controller {
 
     public function setLocation() {
         $this->model('location');
-        $this->view('\location\setLocation', []);
+        $this->view('\location\setLocation', [$this->model->getCountries()]);
         $this->view->render();
     }
 
@@ -71,6 +73,11 @@ class locationController extends Controller {
         $jsonData = json_encode($temp);
         return $jsonData;
     }
+    
+    public function locationJson() {
+        $this->model('location');
+        return $this->model->csvToJson(DATA . 'worldcities.csv');
+    }
 
     /*
      * This function receives the country, state, and city as parameters and
@@ -91,5 +98,5 @@ class locationController extends Controller {
         $this->model('location');
         return $this->model->getLatLong($ID);
     }
-
+    
 }

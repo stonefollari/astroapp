@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class to load thje environemnt, including autoloader
+ * Class to load the environment, including autoloader
  * and loading environment variables.
  *
  * @author Michael Follari

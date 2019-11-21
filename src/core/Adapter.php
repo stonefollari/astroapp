@@ -1,15 +1,11 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Adapter
+ *  This is a generic adapter with general object operations. 
  *
  * @author Gabriel
+ * 
+ * Last updated: 11/11/2019
  */
 interface Adapter {
 

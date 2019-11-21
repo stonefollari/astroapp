@@ -1,10 +1,11 @@
 <?php
 /**
- * Description of View
  *
  * View base class.
  *
  * @author Gabriel
+ * 
+ * Last updated: 09/20/2019
  */
 class View {
 
@@ -17,7 +18,6 @@ class View {
     }
     public function render() {
         if (file_exists(VIEW . $this->viewFile . '.phtml')) {
-            //echo "<script> let viewData =". json_encode($this->viewData) ." </script>";
             include VIEW . $this->viewFile . '.phtml';
         }
     }
@@ -31,5 +31,6 @@ class View {
     public function printViewData() {
         echo json_encode($this->viewData);
     }
+    
 
 }
