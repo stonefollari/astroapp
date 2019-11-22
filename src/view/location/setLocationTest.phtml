@@ -9,7 +9,7 @@
     <body>
         <script type="text/javascript">
             $(document).ready(function () {
-                
+
                 function clearAll() {
                     return;
                     $("#selCountries").val('');
@@ -39,7 +39,7 @@
                 $("#selCountries").change(function () {
                     $("#selStates").empty();
                     $("#selCities").empty();
-                    
+
                     var selectedCountry = $("#selCountries").val();
                     //alert(selectedCountry);
                     let urlLiveServer = "/location/getStates/" + encodeURI(selectedCountry);
@@ -58,9 +58,9 @@
                 });
 
                 $("#selStates").change(function () {
-                   
+
                     $("#selCity").empty();
-                    
+
                     var selectedCountry = $("#selCountries").val();
                     var selectedState = $("#selStates").val();
 
@@ -87,23 +87,24 @@
 
         <div class="loginContainer">
             <img src="/img/logo.png" class="logo" alt="astro-logo">
-            <form  class="loginForm" method="post">
+            <form action="../../location/displayLocation/" class="loginForm" method="post">
                 <br>
-                <select id="selCountries">
+                <select id="selCountries" name="country">
 
                 </select>
+                <br>
+                <br>
                 <select id="selStates" name="state">
 
                 </select>
-
+                <br>
+                <br>
                 <select id="selCity" name="city">
-                    <option value = "city">
 
-                    </option>
                 </select>
 
                 <div>
-                    <input type = "submit" value = "Go!" class = "loginButton">
+                    <input type = "submit" value = "Go!" class = "loginButton" method="post">
                 </div>
             </form>
             <form action = "../../login/login/">

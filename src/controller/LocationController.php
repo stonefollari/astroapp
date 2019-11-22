@@ -54,11 +54,9 @@ class LocationController extends Controller {
 
     public function displayLocation() {
 
-        //Change this
-
-        $_country = $_GET['country'];
-        $_state = $_GET['state'];
-        $_city = $_GET['city'];
+        $_country = $_POST['country'];
+        $_state = $_POST['state'];
+        $_city = $_POST['city'];
         $this->model('location');
         $ID = $this->model->getLocationID($_country, $_state, $_city);
         if ($ID != null) {
