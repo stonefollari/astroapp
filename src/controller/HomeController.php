@@ -17,7 +17,7 @@
  * 
  * Last updated: 11/19/2019
  */
-class homeController extends Controller {
+class HomeController extends Controller {
 
     public function viewStars() {
         $this->view('\home\ViewStars');

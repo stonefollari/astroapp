@@ -16,7 +16,7 @@
  * @author Gabriel H.C.O.
  */
 
-class location {
+class Location {
 
     protected static $dataFile;
 
@@ -70,14 +70,14 @@ class location {
             }
             fclose($handle);
         }
-        return implode("\", \"", $array);
+        return json_encode($array);
     }
 
-    public function getStates() {
+    public function getStates($country) {
         $array = [];
         if (($handle = fopen(DATA . 'worldcities.csv', "r")) !== false) {
             while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-                if (!in_array($data[7], $array)) {
+                if (!in_array($data[7], $array) && $country == $data[4]) {
                     array_push($array, $data[7]);
                 }
             }
@@ -86,11 +86,11 @@ class location {
         return json_encode($array);
     }
 
-    public function getCities() {
+    public function getCities($country ,$state) {
         $array = [];
         if (($handle = fopen(DATA . 'worldcities.csv', "r")) !== false) {
             while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-                if (!in_array($data[1], $array)) {
+                if (!in_array($data[1], $array) && $state == $data [7] && $country == $data [4]) {
                     array_push($array, $data[1]);
                 }
             }

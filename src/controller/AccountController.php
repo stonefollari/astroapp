@@ -19,7 +19,7 @@
  * Last updated: 11/19/2019
  */
 
-class accountController extends Controller {
+class AccountController extends Controller {
     /*
      * This controller function is to be called when the create account view
      * is to be rendered.

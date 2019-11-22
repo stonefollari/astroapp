@@ -25,7 +25,7 @@
  * @author Gabriel H.C.O.
  */
 
-class account {
+class Account {
 
     protected $firstName = "";
     protected $lastName = "";

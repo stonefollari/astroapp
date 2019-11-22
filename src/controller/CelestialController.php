@@ -6,7 +6,7 @@
  * 
  * Last updated: 10/19/2019
  */
-class celestialController extends Controller {
+class CelestialController extends Controller {
 
     public function getConstellation() {
         $this->model('Coordinates');

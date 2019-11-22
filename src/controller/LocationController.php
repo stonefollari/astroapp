@@ -19,7 +19,7 @@
  * Last updated: 10/19/2019
  */
 
-class locationController extends Controller {
+class LocationController extends Controller {
     /*
      * This controller function is to be called when the set location view
      * is to be rendered.
@@ -27,8 +27,19 @@ class locationController extends Controller {
 
     public function setLocation() {
         $this->model('location');
-        $this->view('\location\setLocation', [$this->model->getCountries()]);
+        $this->view('\location\setLocationTest', [$this->model->getCountries()]);
         $this->view->render();
+    }
+
+    public function setLocationPost() {
+        echo $_POST;
+        $messages = [
+            "country" => "*"
+        ];
+        $postback = [
+            "country" => "*"
+        ];
+        $country = $_postback["country"];
     }
 
     /*
@@ -42,9 +53,9 @@ class locationController extends Controller {
      */
 
     public function displayLocation() {
-    
+
         //Change this
-        
+
         $_country = $_GET['country'];
         $_state = $_GET['state'];
         $_city = $_GET['city'];
@@ -55,7 +66,7 @@ class locationController extends Controller {
             $this->view('\home\ViewStars', $this->setDisplaySettings("false", "true", $data));
             $this->view->render();
         } else {
-            $this->view('\location\setLocation', []);
+            $this->view('\location\setLocationTest', []);
             $this->view->render();
         }
     }
@@ -73,7 +84,7 @@ class locationController extends Controller {
         $jsonData = json_encode($temp);
         return $jsonData;
     }
-    
+
     public function locationJson() {
         $this->model('location');
         return $this->model->csvToJson(DATA . 'worldcities.csv');
@@ -99,4 +110,22 @@ class locationController extends Controller {
         return $this->model->getLatLong($ID);
     }
     
+    public function getCountries() {
+         $this->model('location');
+        echo $this->model->getCountries();
+    }
+
+    public function getStates($country) {
+        $country = urldecode($country);
+        $this->model('location');
+        echo $this->model->getStates($country);
+    }
+
+    public function getCities($country, $states) {
+        $country = urldecode($country);
+        $states = urldecode($states);
+        $this->model('location');
+        echo $this->model->getCities($country, $states);
+    }
+
 }

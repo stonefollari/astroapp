@@ -18,7 +18,7 @@
  * 
  * Last updated: 10/19/2019
  */
-class loginController extends Controller {
+class LoginController extends Controller {
 
     public function login() {
         $this->view('\login\login', []);

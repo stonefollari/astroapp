@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <script src="/javascript/ThirdParty/jquery.min.js"></script>
+        <title>Set Location</title>
+        <link rel="stylesheet" href="/css/style.css" media="all">
+    </head>
+    <body>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                
+                function clearAll() {
+                    return;
+                    $("#selCountries").val('');
+                    $("#selStates").val('');
+                    $("#selCities").val('');
+                }
+
+                function loadCountries()
+                {
+                    //alert(selectedCountry);
+                    let urlLiveServer = "/location/getCountries/";
+                    //Download the constellations data. When set camera to look at sky.
+                    $.ajax({url: urlLiveServer,
+                        type: 'GET',
+                        dataType: 'json',
+                        context: this,
+                        complete: function (data) {
+                            var elements = jQuery.parseJSON(data.responseText);
+                            for (var k = 0; k < elements.length; k++) {
+                                $("#selCountries").append('<option value="' + elements[k] + '">' + elements[k] + '</option>');
+                            }
+
+                        }});
+
+                }
+
+                $("#selCountries").change(function () {
+                    $("#selStates").empty();
+                    $("#selCities").empty();
+                    
+                    var selectedCountry = $("#selCountries").val();
+                    //alert(selectedCountry);
+                    let urlLiveServer = "/location/getStates/" + encodeURI(selectedCountry);
+                    //Download the constellations data. When set camera to look at sky.
+                    $.ajax({url: urlLiveServer,
+                        type: 'GET',
+                        dataType: 'json',
+                        context: this,
+                        complete: function (data) {
+                            var elements = jQuery.parseJSON(data.responseText);
+                            for (var k = 0; k < elements.length; k++) {
+                                $("#selStates").append('<option value="' + elements[k] + '">' + elements[k] + '</option>');
+                            }
+
+                        }});
+                });
+
+                $("#selStates").change(function () {
+                   
+                    $("#selCity").empty();
+                    
+                    var selectedCountry = $("#selCountries").val();
+                    var selectedState = $("#selStates").val();
+
+                    //alert(selectedCountry);
+                    let urlLiveServer = "/location/getCities/" + encodeURI(selectedCountry) + "/" + encodeURI(selectedState);
+                    //Download the constellations data. When set camera to look at sky.
+                    $.ajax({url: urlLiveServer,
+                        type: 'GET',
+                        dataType: 'json',
+                        context: this,
+                        complete: function (data) {
+                            var elements = jQuery.parseJSON(data.responseText);
+                            for (var k = 0; k < elements.length; k++) {
+                                $("#selCity").append('<option value="' + elements[k] + '">' + elements[k] + '</option>');
+                            }
+
+                        }});
+                });
+
+
+                loadCountries();
+            });
+        </script>
+
+        <div class="loginContainer">
+            <img src="/img/logo.png" class="logo" alt="astro-logo">
+            <form  class="loginForm" method="post">
+                <br>
+                <select id="selCountries">
+
+                </select>
+                <select id="selStates" name="state">
+
+                </select>
+
+                <select id="selCity" name="city">
+                    <option value = "city">
+
+                    </option>
+                </select>
+
+                <div>
+                    <input type = "submit" value = "Go!" class = "loginButton">
+                </div>
+            </form>
+            <form action = "../../login/login/">
+                <input id = "guest" type = "submit" value = "Back">
+            </form>
+    </body>
+    <script
+</html>
