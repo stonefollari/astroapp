@@ -19,6 +19,10 @@ class Application {
      */
 
     public function __construct() {
+
+        // Start session.
+        Application::startSession();
+
         $this->parseURL();
         //Determines if the controller exists.
         if (file_exists(CONTROLLER . $this->controller . '.php')) {
@@ -32,6 +36,23 @@ class Application {
         } else {
             header('Location: http://localhost/');
         }
+    }
+
+    /**
+     * Starts the session.
+     */
+    public static function startSession() {
+        session_start();
+    }
+
+    /**
+     * Ends the session; creates a new one immediately after.
+     */
+    public static function endSession(){
+        // Destroy the current session.
+        session_destroy();
+        // Restart a new session.
+        Application::startSession();
     }
 
     /*

@@ -14,28 +14,74 @@
  * $this->view('\viewFolder\viewFile', []);
  * $this->view->render();
  * 
- * @author: Gabriel H.C.O.
+ * @author: Gabriel H.C.O., Michael Follari
  * 
- * Last updated: 10/19/2019
+ * Last updated: 11/26/2019
  */
 class LoginController extends Controller {
 
-    public function login() {
-        $this->view('\login\login', []);
-        $this->view->render();
+    public function login($_error=false) {
+
+        // If user is already logged in.
+        if( isset($_SESSION['uuid']) ){
+            $this->progressToNextPage();
+            return;
+        }
+
+        $this->view('\login\login', [])->render();
     }
 
-    public function checkUserActive() {
-        $_userName = $_POST['username'];
-        $_password = $_POST['password'];
-        $this->model('account');
-        if ($this->model->checkCredentials($_userName, $_password)) {
-            $this->view('\home\3dTestBed');
-            $this->view->render();
+    /**
+     * Handles POST values for an attempted login.
+     * If credentials valid, the user is progressed to the next page.
+     */
+    public function attemptLogin() {
+        if( isset($_POST)){
+            $_username = $_POST['username'];
+            $_password = $_POST['password'];
+        }else{
+            $this->login();
+            return;
+        }
+
+        // Must clean all of this, still.
+        $dataArray = array(
+            'username' => $_username,
+            'password' => $_password,
+        );
+
+        // $this->model('user');
+        // Check the credentials passed. If crednetials are valid, sign user in.
+        if (!User::usernameExists($dataArray['username'])) {
+            $this->view('\login\login', array('error' => "This username does not exist."))->render();
+            return;
+        } else if (!User::checkCredentials($dataArray)) {
+            $this->view('\login\login', array('error' => "Invalid username/password."))->render();
+            return;
+        } else if (User::checkCredentials($dataArray)) {
+            // Log in the user and render the next page.
+            User::loginUser($dataArray);
+            $this->progressToNextPage();
+            return;
         } else {
-            $this->view('\login\badLogin');
-            $this->view->render();
+            // Render the login view with unexpected error.
+            $this->view('\login\login', array('error'=>'Unexpected error. Please try again.'))->render();
+            return;
         }
     }
 
+    /**
+     * Logs the user out, ends the session.
+     */
+    public function logout() {
+        Application::endSession();
+        $this->login();
+    }
+
+    /**
+     * Function to render the page progressed to.
+     */
+    private function progressToNextPage() {
+        $this->view('\location\setLocation')->render();
+    }
 }

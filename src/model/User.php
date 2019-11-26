@@ -8,8 +8,8 @@ class User extends DataObject {
 
     protected $DATA_TYPE = 'users';
     private static $TABLE_NAME = 'users';
-    private $USERNAME_MIN_LENGTH = 3;
-    private $PASSWORD_MIN_LENGTH = 6;
+    private static $USERNAME_MIN_LENGTH = 3;
+    private static $PASSWORD_MIN_LENGTH = 6;
 
     public $id;
     private $uuid;
@@ -40,11 +40,48 @@ class User extends DataObject {
     }
 
     /**
+     * Creates new user.
+     */
+    public static function createNewUser( $_valuePairs ) {
+        $user = new User($_valuePairs);
+        $user->createObject();
+        return $user;
+    }
+
+    /**
+     * Logs the user in, adds to the session variables.
+     */
+    public static function loginUser($_valuePairs) {
+        $username = User::extractValue($_valuePairs, 'username');
+        $user = User::getUserByUsername($username);
+
+        // Add the user to the session.
+        $user->addToSession();
+        
+    }
+
+    /**
+     * Adds class values to the session.
+     */
+    private function addToSession() {
+        $_SESSION['username'] = $this->username;
+        $_SESSION['uuid'] = $this->uuid;
+    }
+
+    /**
      * Checks if a user with username already exists.
      */
-    public function usernameExists() {
-        $cond = "`username` = '$this->username'";
-        $result = $this->readObject($cond);
+    public static function usernameExists($_username) {
+        // Reference to fieldname (incase it changes).
+        $field = 'username';
+
+        // Create a static user with username.
+        $staticValuePairs = array($field=>$_username);
+        $staticUser = User::staticUser($staticValuePairs);
+
+        $staticConditionValPairs = $staticValuePairs;
+        // Read the username from the database.
+        $result = $staticUser->readObject($staticConditionValPairs);
 
         if( $result ) {
             return true;
@@ -54,11 +91,38 @@ class User extends DataObject {
     }
 
     /**
+     * Gets the user from the database by username.
+     */
+    private static function getUserByUsername($_username){
+        // Reference to fieldname (incase it changes).
+        $field = 'username';
+
+        // Create a static user with username.
+        $staticValuePairs = array($field=>$_username);
+        $staticUser = User::staticUser($staticValuePairs);
+
+        $staticConditionValPairs = $staticValuePairs;
+        // Read the username from the database.
+        $result = $staticUser->readObject($staticConditionValPairs);
+
+        $user = new User($result);
+        return $user;
+    }
+
+
+    /**
+     * Creates and returns a static user for use in static functions calls.
+     */
+    private static function staticUser($_valuePairs=[]) {
+        return new User($_valuePairs);
+    }
+
+    /**
      * Checks to see if all nessecary parameters and present and legal.
      */
-    public function legalParams() {
-        $legalUsername = $this->legalUsername($this->username);
-        $legalPassword = $this->legalPassword($this->password);
+    public static function legalParams($_valuePairs) {
+        $legalUsername = User::legalUsername($_valuePairs['username']);
+        $legalPassword = User::legalPassword($_valuePairs['password']);
         if( $legalUsername && $legalPassword) {
             return true;
         }else{
@@ -66,27 +130,37 @@ class User extends DataObject {
         }
     }
 
-    private function legalUsername($_username) {
+    /**
+     * Checks to see if the passed username is legal.
+     * Must not contain any illegal characters, be longer than the minimum length,
+     * and must not be null.
+     */
+    private static function legalUsername($_username) {
 
-        $u = $this->scrubInput($_username);
+        $u = User::scrubInput($_username);
         if( $u !== $_username ){
             return false;
         }else if( $u === null ) {
             return false;
-        }else if( strlen($u) < $this->USERNAME_MIN_LENGTH  ) {
+        }else if( strlen($u) < User::$USERNAME_MIN_LENGTH  ) {
             return false;
         }
         return true;
     }
 
-    private function legalPassword($_password) {
-        $p = $this->sanitizeInput($_password);
+    /**
+     * Checks to see if the passed password is legal.
+     * Must not contain any illegal characters, be longer than the minimum length,
+     * and must not be null.
+     */
+    private static function legalPassword($_password) {
+        $p = User::sanitizeInput($_password);
 
         if( $p !== $_password ){
             return false;
         }else if( $p === null ) {
             return false;
-        }else if( strlen($p) < $this->PASSWORD_MIN_LENGTH  ) {
+        }else if( strlen($p) < User::$PASSWORD_MIN_LENGTH  ) {
             return false;
         }
         return true;
@@ -95,14 +169,19 @@ class User extends DataObject {
     /**
      * Checks if a supplied password matches the database.
      */
-    public function checkPass( $_pass=false ) {
-        $hashPass = $this->readValue('password');
-        if( !$_pass ){
-            $_pass = $this->password;
-        }
-
-        if( $hashPass ) {
-            return password_verify( $_pass, $hashPass );
+    public static function checkCredentials( $_valuePairs ) {
+        // Extract username ans password.
+        $username = User::extractValue($_valuePairs, 'username');
+        $password = User::extractValue($_valuePairs, 'password');
+        // Fetch the password from the database.
+        $user = User::getUserByUsername($username);
+        
+        // If the passwords match, return true.
+        // If user is false, the username does not exist.
+        if( $user ) {
+            $hashPass = $user->readValue('password');
+            return $hashPass === $password;
+            //return password_verify( $password, $hashPass );
         }else{
             return false;
         }
@@ -112,26 +191,26 @@ class User extends DataObject {
     /**
      * Wrapper for password_hash.
      */
-    private function hashPass( $_pass ) {
+    private static function hashPass( $_pass ) {
        return password_hash( $_pass, PASSWORD_DEFAULT );
     }
 
     /**
      * Cleans the input data.
      */
-    private function cleanInput($_data) {
+    private static function cleanInput($_data) {
         return $_data;
     }
 
     /**
      * Sanatizes the  input data.
      */
-    private function sanitizeInput($_data){
+    private static function sanitizeInput($_data){
         return $_data;
     }
 
     private function scrubInput($_data) {
-        return $this->sanitizeInput($this->cleanInput($_data));
+        return User::sanitizeInput(User::cleanInput($_data));
     }
 
     /**
@@ -139,7 +218,7 @@ class User extends DataObject {
      */
     public function readValue($_field){
         $readData = $this->readObject();
-        return $this->extractValue($readData, $_field);
+        return User::extractValue($readData, $_field);
     }
 
     /**
@@ -169,25 +248,25 @@ class User extends DataObject {
      */
     private function setValues($_valuePairs) {
 
-        $this->id = $this->extractValue($_valuePairs, 'id');
-        $this->uuid = $this->extractValue($_valuePairs, 'uuid');
-        $this->active = $this->extractValue($_valuePairs, 'active');
-        $this->deleted = $this->extractValue($_valuePairs, 'deleted');
-        $this->timestamp = $this->extractValue($_valuePairs, 'timestamp');
+        $this->id = User::extractValue($_valuePairs, 'id');
+        $this->uuid = User::extractValue($_valuePairs, 'uuid');
+        $this->active = User::extractValue($_valuePairs, 'active');
+        $this->deleted = User::extractValue($_valuePairs, 'deleted');
+        $this->timestamp = User::extractValue($_valuePairs, 'timestamp');
 
-        $this->username = $this->extractValue($_valuePairs, 'username');
-        $this->email = $this->extractValue($_valuePairs, 'email');
-        $this->firstname = $this->extractValue($_valuePairs, 'firstname');
-        $this->lastname = $this->extractValue($_valuePairs, 'lastname');
-        $this->phone = $this->extractValue($_valuePairs, 'phone');
-        $this->password = $this->extractValue($_valuePairs, 'password');
-        $this->location = $this->extractValue($_valuePairs, 'location');
+        $this->username = User::extractValue($_valuePairs, 'username');
+        $this->email = User::extractValue($_valuePairs, 'email');
+        $this->firstname = User::extractValue($_valuePairs, 'firstname');
+        $this->lastname = User::extractValue($_valuePairs, 'lastname');
+        $this->phone = User::extractValue($_valuePairs, 'phone');
+        $this->password = User::extractValue($_valuePairs, 'password');
+        $this->location = User::extractValue($_valuePairs, 'location');
     }
 
     /**
      * Returns the key value if set, null otherwise.
      */
-    private function extractValue($_valuePairs, $_key) {
+    private static function extractValue($_valuePairs, $_key) {
 
         // If value exists, return it.
         if( isset($_valuePairs[$_key]) ){
@@ -212,8 +291,29 @@ class User extends DataObject {
     /**
      * Returns the key,value pairs for the object.
      */
+
+    public function getUsername() {
+        return $this->username;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getFirstName() {
+        return $this->firstname;
+    }
+
+    public function getLastName() {
+        return $this->lastname;
+    }
+
+    public function getFullName($_delim=" ") {
+        return $this->getFirstName() . $_delim . $this->getLastName(); 
+    }
+
     public function getValues() {
-        return 'WIP, chill ur roll lil bud';
+        return array();
     }
 
     public function getDataType() {

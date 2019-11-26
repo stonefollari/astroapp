@@ -65,25 +65,31 @@ class MySQLConnector {
 	/**
 	 * Returns an associative array of the object's data.
 	 */
-	public function readObject($_data, $_dbTable, $_cond=null) {
+	public function readObject($_data, $_dbTable, $_conditionValPairs=null) {
 		// String specifying which fields to select (All for now).
 		$selectFields = '*';
 
-		// Construct the condition.
-		if( is_null($_cond) ){
+		// Construct the conditionValPairs if not exist.
+		// Defaults condition to UUID of _data.
+		if( is_null($_conditionValPairs) ){
 			$field = 'uuid';
 			$value = $this->getUUID($_data);
-			$condition = "`$field` = $value";
-		}else{
-			$condition = $_cond;
+			$_conditionValPairs = array($field=>$value);
 		}
+		// Genearte condition string.
+		$condition = $this->generateCondition($_conditionValPairs);
 
 		// Construct the SELECT string.
 		$readQuery = "SELECT $selectFields FROM $_dbTable WHERE $condition;";
-
+		
 		// Execute the SELECT query.
 		$result = $this->runQuery($readQuery);
-		return mysqli_fetch_assoc($result);
+		
+		if($result) {
+			return mysqli_fetch_assoc($result);
+		}else{
+			return null;
+		}
 	}
 
 	/**
@@ -206,7 +212,7 @@ class MySQLConnector {
 	 */
 	private function getUUID($_data){
 		$uuid =  $this->getFieldValue($_data, 'uuid');
-		return $this->formatValue($uuid);
+		return $uuid;
 	}
 
 	/**
@@ -232,11 +238,25 @@ class MySQLConnector {
 	private function generateUpdatePairs($_data) {
 		$stmtArray = array();
 		foreach( $_data as $key => $val ){
-			$stmtArray[] = "`$key`=$val";
+			$stmtArray[] = "`$key`='$val'";
 		}
 		$stmtString = implode(', ', $stmtArray);
-		echo $stmtString;
+		return $stmtString;
 	}
+
+	private function generateCondition($_data) {
+        
+		$stmtArray = array();
+		foreach( $_data as $key => $val ){
+			// If value is a string, add single quotes.
+			if(is_string($val)){
+				$val = "'".$val."'";
+			}
+			$stmtArray[] = "`$key`=$val";
+		}
+		$stmtString = implode(' AND ', $stmtArray);
+		return $stmtString;
+    }
 
 	/**
 	 * Format SQL values.
