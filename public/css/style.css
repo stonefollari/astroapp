@@ -1,89 +1,101 @@
 head {
-	font-family: "Arial";
-	color: #000;
+    font-family: "Arial";
+    color: #000;
 }
 .loginContainer {
-	text-align: center;
-	transform: translateY(40%);
+    text-align: center;
+    transform: translateY(40%);
 }
 .logo{
-	margin-left: auto;
-	margin-right: auto;
-	width: 10%;
-	border-radius: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+    border-radius: 12px;
 }
 .loginForm label{
-	position:relative;
-	display: block;
-	border-radius: 5px;
-	padding: 8px;
+    position:relative;
+    display: block;
+    border-radius: 5px;
+    padding: 8px;
 }
 .loginForm input {
-	border: 2px solid #eaeded;
-	border-radius: 5px;
-	padding: 8px;
-	width: 20%;
+    border: 2px solid #eaeded;
+    border-radius: 5px;
+    padding: 8px;
+    width: 20%;
 }
 .loginButton {
-	background-color: #4169E1;
-	color: #FFF;
-	width: 20%;
-	border: 2px solid #eaeded;
-	border-radius: 5px;
-	padding: 5px;
-	transform: translateY(80%);
-	margin: 1px;
-	cursor:pointer;
+    background-color: #4169E1;
+    color: #FFF;
+    width: 20%;
+    border: 2px solid #eaeded;
+    border-radius: 5px;
+    padding: 5px;
+    transform: translateY(80%);
+    margin: 1px;
+    cursor:pointer;
 }
 .createAccountContainer {
-	text-align: center;
-	transform: translateY(35%);
-	padding:5px;
+    text-align: center;
+    transform: translateY(35%);
+    padding:5px;
 }
 .createAccountForm label{
-	display: table-caption;
-	border-radius: 5px;
-	padding: 4px;
+    display: table-caption;
+    border-radius: 5px;
+    padding: 4px;
 }
 .createAccountForm input {
-	border: 2px solid #eaeded;
-	border-radius: 5px;
-	width: 20%;
-	padding: 6px;
+    border: 2px solid #eaeded;
+    border-radius: 5px;
+    width: 20%;
+    padding: 6px;
 }
 .createAccountButton {
-	background-color: #4169E1;
-	color: #FFF;
-	width: 20%;
-	border: 2px solid #eaeded;
-	border-radius: 5px;
-	padding: 5px;
-	transform: translateY(80%);
-	margin: 5px;
-	cursor:pointer;
+    background-color: #4169E1;
+    color: #FFF;
+    width: 20%;
+    border: 2px solid #eaeded;
+    border-radius: 5px;
+    padding: 5px;
+    transform: translateY(80%);
+    margin: 5px;
+    cursor:pointer;
 }
 .createAccountButton {
-	background-color: #4169E1;
-	color: #FFF;
-	width: 20%;
-	border: 2px solid #eaeded;
-	border-radius: 5px;
-	padding: 5px;
-	transform: translateY(100%);
-	margin: 5px;
+    background-color: #4169E1;
+    color: #FFF;
+    width: 20%;
+    border: 2px solid #eaeded;
+    border-radius: 5px;
+    padding: 5px;
+    transform: translateY(100%);
+    margin: 5px;
 }
 .gridContainer {
-	display: grid;
+    display: grid;
 
 }
 #guest {
-	color: #000;
-	transform: translateY(210%);
-	background-color: Transparent;
+    color: #000;
+    transform: translateY(210%);
+    background-color: Transparent;
     background-repeat:no-repeat;
     border: 1px solid #000;
-	border-radius :10px;
-	cursor: pointer;
+    border-radius :10px;
+    cursor: pointer;
+}
+#selCountries {
+    padding: 10px;
+    width: 15%;
+}
+#selStates {
+    padding: 10px;
+    width: 15%;
+}
+#selCity {
+    padding: 10px;
+    width: 15%;
 }
 /* @keyframes bounceIn {
   0% {
@@ -96,5 +108,5 @@ head {
 } */
 
 .viewConstellationsButton {
-	background-color: black;
+    background-color: black;
 }

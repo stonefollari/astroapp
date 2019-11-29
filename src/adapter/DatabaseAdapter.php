@@ -6,7 +6,7 @@
  * @author Michael Follari
  * Last Updated: 11/11/2019
  */
-class DatabaseAdapter {
+class DatabaseAdapter implements Adapter {
 
     private static $connection; //= new MySQLConnector();
 
