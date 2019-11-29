@@ -55,7 +55,7 @@ class AccountController extends Controller {
             $_email = $_POST['email'];
             $_password = $_POST['password'];
             $_passwordConfirm = $_POST['passwordConfirm'];
-        }else{
+        } else {
             $this->view('\account\createAccount')->render();
         }
 
@@ -81,7 +81,6 @@ class AccountController extends Controller {
             // Render the login view.
             $this->view('\login\login')->render();
         }
-
     }
 
     /*
@@ -90,14 +89,16 @@ class AccountController extends Controller {
      * change to the SQL, so this is a dummy method to test logic components.
      */
 
-    public function deletUserAccount() {
+    public function deleteUserAccount() {
+
         $_userName = $_POST['username'];
         $_password = $_POST['password'];
         $this->model('account');
+
         if ($this->model->deleteUser($_userName, $_password)) {
             header("Location: http://localhost/login/login/");
         } else {
-            //TODO : Account does not exist.
+            header("Location: http://localhost/account/deleteAccount/");
         }
     }
 

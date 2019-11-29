@@ -260,7 +260,7 @@ class MySQLConnector {
 
 	/**
 	 * Format SQL values.
-	 * If null value, repalce with NULL string.
+	 * If null value, replace with NULL string.
 	 * if others, add quotes.
 	 */
 	private function formatValues($_data) {

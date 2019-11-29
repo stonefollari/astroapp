@@ -31,17 +31,6 @@ class LocationController extends Controller {
         $this->view->render();
     }
 
-    public function setLocationPost() {
-        echo $_POST;
-        $messages = [
-            "country" => "*"
-        ];
-        $postback = [
-            "country" => "*"
-        ];
-        $country = $_postback["country"];
-    }
-
     /*
      * This controller function is to be called when the main display view
      * is to be rendered. The main display contains the javascript that is the
@@ -107,9 +96,9 @@ class LocationController extends Controller {
         $this->model('location');
         return $this->model->getLatLong($ID);
     }
-    
+
     public function getCountries() {
-         $this->model('location');
+        $this->model('location');
         echo $this->model->getCountries();
     }
 
