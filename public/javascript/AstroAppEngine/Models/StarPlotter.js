@@ -1,6 +1,6 @@
 /**
  * This class will plot stars on the Celestial Sphere.
- * 
+ *
  * Author Francis Perez Last Updated: 10/18/2019
  */
 class StarPlotter {
@@ -9,7 +9,7 @@ class StarPlotter {
     STAR_COLOR = "white";
     CONNECTING_LINE_COLOR = "white";
     CONNECTING_LINE_THICKNESS = .009;
-    
+
     starsCollectionJsonObject = null;
     celestialSphere = null;
 
@@ -17,9 +17,9 @@ class StarPlotter {
 
     widthSegments;
     heightSegments;
-       
+
     /**
-     * 
+     *
      * @param {CelestialSphere} _celestialSphere  - The Celestial Sphere where the stars where be ploted too.
      */
     constructor(_celestialSphere, _widthSegments, _heightSegments) {
@@ -48,11 +48,11 @@ class StarPlotter {
      */
     parseJsonToStarPlotItems() {
         this.starPlotItemsArray = new Array();
-        
+
         for (let k = 0; k < this.starsCollectionJsonObject.length; k++) {
-            
-            let newStarItem = new StarPlotItem(this.starsCollectionJsonObject[k], 
-                                            this.STAR_COLOR,this.STAR_DOT_RADIUS, 
+
+            let newStarItem = new StarPlotItem(this.starsCollectionJsonObject[k],
+                                            this.STAR_COLOR,this.STAR_DOT_RADIUS,
                                             this.widthSegments, this.heightSegments);
 
             this.starPlotItemsArray.push(newStarItem);
@@ -68,12 +68,12 @@ class StarPlotter {
             this.celestialSphere.getMesh().add(this.starPlotItemsArray[k].getMesh());
 
             //Move the star it place on the celestial sphere.
-            SphereObjectPositioner.positionObject(this.celestialSphere.getMesh(), 
+            SphereObjectPositioner.positionObject(this.celestialSphere.getMesh(),
                                                   this.celestialSphere.getRadius(),
-                                                  this.starPlotItemsArray[k].getMesh(),                                                   
-                                                  this.starPlotItemsArray[k].getDeclination(), 
+                                                  this.starPlotItemsArray[k].getMesh(),
+                                                  this.starPlotItemsArray[k].getDeclination(),
                                                   this.starPlotItemsArray[k].getRightAscension());
-                                                  
+
         }
     }
 
@@ -83,10 +83,10 @@ class StarPlotter {
     placeConnections() {
 
         for (let k = 0; k < this.starPlotItemsArray.length; k++) {
-            
+
             //Get the name of the what other star this star is connection to.
             let connectedToStarName = this.starPlotItemsArray[k].getConnectedTo();
-            
+
             //if no name, then the star is not connect to any other star, just skip.
             if (!connectedToStarName) {
                 continue;
@@ -120,6 +120,6 @@ class StarPlotter {
         return null;
     }
 
-    
-    
+
+
 }

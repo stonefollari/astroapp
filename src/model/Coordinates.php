@@ -1,27 +1,4 @@
 <?php
-include 'Times.php';
-
-include 'CelestialCoordinates.php'; // Non-relative celestial coordinates.
-include 'SolarCoordinates.php'; // Non-relative solar coordinates.
-include 'LunarCoordinates.php'; // Non-relative lunar cooridnates.
-
-include 'BasicConverter.php'; // Basic conversion (such as degrees to hours).
-include 'RelativeConverter.php'; // Relative conversions (such as universal to sidereal time).
-
-include 'GeneralData.php'; // General data (such as days since epoch).
-include 'ObserverData.php'; // Observer data (such as latitude).
-include 'ObjectData.php'; // Non-relative object coordinates.
-
-include 'DataReceiver.php'; // Connects and gets data from various storages.
-include 'AstronomyDatabase.php'; // An astronomical database.
-include 'StarNamesData.php'; // Basic star data storage.
-include 'TimeReceiver.php'; // Time and date receiver.
-
-include 'Definitions.php'; // Holds various definitions.
-
-include 'TestOutput.php'; // Extended console data output.
-
-include 'BasicConverterTester.php'; // Tests the output of the Relative Converter.
 
 $latitude = 0; $longitude = 0; // Hold latitude and longitude.
 
