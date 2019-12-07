@@ -1,7 +1,7 @@
 /**
  * This class will Create the engine the powers the constellations simulation.
  *
- * Author Francis Perez Last Updated: 11/2/2019
+ * Author Francis Perez Last Updated: 12/7/2019
  */
 
 import Camera from "./Objects/Camera.js";
@@ -11,8 +11,8 @@ import Sun from "./Objects/Sun.js";
 import CelestialSphere from "./Objects/CelestialSphere.js";
 
 export default class AstroAppEngine {
-    CONSTELLATIONS_CONTROLLER_ACTION_URL = ""
-    IMAGE_ROOT = "./img/";
+    CONSTELLATIONS_CONTROLLER_ACTION_URL = "/home/display/"
+    IMAGE_ROOT = "/img/";
     WIDTH_SEGMENTS = 45;
     HEIGHT_SEGMENTS = 45;
     SPACE_WORLD_COLOR = "black";
@@ -28,6 +28,11 @@ export default class AstroAppEngine {
     T3_MOUSE_CONTROLS_MAX_INERTIA_ENABLED = true;
     T3_MOUSE_CONTROLS_MAX_INERTIA_FACTOR = .09;
     CAMERA_FORWARD_DELTA = .001;
+    GROUD_LOOK_SPEED = .09;
+    GROUD_MOVE_SPEED = 0;
+    JS_DOM_RESIZE_EVENT = "resize";
+    HTTP_GET_VERB = "GET";
+    HTTP_JSON_VERB = "json";
 
     htmlHostControlObject = null;
 
@@ -55,7 +60,7 @@ export default class AstroAppEngine {
 
     /**
      * Set where the engine will render space to.
-    */
+     */
     run(_hostingElemenId) {
 
         // Setup the ticking clock for the simulation.
@@ -65,27 +70,27 @@ export default class AstroAppEngine {
 
         // Get the html object that we need to project too
         this.htmlHostControlObject = window.document.getElementById(_hostingElemenId);
-       
+
         //Set our world and objects.
-        this.setUpT3World(); 
+        this.setUpT3World();
         this.hookUpWindowOnResizeEvent();
         this.setUpT3GlobeMouseControls();
         this.setupT3InitSceneItems();
         this.screenRenderer();
     }
- 
+
     /**
      * Move camera to this location and move camera to look up to the stars.
      * @param {decimal} _latitude - Latitude of where the user still be looking up to the sky from.
      * @param {decimal} _longitude - Longitude of where the user still be looking up to the sky from.
      */
     moveLocation(_latitude, _longitude) {
-        
+
         //Move the lat long dot where the user is.
         this.earth.moveLocationDotPosition(_latitude, _longitude);
 
         //Move our observers dot above the users "head".
-        this.celestialSphere.moveObserversDotPosition(_latitude, _longitude);     
+        this.celestialSphere.moveObserversDotPosition(_latitude, _longitude);
     }
 
     /**
@@ -93,16 +98,16 @@ export default class AstroAppEngine {
      */
     moveCameraToGroundBasedOnLocation() {
         //Creat the url of where constellations data is.
-        //let url = "./javascript/sampleConst.Json";
-        //let url = "./javascript/EditedJson.Json";
-        let url = "./javascript/test.Json";
-
+        let urlLiveServer = this.CONSTELLATIONS_CONTROLLER_ACTION_URL + this.earth.getLat() + "/" + this.earth.getLong();
         //Download the constellations data. When set camera to look at sky.
-        $.ajax({url: url, 
-            type:'GET', 
-            dataType: 'json', 
-            context: this, 
-            complete: function(data) { this.positionTheCameraLookingToSky(data.responseText); }});        
+        $.ajax({url: urlLiveServer,
+            type: this.HTTP_GET_VERB,
+            dataType: this.HTTP_JSON_VERB,
+            context: this,
+            complete: function (data) {
+                //alert(data.responseText);
+                this.positionTheCameraLookingToSky(data.responseText);
+            }});
     }
 
     /**
@@ -111,16 +116,16 @@ export default class AstroAppEngine {
      * @param {String} _defaultvalue - If parameter does not exists, this value will be returned.
      */
     getUrlParameters(_parameter, _defaultvalue) {
-        
+
         //Create dictionary to hold url parameters.
         var urlParamters = {};
         //Parse the url string after the "?" into the dictionary.
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
             urlParamters[key] = value;
         });
-                
+
         //Get the index value of the the parameter we are looking for.
-        if(window.location.href.indexOf(_parameter) > -1) {
+        if (window.location.href.indexOf(_parameter) > -1) {
             //If the param is found then place the value in the temp variable.
             return urlParamters[_parameter];
         } else {
@@ -133,7 +138,7 @@ export default class AstroAppEngine {
 
     positionTheCameraLookingToSky(_starData) {
         //Remove the globe controls.
-        this.removeT3MouseControls();
+       this.removeT3MouseControls();
 
         //Stop the earth from spining if it is.
         this.setIsEarthRotationOn(false);
@@ -141,12 +146,13 @@ export default class AstroAppEngine {
         //Plot the downloaded stars.
         this.celestialSphere.plotStars(_starData);
 
-        //Turn on the ground, now that we are going to be on the earth.        
+
+        //Turn on the ground, now that we are going to be on the earth.
         this.earth.setGroundIsVisible(true);
-        
+
         //Move the camera to the location dot on the earth.
         this.worldCamera.moveTo(this.earth.getLocationDot().getMesh().getWorldPosition());
-        
+
         //Tell the camera to look at the point above the user's head.
         this.worldCamera.lookAt(this.celestialSphere.getObserversDot().getMesh().getWorldPosition());
 
@@ -163,7 +169,7 @@ export default class AstroAppEngine {
     setUpT3World() {
         this.setUpT3Rendere();
         this.setUpT3Scene();
-        this.setUpT3Camera();    
+        this.setUpT3Camera();
         this.setUpT3WorldLights();
     }
 
@@ -176,8 +182,8 @@ export default class AstroAppEngine {
         //Set the world color.
         this.t3Renderer.setClearColor(this.SPACE_WORLD_COLOR);
         //Set the renderer size based on where we are projecting too.
-        this.setUpT3RenderSize(); 
-        
+        this.setUpT3RenderSize();
+
     }
 
     /**
@@ -186,7 +192,7 @@ export default class AstroAppEngine {
     setUpT3Scene() {
         //Setup the 3d scene.
         this.t3Scene = new THREE.Scene();
-       
+
         //Project the 3d scene to the hosting html object.
         this.htmlHostControlObject.appendChild(this.t3Renderer.domElement);
     }
@@ -211,18 +217,18 @@ export default class AstroAppEngine {
         //Insert the light into the scene.
         this.t3Scene.add(light);
     }
-   
+
     /**
      * Set up the mouse controls, allow user to control the camera when viewing the earth from space.
      */
-    setUpT3GlobeMouseControls() {        
+    setUpT3GlobeMouseControls() {
         //Tell the engine what html control is our scene readered too.
         this.t3GlobeMouseControls = new THREE.OrbitControls(this.worldCamera.getMesh(), this.htmlHostControlObject);
         this.t3GlobeMouseControls.screenSpacePanning = true;
         //Give controls some inertia when panning.
         this.t3GlobeMouseControls.enableDamping = this.T3_MOUSE_CONTROLS_MAX_INERTIA_ENABLED;
         this.t3GlobeMouseControls.dampingFactor = this.T3_MOUSE_CONTROLS_MAX_INERTIA_FACTOR;
-        
+
         //Set the range of allow zoom.
         this.t3GlobeMouseControls.minDistance = this.T3_MOUSE_CONTROLS_MIN_DISTANCE;
         this.t3GlobeMouseControls.maxDistance = this.T3_MOUSE_CONTROLS_MAX_DISTANCE;
@@ -232,15 +238,13 @@ export default class AstroAppEngine {
     /**
      * Setup the ground mouse controls. This are used for the when the user is on the ground.
      */
-    setUpT3GroundControls() {        
+    setUpT3GroundControls() {
         //Tell the engine what html control is our scene readered too.
         this.t3GroundMouseControls = new THREE.FirstPersonControls(this.worldCamera.getMesh(), this.htmlHostControlObject);
         //Set the mouse speeds.
-        this.t3GroundMouseControls.lookSpeed = .09;
+        this.t3GroundMouseControls.lookSpeed = this.GROUD_LOOK_SPEED;
         //Dont let user move side to side or forward/back.
-        this.t3GroundMouseControls.movementSpeed = 0;
-
-        this.worldCamera.getMesh().reset();
+        this.t3GroundMouseControls.movementSpeed = this.GROUD_MOVE_SPEED;
     }
 
     /**
@@ -255,12 +259,12 @@ export default class AstroAppEngine {
      * Update the engine when the window is resized.
      */
     hookUpWindowOnResizeEvent() {
-
+        
         //Hook up to the browser resize event.
-        window.addEventListener('resize', () => {
+        window.addEventListener(this.JS_DOM_RESIZE_EVENT, () => {
 
             //Remove the render.
-            this.setUpT3RenderSize();            
+            this.setUpT3RenderSize();
 
             //Calculate the new screen ratio.
             this.worldCamera.getMesh().aspect = this.htmlHostControlObject.offsetWidth / this.htmlHostControlObject.offsetHeight;
@@ -290,14 +294,14 @@ export default class AstroAppEngine {
         //Add sun the the scene.
         this.t3Scene.add(sun.getMesh());
         //Move the sun off center.
-        sun.getMesh().position.x = this.SUN_POSITION_X;       
+        sun.getMesh().position.x = this.SUN_POSITION_X;
 
         //Create celestialSphere.
         this.celestialSphere = new CelestialSphere(this.CELESTIAL_SPHERE_RADIUS, this.WIDTH_SEGMENTS, this.HEIGHT_SEGMENTS);
         this.t3Scene.add(this.celestialSphere.getMesh());
 
-         //Keep looking at the earth objects.
-         this.worldCamera.getMesh().lookAt(this.earth.getMesh().position);
+        //Keep looking at the earth objects.
+        this.worldCamera.getMesh().lookAt(this.earth.getMesh().position);
     }
 
     /**
@@ -306,12 +310,14 @@ export default class AstroAppEngine {
     screenRenderer() {
 
         //Ask the browser for the next animation frame and when ready run the this function again.
-        let reqId = requestAnimationFrame(()=> {this.screenRenderer()});
+        let reqId = requestAnimationFrame(() => {
+            this.screenRenderer()
+        });
         //Add a tick to the our space time.
         this.t3spaceTimeDelta += this.t3spaceTime.getDelta();
 
         //Can we rendere a new frame.
-        if (this.t3spaceTimeDelta > this.T3_SPACE_TIME_FRAMES_PER_SECONDS ) {
+        if (this.t3spaceTimeDelta > this.T3_SPACE_TIME_FRAMES_PER_SECONDS) {
 
             //Tell all objects to update themselves.
             this.screenUpdate();
@@ -321,12 +327,12 @@ export default class AstroAppEngine {
             //Add time ticks.
             this.t3spaceTimeDelta %= this.T3_SPACE_TIME_FRAMES_PER_SECONDS;
         }
-    };
-
-    /**
-     * Update our screen object positions. This function will be called by the system at a 30 frames per seconds.
-     */
-    screenUpdate() {
+    }
+    ;
+            /**
+             * Update our screen object positions. This function will be called by the system at a 30 frames per seconds.
+             */
+            screenUpdate() {
 
         // Update the earth's internal calculations.
         this.earth.update();
@@ -340,16 +346,16 @@ export default class AstroAppEngine {
         if (this.t3GroundMouseControls) {
             this.t3GroundMouseControls.update(this.t3spaceTimeDelta);
         }
-           
+
         //Update the camera's internal calculations.
         this.worldCamera.update();
-    };
+    }
+    ;
+            /**
+             * Removes the mouse controls, that allow orbiting of the the earth.
+             */
+            removeT3MouseControls() {
 
-    /**
-     * Removes the mouse controls, that allow orbiting of the the earth.
-     */
-    removeT3MouseControls() {
-        
         if (!this.t3GlobeMouseControls) {
             return;
         }
@@ -359,11 +365,11 @@ export default class AstroAppEngine {
     }
 
     //============GETTERS==================================
-    getIsDebugObjectsShown = function() {
+    getIsDebugObjectsShown = function () {
         return this.isDebugObjectsShown;
     }
 
-    getIsMouseControlOn = function() {
+    getIsMouseControlOn = function () {
         return this.t3GlobeMouseControls.enabled;
     }
 
@@ -391,7 +397,7 @@ export default class AstroAppEngine {
         this.earth.setIsEarthRotationOn(_rotate);
     }
 
-    setIsCelestSphereVisible  = function (_visible) {
+    setIsCelestSphereVisible = function (_visible) {
         this.celestSphere.setIsVisible(_visible);
     }
 }

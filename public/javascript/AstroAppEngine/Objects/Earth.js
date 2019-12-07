@@ -1,7 +1,7 @@
 /**
  * This class will Create the earth and its need objects.
  *
- * Author Francis Perez Last Updated: 11/2/2019
+ * Author Francis Perez Last Updated: 12/7/2019
  */
 
 import Dot from "./Dot.js";
@@ -23,6 +23,7 @@ export default class Earth {
     MERIDIAN_HEIGHT = .009;
     CELESTIAL_SPHERE_RADIUS = 2;
     EARTHS_TILT = -23.5;
+    EARTHS_GROUND_COLOR = "green";
     PRIME_MERIDIAN_TILT = 90;
     EARTHS_ROTATION_DEFAULT_DEGREE = .08;
     EARTHS_DEFAULT_ROTATOIN_STARTING_POINT = 180;
@@ -120,7 +121,7 @@ export default class Earth {
         //Create our spining axis.
         this.axis = new Pipe(this.EQUATOR_COLOR, this.AXIS_WIDTH, this.radius + this.AXIS_EXTENSION_HEIGHT, this.widthSegments, false);
         //Create our ground.
-        this.observersGround = new Horizon("green", this.radius, this.radius, this.widthSegments, this.heightSegments, this.imgRoot);
+        this.observersGround = new Horizon(this.EARTHS_GROUND_COLOR, this.radius, this.radius, this.widthSegments, this.heightSegments, this.imgRoot);
         this.observersGround.setIsVisible(false);
        
         //Create the object that will host all of our scene objects.
@@ -138,7 +139,7 @@ export default class Earth {
 
         this.hostingObjectMesh.add(this.observersGround.getMesh());
 
-        //Aet prime vertical.
+        //Set prime vertical.
         this.primeMeridian.getMesh().rotation.x = THREE.Math.degToRad(this.PRIME_MERIDIAN_TILT);
 
         //Earth's tilt.
@@ -202,6 +203,14 @@ export default class Earth {
 
     getLocationDot = function(){
         return this.locationDot;
+    }
+
+    getLat = function() {
+        return this.locationDotLatitude;
+    }
+
+    getLong = function(){
+        return this.locationDotLongitude;
     }
 
     //============SETTERS==================================

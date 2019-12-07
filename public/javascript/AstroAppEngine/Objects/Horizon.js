@@ -1,7 +1,7 @@
 /**
  * This class will Create the earth's Horizon when the user is on the ground viewing the stars.
  *
- * Author Francis Perez Last Updated: 11/2/2019
+ * Author Francis Perez Last Updated: 12/7/2019
  */
 import Pipe from "./Pipe.js";
 
@@ -12,6 +12,9 @@ export default class Horizon {
     MATERIAL_DEPTHWRITE = true;
     MATERIAL_WIREFRAME =  true;
     MATERIAL_RENDERORDER = 1;
+    GIMBAL_STARTING_DEGREE = 90;
+    GIMBAL_STARTING_DEGREE_Longitude = 360;
+    GROUND_HEIGHT = .001;
 
     texturePath;
     color;
@@ -36,8 +39,8 @@ export default class Horizon {
 
     //==========public functions==========================
     positionHorizon(_latitude, _longitude) {
-        this.objectOuter.rotation.y = THREE.Math.degToRad(90 - ( 360 -  _longitude));
-        this.objectInner.rotation.x = THREE.Math.degToRad(90 - (_latitude));
+        this.objectOuter.rotation.y = THREE.Math.degToRad(this.GIMBAL_STARTING_DEGREE - ( this.GIMBAL_STARTING_DEGREE_Longitude -  _longitude));
+        this.objectInner.rotation.x = THREE.Math.degToRad(this.GIMBAL_STARTING_DEGREE - (_latitude));
     }
 
 
@@ -70,13 +73,13 @@ export default class Horizon {
         
 
         //Create the horizon "ground".
-        this.ground = new Pipe(this.color, this.radius, .001, this.widthSegments, false, this.texturePath);
+        this.ground = new Pipe(this.color, this.radius, this.GROUND_HEIGHT, this.widthSegments, false, this.texturePath);
         this.objectInner.add(this.ground.getMesh());
 
         //Poition the "ground" at a standard location.
         this.ground.getMesh().position.y = this.groundAltitude;
-        this.objectInner.rotation.x = THREE.Math.degToRad(90);
-        this.objectOuter.rotation.y = THREE.Math.degToRad(90);
+        this.objectInner.rotation.x = THREE.Math.degToRad(this.GIMBAL_STARTING_DEGREE);
+        this.objectOuter.rotation.y = THREE.Math.degToRad(this.GIMBAL_STARTING_DEGREE);
     }
 
     //============SETTERS==================================
