@@ -328,11 +328,10 @@ export default class AstroAppEngine {
             this.t3spaceTimeDelta %= this.T3_SPACE_TIME_FRAMES_PER_SECONDS;
         }
     }
-    ;
-            /**
-             * Update our screen object positions. This function will be called by the system at a 30 frames per seconds.
-             */
-            screenUpdate() {
+    /**
+     * Update our screen object positions. This function will be called by the system at a 30 frames per seconds.
+     */
+    screenUpdate() {
 
         // Update the earth's internal calculations.
         this.earth.update();
@@ -350,11 +349,10 @@ export default class AstroAppEngine {
         //Update the camera's internal calculations.
         this.worldCamera.update();
     }
-    ;
-            /**
-             * Removes the mouse controls, that allow orbiting of the the earth.
-             */
-            removeT3MouseControls() {
+    /**
+     * Removes the mouse controls, that allow orbiting of the the earth.
+     */
+    removeT3MouseControls() {
 
         if (!this.t3GlobeMouseControls) {
             return;

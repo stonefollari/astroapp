@@ -1,18 +1,22 @@
 <?php
 
-// Estimates and returns current lunar non-relative coordinates as an array.
+/*
+  Estimates and returns current lunar non-relative coordinates as an array.
+  Author: 56361160991438
+*/
+
 class LunarCoordinates{
 
-  function getLunarCoordinates($daysSinceEpoch){
+  public function getLunarCoordinates($_daysSinceEpoch){
     $converter = new BasicConverter; // Create a new basic converter.
 
     // Specific estimated values, relevant to the lunar coordinate estimation algorithm.
-    $ascendingNode = $converter->normalizeDegree(125.1228 - 0.0529538083 * $daysSinceEpoch);
+    $ascendingNode = $converter->normalizeDegree(125.1228 - 0.0529538083 * $_daysSinceEpoch);
     $inclination = 5.1454;
-    $perigee = $converter->normalizeDegree(318.0634 + 0.1643573223 * $daysSinceEpoch);
+    $perigee = $converter->normalizeDegree(318.0634 + 0.1643573223 * $_daysSinceEpoch);
     $meanDistance = 60.2666;
     $eccentricity = 0.054900;
-    $meanAnomaly = $converter->normalizeDegree(115.3654 + 13.0649929509 * $daysSinceEpoch);
+    $meanAnomaly = $converter->normalizeDegree(115.3654 + 13.0649929509 * $_daysSinceEpoch);
 
     $eccentricAnomaly_1 = $meanAnomaly + rad2deg($eccentricity * sin(deg2rad($meanAnomaly)) * (1  + $eccentricity * cos(deg2rad($meanAnomaly))));
 

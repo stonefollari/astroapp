@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Description of Controller
- * 
+ *
  * Controller base class.
  *
  * @author Gabriel
+ * Last updated: 09/20/2019
  */
 class Controller {
 

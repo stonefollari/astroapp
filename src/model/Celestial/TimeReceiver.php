@@ -1,16 +1,19 @@
 <?php
 
-// Find out the current universal time.
+/*
+  Find out the current universal time.
+  Author: 56361160991438
+*/
 
 class TimeReceiver{
-  function getUniversalTime(){
-    $URL = "http://worldtimeapi.org/api/timezone/Etc/UTC.txt";
-    $dataStream = curl_init();
-    curl_setopt($dataStream, CURLOPT_URL, $URL);
-    curl_setopt($dataStream, CURLOPT_RETURNTRANSFER, true);
-    $dataStreamOutput = curl_exec($dataStream);
+  public function getUniversalTime(){
+    $URL = "http://worldtimeapi.org/api/timezone/Etc/UTC.txt"; // Set the url to the world time api.
+    $dataStream = curl_init(); // Create a new standard php data stream.
+    curl_setopt($dataStream, CURLOPT_URL, $URL); // Set the data stream to the provided url.
+    curl_setopt($dataStream, CURLOPT_RETURNTRANSFER, true); // Allow to view data received.
+    $dataStreamOutput = curl_exec($dataStream); // Receive the data and store it in a string.
 
-    return $dataStreamOutput;
+    return $dataStreamOutput; // Return the string.
   }
 }
 

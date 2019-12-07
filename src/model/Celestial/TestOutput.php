@@ -1,14 +1,18 @@
 <?php
 
-//Formats an extended data output to the windows console.
+/*
+  Formats an extended data output to the windows console.
+  Author: 56361160991438
+*/
+
 class TestOutput {
-  function displayData($data, $line){
-    foreach ($data as $currentData){
+  public function displayData($_data, $_line){
+    foreach ($_data as $currentData){
     echo "\n", "=======================================", "\n";
       echo $currentData->name, "\n", "_______________________________________", "\n";
       $lineX = 0;
       foreach($currentData->data as $dataField){
-        if ($lineX != null && $lineX == $line){echo "---------------------------------------", "\n";}
+        if ($lineX != null && $lineX == $_line){echo "---------------------------------------", "\n";}
         echo $dataField[NAME], ": ", $dataField[VALUE], "\n";
         $lineX++;
       }

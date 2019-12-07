@@ -1,13 +1,22 @@
+<?php
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
         <title>Astroapp Login</title>
         <link rel="stylesheet" href="/css/style.css" media="all">
+        <script>
+            let viewData = <?php $this->printViewData(); ?>
+        </script>
     </head>
     <body>
         <div class="loginContainer">
+            <div class="">
+                <h4 id="errorMessage"></h4>
+            </div>
             <img src="/img/logo.png" class="logo" alt="astro-logo">
-            <form action= "../../login/checkUserActive/" class="loginForm" method="post">
+            <form action= "../../login/attemptLogin/" class="loginForm" method="post">
                 <div>
                     <label></label>
                     <input type = "text" name= "username" placeholder="Email">
@@ -27,10 +36,18 @@
                 </div>
             </form>
             <form action="../../account/deleteAccount/">
-                <input id="deleteAccount" type="submit" value="Delete Account">
+                <input class="createAccountButton" type="submit" value="Delete Account">
             </form>
             <form action="../../location/setLocation/">
                 <input id="guest" type="submit" value="Guest User">
             </form>
+        </div>
+        <script>
+
+        let errorKey = 'error';
+        if( viewData.hasOwnProperty(errorKey) ) {
+            document.getElementById("errorMessage").innerHTML = viewData[errorKey];
+        }
+        </script>
     </body>
 </html>

@@ -204,6 +204,14 @@ export default class Earth {
     getLocationDot = function(){
         return this.locationDot;
     }
+   
+    getLat = function() {
+        return this.locationDotLatitude;
+    }
+
+    getLong = function(){
+        return this.locationDotLongitude;
+    }
 
     getLat = function() {
         return this.locationDotLatitude;
