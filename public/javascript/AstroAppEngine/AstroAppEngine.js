@@ -11,7 +11,7 @@ import Sun from "./Objects/Sun.js";
 import CelestialSphere from "./Objects/CelestialSphere.js";
 
 export default class AstroAppEngine {
-    CONSTELLATIONS_CONTROLLER_ACTION_URL = "/home/display/"
+    CONSTELLATIONS_CONTROLLER_ACTION_URL = "/home/display/";
     IMAGE_ROOT = "/img/";
     WIDTH_SEGMENTS = 45;
     HEIGHT_SEGMENTS = 45;
