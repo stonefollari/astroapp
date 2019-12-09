@@ -1,8 +1,12 @@
 <?php
 
 /**
- * User class.
- * Used in creating new users, updating a users values, and inserting into database via DatabaseAdapter.
+ * This is the Users class.
+ * It is used in creating new users, updating a users values, and inserting a user into a database via DatabaseAdapter.
+ *
+ * @author Michael Follari
+ *
+ * Last Updated: 12/09/2019
  */
 class User extends DataObject {
 
@@ -25,6 +29,8 @@ class User extends DataObject {
     private $password;
     private $location;
 
+    // Protected keys are keys that should be protected from leaks,
+    // that is, not returned in all read operations. (This is not implemented.)
     private $protectedKeys = array('password');
 
     public function __construct($_valuePairs) {
@@ -57,21 +63,18 @@ class User extends DataObject {
 
         // Add the user to the session.
         $user->addToSession();
-        
-    }
 
-    /**
-     * Adds class values to the session.
-     */
-    private function addToSession() {
-        $_SESSION['username'] = $this->username;
-        $_SESSION['uuid'] = $this->uuid;
     }
 
     /**
      * Checks if a user with username already exists.
      */
     public static function usernameExists($_username) {
+        // Ensure the username is legal before bothering to check it exists.
+        if( !User::legalUsername( $_username ) ) {
+            return false;
+        }
+
         // Reference to fieldname (incase it changes).
         $field = 'username';
 
@@ -88,6 +91,35 @@ class User extends DataObject {
         }else{
             return false;
         }
+    }
+
+    /**
+     * Checks if a supplied password matches the database.
+     */
+    public static function checkCredentials( $_valuePairs ) {
+        // Extract username ans password.
+        $username = User::extractValue($_valuePairs, 'username');
+        $password = User::extractValue($_valuePairs, 'password');
+        // Fetch the password from the database.
+        $user = User::getUserByUsername($username);
+
+        // If the passwords match, return true.
+        // If user is false, the username does not exist.
+        if( $user ) {
+            $hashPass = $user->readValue('password');
+            return $hashPass === $password;
+            //return password_verify( $password, $hashPass );
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Adds class values to the session.
+     */
+    private function addToSession() {
+        $_SESSION['username'] = $this->username;
+        $_SESSION['uuid'] = $this->uuid;
     }
 
     /**
@@ -131,6 +163,36 @@ class User extends DataObject {
     }
 
     /**
+     * Returns the value of the passed field, stored in the database.
+     */
+    public function readValue($_field){
+        $readData = $this->readObject();
+        return User::extractValue($readData, $_field);
+    }
+
+    /**
+     * Constructs an associative array of the values from the class variables.
+     */
+    public function dataArray() {
+        $valuePairs = array(
+            'id'=>$this->id,
+            'uuid'=>$this->uuid,
+            'active'=>$this->active,
+            'deleted'=>$this->deleted,
+            'timestamp'=>$this->timestamp,
+
+            'username'=>$this->username,
+            'email'=>$this->email,
+            'firstname'=>$this->firstname,
+            'lastname'=>$this->lastname,
+            'phone'=>$this->phone,
+            'password'=>$this->password,
+            'location'=>$this->location
+        );
+        return $valuePairs;
+    }
+
+    /**
      * Checks to see if the passed username is legal.
      * Must not contain any illegal characters, be longer than the minimum length,
      * and must not be null.
@@ -167,28 +229,6 @@ class User extends DataObject {
     }
 
     /**
-     * Checks if a supplied password matches the database.
-     */
-    public static function checkCredentials( $_valuePairs ) {
-        // Extract username ans password.
-        $username = User::extractValue($_valuePairs, 'username');
-        $password = User::extractValue($_valuePairs, 'password');
-        // Fetch the password from the database.
-        $user = User::getUserByUsername($username);
-        
-        // If the passwords match, return true.
-        // If user is false, the username does not exist.
-        if( $user ) {
-            $hashPass = $user->readValue('password');
-            return $hashPass === $password;
-            //return password_verify( $password, $hashPass );
-        }else{
-            return false;
-        }
-
-    }
-
-    /**
      * Wrapper for password_hash.
      */
     private static function hashPass( $_pass ) {
@@ -197,50 +237,28 @@ class User extends DataObject {
 
     /**
      * Cleans the input data.
+     * Removes special chars
      */
     private static function cleanInput($_data) {
-        return $_data;
+        // Trim the input before processing.
+        $_data = trim($_data);
+        if( is_string($_data)) {
+            return filter_var ( $_data, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        }else{
+            return $_data;
+        }
     }
 
     /**
      * Sanatizes the  input data.
+     * Simply calls cleanInput as of now.
      */
     private static function sanitizeInput($_data){
-        return $_data;
+        return User::cleanInput($_data);
     }
 
     private function scrubInput($_data) {
         return User::sanitizeInput(User::cleanInput($_data));
-    }
-
-    /**
-     * Returns the value of the passed field, stored in the database.
-     */
-    public function readValue($_field){
-        $readData = $this->readObject();
-        return User::extractValue($readData, $_field);
-    }
-
-    /**
-     * Constructs an associative array of the values from the class variables.
-     */
-    public function dataArray() {
-        $valuePairs = array(
-            'id'=>$this->id,
-            'uuid'=>$this->uuid,
-            'active'=>$this->active,
-            'deleted'=>$this->deleted,
-            'timestamp'=>$this->timestamp,
-
-            'username'=>$this->username,
-            'email'=>$this->email,
-            'firstname'=>$this->firstname,
-            'lastname'=>$this->lastname,
-            'phone'=>$this->phone,
-            'password'=>$this->password,
-            'location'=>$this->location
-        );
-        return $valuePairs;
     }
 
     /**
@@ -286,11 +304,7 @@ class User extends DataObject {
         return $uuid;
     }
 
-    //=================GETTERS===============
-
-    /**
-     * Returns the key,value pairs for the object.
-     */
+    //==============================GETTERS==============================
 
     public function getUsername() {
         return $this->username;
@@ -309,7 +323,7 @@ class User extends DataObject {
     }
 
     public function getFullName($_delim=" ") {
-        return $this->getFirstName() . $_delim . $this->getLastName(); 
+        return $this->getFirstName() . $_delim . $this->getLastName();
     }
 
     public function getValues() {
@@ -319,5 +333,9 @@ class User extends DataObject {
     public function getDataType() {
         return User::$TABLE_NAME;
     }
+
+    //==============================SETTERS==============================
+
+    // Setting values for Users is done via the updateObject method.
 
 }

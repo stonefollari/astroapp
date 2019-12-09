@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This is the login controller.
  * All user-side actions will be dealt with using this class.
@@ -13,10 +12,10 @@
  * -----------------------------------
  * $this->view('\viewFolder\viewFile', []);
  * $this->view->render();
- * 
+ *
  * @author: Gabriel H.C.O., Michael Follari
- * 
- * Last updated: 11/26/2019
+ *
+ * Last updated: 12/09/2019
  */
 class LoginController extends Controller {
 
@@ -24,11 +23,12 @@ class LoginController extends Controller {
 
         // If user is already logged in.
         if( isset($_SESSION['uuid']) ){
-            $this->progressToNextPage();
-            return;
+            $this->view('\login\login', array('data' => array('username'=>$_SESSION['username'])))->render();
+        }else{
+            $this->view('\login\login')->render();
         }
 
-        $this->view('\login\login', [])->render();
+        // $this->view('\login\login', [])->render();
     }
 
     /**
@@ -76,12 +76,13 @@ class LoginController extends Controller {
     public function logout() {
         Application::endSession();
         $this->login();
+        return;
     }
 
     /**
      * Function to render the page progressed to.
      */
     private function progressToNextPage() {
-        $this->view('\location\setLocation')->render();
+        $this->view('\location\setLocationTest')->render();
     }
 }

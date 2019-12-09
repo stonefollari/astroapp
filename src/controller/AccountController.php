@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This is the account controller.
  * All user-side actions will be dealt with using this class.
@@ -14,9 +13,9 @@
  * $this->view('\viewFolder\viewFile', []);
  * $this->view->render();
  *
- * @author: Gabriel H.C.O.
- * 
- * Last updated: 11/19/2019
+ * @author: Gabriel H.C.O., Michael Follari
+ *
+ * Last updated: 12/09/2019
  */
 
 class AccountController extends Controller {
