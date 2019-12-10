@@ -1,7 +1,7 @@
 /**
  * This class will plot stars on the Celestial Sphere.
- *
- * Author Francis Perez Last Updated: 11/2/2019
+ * 
+ * Author Francis Perez Last Updated: 12/7/2019
  */
 
 import StarPlotItem from "../Objects/StarPlotItem.js";
@@ -16,15 +16,15 @@ export default class StarPlotter {
     STAR_COLOR = "white";
     CONNECTING_LINE_COLOR = "white";
     CONNECTING_LINE_THICKNESS = .009;
-
+    
     starsCollectionJsonObject;
     celestialSphere;
     starPlotItemsArray;
     widthSegments;
     heightSegments;
-
+       
     /**
-     *
+     * 
      * @param {CelestialSphere} _celestialSphere  - The Celestial Sphere where the stars where be ploted too.
      * @param {int} _widthSegments - Number of triangles that represents the object.
      * @param {int} _heightSegments - Number of triangles that represents the object.
@@ -65,24 +65,18 @@ export default class StarPlotter {
         let celestialSphere = this.celestialSphere.getMesh();
         let celestialSphereRadius = this.celestialSphere.getRadius();
 
-        //Create the sphere with the need radius.
-        let geometry  = new THREE.SphereGeometry(.01, 10, 10);
-        //Create the material that will be used the skin the our sphere.
-        //In this case just a simple color skin.
-        let material = new THREE.MeshBasicMaterial( { color: "white" } );
-
         //Create a dot that wil be our dot to copy when we place the star. This will speed the plotting process.
         let primeDot = new Dot(this.STAR_COLOR, this.STAR_DOT_RADIUS, this.widthSegments, this.heightSegments);
 
         for (let k = 0; k < this.starsCollectionJsonObject.length; k++) {
-            this.placeStars(celestialSphere, celestialSphereRadius, this.starsCollectionJsonObject[k], primeDot);
+            this.placeStars(celestialSphere, celestialSphereRadius, this.starsCollectionJsonObject[k], primeDot);           
         }
     }
 
     /**
      * Plot the stars on the celestial sphere.
-     * @param {Mesh} _celestialSphere - The sphere to the place the object on.
-     * @param {decimal} _celestialSphereRadius - The radius of the sphere where objects will be placed on.
+     * @param {Mesh} _celestialSphere - The sphere to the place the object on. 
+     * @param {decimal} _celestialSphereRadius - The radius of the sphere where objects will be placed on. 
      * @param {JsonObject} _starPlotItem - The star information.
      * @param {Dot} _primeDot - The Dot that will be used for the reuse object.
      */
@@ -95,11 +89,11 @@ export default class StarPlotter {
          _celestialSphere.add(newStarItem.getMesh());
 
          //Position the star based on the Json object position.
-         SphereObjectPositioner.positionObject(_celestialSphere,
+         SphereObjectPositioner.positionObject(_celestialSphere, 
                                                _celestialSphereRadius,
-                                               newStarItem.getMesh(),
-                                               _starPlotItem["declination"],
-                                               _starPlotItem["right ascension"]);
+                                               newStarItem.getMesh(),                                                   
+                                               newStarItem.getDeclination(), 
+                                               newStarItem.getRightAscension());   
     }
 
     /**
@@ -108,10 +102,10 @@ export default class StarPlotter {
     placeConnections() {
 
         for (let k = 0; k < this.starPlotItemsArray.length; k++) {
-
+            
             //Get the name of the what other star this star is connection to.
             let connectedToStarName = this.starPlotItemsArray[k].getConnectedTo();
-
+            
             //if no name, then the star is not connect to any other star, just skip.
             if (!connectedToStarName) {
                 continue;
@@ -138,7 +132,7 @@ export default class StarPlotter {
     retriveStarByName(_name) {
         //Scan the array to find the star by its name.
         for (let k = 0; k < this.starPlotItemsArray.length; k++) {
-
+            
             if (this.starPlotItemsArray[k].getName() === _name) {
                 //Star found, return object.
                 return this.starPlotItemsArray[k];
@@ -146,5 +140,5 @@ export default class StarPlotter {
         }
 
         return null;
-    }
+    }    
 }
