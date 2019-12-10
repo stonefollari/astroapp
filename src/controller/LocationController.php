@@ -67,7 +67,7 @@ class LocationController extends Controller {
 
     public function setDisplaySettings($debug, $mouseControl, $data) {
         $temp = json_decode($data);
-        array_push($temp, "debug=" . "$debug", "mouseControl=" . "$mouseControl");
+        array_push($temp,"$debug","$mouseControl");
         $jsonData = json_encode($temp);
         return $jsonData;
     }
