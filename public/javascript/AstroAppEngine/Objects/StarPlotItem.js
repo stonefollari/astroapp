@@ -1,12 +1,20 @@
 /**
  * This class will extend the Dot object, give it the properties of star that will be ploted on the Celestial Sphere.
  * 
- * Author Francis Perez Last Updated: 11/2/2019
+ * Author Francis Perez Last Updated: 12/7/2019
  */
 
 import Dot from "./Dot.js";
 
 export default class StarPlotItem extends Dot {
+    JSON_MAP_NAME = "name";
+    JSON_MAP_RIGHT_ASCENSION = "right ascension";
+    JSON_MAP_DECLINATION = "declination";
+    JSON_MAP_ALTITUDE = "altitude";
+    JSON_MAP_AZIMUTH = "azimuth";
+    JSON_MAP_CONNECTION = "connection";
+
+
     name;
     rightAscension;
     declination;
@@ -21,37 +29,37 @@ export default class StarPlotItem extends Dot {
      */
     constructor(_jsonObject, _primeDot) {
         super(null, null, null, null, _primeDot);
-        this.name = _jsonObject["name"];
-        this.rightAscension = _jsonObject["right ascension"];
-        this.declination = _jsonObject["declination"];
-        this.altitude = _jsonObject["altitude"];
-        this.azimuth = _jsonObject["azimuth"];
-        this.connectedTo = _jsonObject["connection"];
+        this.name = _jsonObject[this.JSON_MAP_NAME];
+        this.rightAscension = _jsonObject[this.JSON_MAP_RIGHT_ASCENSION];
+        this.declination = _jsonObject[this.JSON_MAP_DECLINATION];
+        this.altitude = _jsonObject[this.JSON_MAP_ALTITUDE];
+        this.azimuth = _jsonObject[this.JSON_MAP_AZIMUTH];
+        this.connectedTo = _jsonObject[this.JSON_MAP_CONNECTION];
     }
 
     //============SETTERS==================================
 
-    setName= function (_name) {
+    setName = function (_name) {
         return this.name = _name;
     }
 
-    setRightAscension= function (_rightAscension) {
+    setRightAscension = function (_rightAscension) {
         return this.rightAscension = _rightAscension;
     }
 
-    setDeclination= function (_declination) {
+    setDeclination = function (_declination) {
         return this.declination = _declination;
     }
 
-    setAltitude= function (_altitude) {
+    setAltitude = function (_altitude) {
         return this.altitude = _altitude;
     }
 
-    setAzimuth= function (_azimuth) {
+    setAzimuth = function (_azimuth) {
         return this.azimuth = _azimuth;
     }
 
-    setConnectedTo= function (_connectedTo) {
+    setConnectedTo = function (_connectedTo) {
         return this.connectedTo = _connectedTo;
     }
 
