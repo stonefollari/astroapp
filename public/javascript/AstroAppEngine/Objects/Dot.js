@@ -1,7 +1,7 @@
 /**
  * This class will Create simple Sphere.
  * 
- * Author Francis Perez Last Updated: 11/2/2019
+ * Author Francis Perez Last Updated: 12/7/2019
  */
 export default class Dot {
     color;
@@ -75,7 +75,6 @@ export default class Dot {
         return this.objectMesh;
     }
 
-
     getColor = function() {
         return this.color;
     }
@@ -100,4 +99,3 @@ export default class Dot {
         return this.material;
     }   
 }
-
