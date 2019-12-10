@@ -2,10 +2,14 @@
 
 /*
   Formats an extended data output to the windows console.
+  Only used for testing.
   Author: 56361160991438
 */
 
 class TestOutput {
+  /*
+    Displays the data in a clear format.
+   */ 
   public function displayData($_data, $_line){
     foreach ($_data as $currentData){
     echo "\n", "=======================================", "\n";

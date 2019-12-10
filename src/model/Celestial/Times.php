@@ -3,9 +3,9 @@
 /*
   Acquires and stores the relevant time/date values.
   Author: 56361160991438
-*/
+ */
 
-class Times{
+class Times {
   var $UniversalTime = "0"; // For storing the universal time.
   var $DaysSinceEpoch = "0"; // For storing days since epoch.
 
@@ -15,8 +15,10 @@ class Times{
   public static $UNIVERSAL_DATE_BEGIN = 10;
   public static $UNIVERSAL_DATE_END = 19;
 
-  // Acquires the date/time information.
-  public function getTimes(){
+  /*
+    Acquires the date/time information.
+   */
+    public function getTimes() {
     // Query the world time api and store the result in a string.
     $dataReceiver = new DataReceiver;
     $dataStreamOutput = $dataReceiver->getDataFrom(WORLD_TIME, null);

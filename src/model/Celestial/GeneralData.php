@@ -20,7 +20,10 @@ class GeneralData {
   private static $EPOCH_MINUTES_BEGIN = 9;
   private static $EPOCH_MINUTES_END = 11;
 
-  public function acquireGeneralData($_universalTime, $_daysSinceEpoch){
+  /*
+  Gets all and converts all the general (mostly time-related) data.
+   */
+  public function acquireGeneralData($_universalTime, $_daysSinceEpoch) {
     // Create a new basic converter.
     $converter = new BasicConverter;
 

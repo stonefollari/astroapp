@@ -2,11 +2,16 @@
 
 /*
   Estimates and returns current lunar non-relative coordinates as an array.
+  Traditional scientif names for variables are preserved in order to simplify understanding of algorithms.
   Author: 56361160991438
-*/
+ */
 
 class LunarCoordinates{
 
+  /*
+    Aquires coordinates of the moon using the amount of days passed since the epoch.
+
+   */
   public function getLunarCoordinates($_daysSinceEpoch){
     $converter = new BasicConverter; // Create a new basic converter.
 
@@ -18,11 +23,13 @@ class LunarCoordinates{
     $eccentricity = 0.054900;
     $meanAnomaly = $converter->normalizeDegree(115.3654 + 13.0649929509 * $_daysSinceEpoch);
 
+    // Estimate the eccentric anomaly.
     $eccentricAnomaly_1 = $meanAnomaly + rad2deg($eccentricity * sin(deg2rad($meanAnomaly)) * (1  + $eccentricity * cos(deg2rad($meanAnomaly))));
 
     $x = $meanDistance * (cos(deg2rad($eccentricAnomaly_1)) - $eccentricity);
     $y = $meanDistance * sqrt(1 - $eccentricity**2) * sin(deg2rad($eccentricAnomaly_1));
 
+    // Estimate the distance to the moon and the true anomaly.
     $distance = sqrt($x**2 + $y**2);
     $trueAnomaly = $converter->normalizeDegree(rad2deg(atan2($y, $x)));
 

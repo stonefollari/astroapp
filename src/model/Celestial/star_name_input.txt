@@ -97,3 +97,125 @@ zeta herculis+
 m92+
 rasalgethi+
 m13+
+cursa-
+mu eridani-
+nu eridani-
+beid-
+zaurak-
+rana-
+azha-
+tau1 eridani-
+angetenar-
+tau3 eridani-
+tau5 eridai-
+tau9 eridani-
+upsilon1 eridani-
+acamar-
+iota eridani-
+kappa eridani-
+chi eridani-
+achernar+
+enif-
+theta pegasi-
+homam-
+markab-
+algenib-
+alpha andromedae-
+scheat-
+markab+
+kappa pegasi-
+iota pegasi-
+lambda pegasi-
+scheat-
+matar-
+pi1 pegasi+
+kuma-
+rastaban-
+gamma draconis-
+grumium-
+kuma+
+lambda draconis-
+kappa draconis-
+thuban-
+iota draconis-
+theta draconis-
+aldhibah-
+phi draconis-
+altais-
+grumium+
+tyl-
+altais+
+chi draconis-
+phi draconis+
+rigel kentaurus-
+hadar-
+epsilon centauri-
+alnair-
+eta centauri-
+kappa centauri+
+pi centauri-
+delta centauri-
+sigma centauri-
+gamma centauri-
+epsilon centauri-
+alnair-
+mu centauri-
+nu centauri-
+iota centauri+
+nu centauri-
+menkent-
+eta centauri+
+albali-
+mu aquarii-
+nu aquarii-
+sadalsuud-
+sadalmelik-
+sadachbia-
+situla-
+lambda aquarii-
+tau2 aquarii-
+skat-
+omega2 aquarii-
+omega1 aquarii-
+psi3 aquarii-
+phi aquarii-
+lambda aquarii+
+sadachbia-
+zeta aquarii-
+eta aquarii+
+zeta aquarii-
+pi aquarii+
+sadalmelik-
+ancha-
+iota aquarii+
+nu ophiuchi-
+gamma ophichi-
+cebalrai-
+rasalhague-
+kappa ophichi-
+lambda ophiuchi-
+yed prior-
+yed posterior-
+zeta ophiuchi-
+sabik-
+cebalrai+
+denebola-
+zosma-
+chertan-
+iota leonis-
+sigma leonis+
+regulus-
+eta leonis-
+chertan-
+rho leonis+
+zosma-
+algieba-
+adhafera-
+mu leonis-
+kappa leonis-
+alterf-
+epsilon leonis-
+eta leonis-
+algieba+
+epsilon leonis-
+mu leonis+
