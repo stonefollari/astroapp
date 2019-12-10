@@ -1,10 +1,12 @@
 <?php
 /**
- * Establishes connection to SQL instance.
+ * Establishes connection to a local SQL instance.
+ * Defined CRUD operations.
+ * This class should server as the handler of all explicit SQL functionality.
  *
  * @author Michael Follari
  *
- * Last updated 10/17/2019
+ * Last updated 12/09/2019
  */
 class MySQLConnector {
 
@@ -59,7 +61,6 @@ class MySQLConnector {
 
 		// Execute the INSERT query.
 		$res = $this->runQuery($insertQuery);
-
 	}
 
 	/**
@@ -81,10 +82,10 @@ class MySQLConnector {
 
 		// Construct the SELECT string.
 		$readQuery = "SELECT $selectFields FROM $_dbTable WHERE $condition;";
-		
+
 		// Execute the SELECT query.
 		$result = $this->runQuery($readQuery);
-		
+
 		if($result) {
 			return mysqli_fetch_assoc($result);
 		}else{
@@ -134,10 +135,19 @@ class MySQLConnector {
 		if( !$this->conn ) {
 			return false;
 		}
+
+		// Check if connection error, if so print the error number and exit.
+		if ($this->conn->connect_errno) {
+			printf("Connect failed: %s\n", $mysqli->connect_error);
+			exit();
+		}
+
 		// Connection error check.
 		if ($this->conn->connect_error) {
 			return false;
 		}
+
+
 
 		// Run the query, close the connection, and return.
 		$result = $this->conn->query($_query);
@@ -155,19 +165,24 @@ class MySQLConnector {
 	private function connect() {
 
 		try {
-			// Connect to SQL instance with mysqli
-			$mysqli = new mysqli($this->sqlDSN, $this->sqlUser, $this->sqlPassword, $this->dbName, $this->sqlPort);
-			// Set this connection (conn) to the connection.
-			$this->conn = $mysqli;
+			// If connection is still not active, create new connection.
+			// Currently being bypassed, as each call currently closes the connection explicitly.
+			if ( false && $this->conn != null && ($this->conn)->ping()) {
+				return $this->conn;
+			}else{
 
-			// Check if connection error, if so print the error number and exit.
-			if ($this->conn->connect_errno) {
-				printf("Connect failed: %s\n", $mysqli->connect_error);
-				exit();
+				// Connect to SQL instance with mysqli
+				$mysqli = new mysqli($this->sqlDSN, $this->sqlUser, $this->sqlPassword, $this->dbName, $this->sqlPort);
+				// Set this connection (conn) to the connection.
+				$this->conn = $mysqli;
+
+				// Check if connection error, if so print the error number and exit.
+				if ($this->conn->connect_errno) {
+					printf("Connect failed: %s\n", $mysqli->connect_error);
+					exit();
+				}
+				return $this->conn;;
 			}
-
-			return $mysqli;
-
 		}catch(Exception $e) {
 			throw $e;
 		}
@@ -177,7 +192,7 @@ class MySQLConnector {
 	/**
 	 * Wrapper for mysqli error.
 	 */
-	private function error($_debug=false){
+	private function error($_debug=false) {
 
 		$err = $this->conn->error;
 		if( $_debug && $err ){
@@ -210,7 +225,7 @@ class MySQLConnector {
 	/**
 	 * Returns the UUID of the data.
 	 */
-	private function getUUID($_data){
+	private function getUUID($_data) {
 		$uuid =  $this->getFieldValue($_data, 'uuid');
 		return $uuid;
 	}
@@ -245,7 +260,7 @@ class MySQLConnector {
 	}
 
 	private function generateCondition($_data) {
-        
+
 		$stmtArray = array();
 		foreach( $_data as $key => $val ){
 			// If value is a string, add single quotes.
@@ -285,7 +300,7 @@ class MySQLConnector {
 	/**
 	 * Add quotes to each key of the keys array.
 	 */
-	private function formatKeys($_keyArray){
+	private function formatKeys($_keyArray) {
 		// Loop through the keys array and add quotes to each string key.
 		for( $i=0; $i<count($_keyArray); $i++ ){
 			$_keyArray[$i] = $this->addQuotes($_keyArray[$i]);
@@ -326,12 +341,26 @@ class MySQLConnector {
 	 * Creates database if it does not exist.
 	 */
 	private function createDatabase($_databaseName) {
+		// Try block to catch errors, since connection is being made and called from scratch here.
+		try {
+			// Create the passed database if it does not exist.
+			$sql = "CREATE DATABASE IF NOT EXISTS $_databaseName";
+			$mysqli = new mysqli($this->sqlDSN, $this->sqlUser, $this->sqlPassword);
+			// Set this connection (conn) to the connection.
+			$this->conn = $mysqli;
 
-		// Create the passed database if it does not exist.
-		$sql = "CREATE DATABASE IF NOT EXISTS $_databaseName";
-		$mysqli = new mysqli($this->sqlDSN, $this->sqlUser, $this->sqlPassword);
-		$result = $mysqli->query($sql);
-		$mysqli->close();
+			// Check if connection error, if so print the error number and exit.
+			if ($this->conn->connect_errno) {
+				printf("Connect failed: %s\n", $mysqli->connect_error);
+				exit();
+			}
+
+			$result = $mysqli->query($sql);
+			$mysqli->close();
+		}catch(Exception $e) {
+			printf("Connect to SQL database failed: %s\n", $e->getMessage());
+			exit();
+		}
 	}
 
 	/**
@@ -358,7 +387,5 @@ class MySQLConnector {
 			);";
 		$this->runQuery( $userTableSQL );
 	}
-
 }
-
 ?>

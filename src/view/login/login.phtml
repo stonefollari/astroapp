@@ -6,6 +6,7 @@
     <head>
         <title>Astroapp Login</title>
         <link rel="stylesheet" href="/css/style.css" media="all">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script>
             let viewData = <?php $this->printViewData(); ?>
         </script>
@@ -19,7 +20,7 @@
             <form action= "../../login/attemptLogin/" class="loginForm" method="post">
                 <div>
                     <label></label>
-                    <input type = "text" name= "username" placeholder="Email">
+                    <input type = "text" name= "username" placeholder="Username">
                 </div>
                 <div>
                     <label></label>
@@ -35,11 +36,15 @@
                     <input class="createAccountButton" type="submit" value="Create Account">
                 </div>
             </form>
-            <form action="../../account/deleteAccount/">
+            <!-- <form action="../../account/deleteAccount/">
                 <input class="createAccountButton" type="submit" value="Delete Account">
-            </form>
-            <form action="../../location/setLocation/">
+            </form> -->
+            <form action="../../location/setLocation/" style="visibility:visible;">
                 <input id="guest" type="submit" value="Guest User">
+            </form>
+            <form action="../../login/logout/" style="margin-top:1em;visibility:hidden;" id="usernameDisplay" >
+                <label></label>
+                <input id="guest" type="submit" value="Log Out">
             </form>
         </div>
         <script>
@@ -48,6 +53,19 @@
         if( viewData.hasOwnProperty(errorKey) ) {
             document.getElementById("errorMessage").innerHTML = viewData[errorKey];
         }
+
+        let dataKey = 'data';
+        if( viewData.hasOwnProperty(dataKey) ) {
+            let data = viewData['data'];
+            let key = 'username';
+            if( data.hasOwnProperty(key) ){
+                console.log(data[key]);
+                document.getElementById("usernameDisplay").setAttribute('style', 'visibility:visible');
+            }
+
+        }
+
+
         </script>
     </body>
 </html>

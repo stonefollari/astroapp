@@ -1,4 +1,14 @@
 <?php
+    /**
+     * This is the index page. It is run by default when the main domain is accessed.
+     * This file defines global constants for file paths.
+     * This file also defines the autoloader to load all files if they are called in the application.
+     * Application is ran, this starts the application.
+     *
+     * @author: Gabriel H.C.O., Michael Follari
+     *
+     * Last updated: 12/09/2019
+     */
 
     // Defines the paths to different directories within the server.
     define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
@@ -9,8 +19,9 @@
     define('CORE', ROOT . 'src' . DIRECTORY_SEPARATOR . 'core'. DIRECTORY_SEPARATOR);
     define('ADAPTER', ROOT. 'src' . DIRECTORY_SEPARATOR . 'adapter' . DIRECTORY_SEPARATOR);
     define('CONTROLLER', ROOT . 'src' . DIRECTORY_SEPARATOR . 'controller'. DIRECTORY_SEPARATOR);
-    define('CONSTELLATION', MODEL . DIRECTORY_SEPARATOR . 'Constellation' . DIRECTORY_SEPARATOR);
+    define('CONSTELLATION', MODEL . DIRECTORY_SEPARATOR . 'Celestial' . DIRECTORY_SEPARATOR);
 
+    // Modules array to allow for easy looping.
     $modules = [ROOT,APP,CORE,MODEL,ADAPTER,CONTROLLER,VIEW,DATA,CONSTELLATION];
 
     // Add the modules to the environment / server variables for access anywhere.
