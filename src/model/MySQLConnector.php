@@ -167,7 +167,7 @@ class MySQLConnector {
 		try {
 			// If connection is still not active, create new connection.
 			// Currently being bypassed, as each call currently closes the connection explicitly.
-			if ( false && $this->conn != null && ($this->conn)->ping()) {
+			if ( false && $this->conn != null && $this->conn->ping()) {
 				return $this->conn;
 			}else{
 
